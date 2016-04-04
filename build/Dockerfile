@@ -1,7 +1,7 @@
 FROM alpine:3.3
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
-LABEL description = "Provides a Java 8 JDK, Git, Maven, and a seeded Maven repository, exported as a VOLUME under ${MAVEN_REPO}"
+LABEL description = "Provides a Java 8 JDK, Git, Maven, and a seeded Maven repository under ${MAVEN_REPO}"
 
 # Packages:
 # - java 'openjdk8'
@@ -45,7 +45,3 @@ RUN mvn -Dmaven.repo.local=${MAVEN_REPO} org.apache.maven.plugins:maven-surefire
 RUN mvn -Dmaven.repo.local=${MAVEN_REPO} org.apache.maven.plugins:maven-verifier-plugin:1.1:verify ; exit 0
 
 RUN rm pom.xml
-
-# Export the Maven repository
-
-VOLUME ${MAVEN_REPO}
