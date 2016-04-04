@@ -21,4 +21,4 @@ RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.loc
     sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                               \
         -i etc/org.ops4j.pax.url.mvn.cfg
 
-CMD [ "bin/karaf", "console" ]
+ENTRYPOINT [ "bin/start" ]
