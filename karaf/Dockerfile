@@ -11,7 +11,8 @@ RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                      
         > /tmp/${KARAF_DIST}                                                                                     && \
     mkdir -p ${KARAF_RUNTIME}                                                                                    && \
     cd ${KARAF_RUNTIME}                                                                                          && \
-    tar -xzf /tmp/${KARAF_DIST}                                                                                  
+    tar -xzf /tmp/${KARAF_DIST}                                                                                  && \
+    rm -rf /tmp/apache-karaf-${KARAF_VERSION}*
 
 WORKDIR ${KARAF_RUNTIME}/apache-karaf-${KARAF_VERSION}
 
