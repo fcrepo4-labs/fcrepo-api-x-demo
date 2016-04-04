@@ -14,11 +14,11 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 
 # Update repository contents and add packages
 
-RUN apk update && \
-     apk add      \
-       openjdk8   \
-       maven      \
-       git     && \
+RUN apk update              && \
+     apk add                   \
+       openjdk8                \
+       maven                   \
+       git                  && \
     rm -rf /var/cache/apk/* 
 
 # Prepare the Maven repository
@@ -44,4 +44,5 @@ RUN mvn -Dmaven.repo.local=${MAVEN_REPO} org.apache.maven.plugins:maven-install-
 RUN mvn -Dmaven.repo.local=${MAVEN_REPO} org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test
 RUN mvn -Dmaven.repo.local=${MAVEN_REPO} org.apache.maven.plugins:maven-verifier-plugin:1.1:verify ; exit 0
 
-RUN rm pom.xml
+RUN rm pom.xml     && \
+    rm -rf target/ 
