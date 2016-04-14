@@ -3,9 +3,13 @@ FROM emetsger/apix-docker-test:build
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with a local Maven repository at ${MAVEN_REPO}"
 
+# Location of the Karaf installation in the docker container
 ENV KARAF_RUNTIME /opt/karaf
+
+# The version of Karaf to download and install in the container
 ENV KARAF_VERSION 4.0.4
 
+# Download and install Karaf, then clean up.
 RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                                                       && \
     curl -L "http://www.apache.org/dyn/closer.lua?filename=karaf/${KARAF_VERSION}/${KARAF_DIST}&action=download"    \
         > /tmp/${KARAF_DIST}                                                                                     && \
@@ -16,11 +20,15 @@ RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                      
 
 WORKDIR ${KARAF_RUNTIME}/apache-karaf-${KARAF_VERSION}
 
+# Update the Karaf configuration so that the Maven repository under ${MAVEN_REPO}
+# is used by Karaf to discover features.
 RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:"    \
         -i etc/org.ops4j.pax.url.mvn.cfg                                                                     && \
     sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                               \
         -i etc/org.ops4j.pax.url.mvn.cfg
 
+# Launch Karaf...
 ENTRYPOINT [ "bin/karaf" ]
 
+# ...with arguments provided by CMD
 CMD [ "console" ]
