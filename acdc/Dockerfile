@@ -3,9 +3,16 @@ FROM apix-poc/karaf
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
 
-ENV ACDC_FEATURES_VERSION 1.0.0
+ENV ACDC_REPO             https://gitlab.amherst.edu/acdc/repository-extension-services.git
+ENV ACDC_COMMIT           master
+ENV ACDC_FEATURES_VERSION 1.0.1-SNAPSHOT
 
-RUN mvn org.apache.maven.plugins:maven-dependency-plugin:2.10:get                        \
-          -Dmaven.repo.local=${MAVEN_REPO}                                               \
-          -Dartifact=edu.amherst.acdc:acrepo-karaf:${ACDC_FEATURES_VERSION}:xml:features 
-
+RUN mkdir /code                                  && \
+    cd /code                                     && \
+    git clone -n $ACDC_REPO                      && \
+    cd repository-extension-services             && \
+    git checkout ${ACDC_COMMIT}                  && \
+    mvn -Dmaven.repo.local=${MAVEN_REPO} install && \
+    mvn clean                                    && \
+    cd ..                                        && \
+    rm -rf repository-extension-services
