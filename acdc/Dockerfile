@@ -19,3 +19,12 @@ RUN mkdir /code                                  && \
     mvn clean                                    && \
     cd ..                                        && \
     rm -rf repository-extension-services
+
+# Allow the string "acdc" to be recognized by Karaf as the Amherst ACDC feature repository
+# RUN echo "acdc=mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/org.apache.karaf.features.repos.cfg
+
+# Add ACDC as a registered features repository by default
+
+RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/4.0.4/xml/features\):\1,\n    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features:" \
+        -i etc/org.apache.karaf.features.cfg
+
