@@ -1,4 +1,4 @@
-FROM apix-poc/karaf
+FROM emetsger/apix-docker-test:karaf
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"

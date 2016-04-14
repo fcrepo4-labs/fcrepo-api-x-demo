@@ -1,4 +1,4 @@
-FROM apix-poc/build
+FROM emetsger/apix-docker-test:build
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with a local Maven repository at ${MAVEN_REPO}"
