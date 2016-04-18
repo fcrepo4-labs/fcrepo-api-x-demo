@@ -25,7 +25,7 @@ RUN mkdir /code                                  && \
 
 # Add ACDC as a registered features repository by default
 
-RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/4.0.4/xml/features\):\1,\n    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features:" \
+RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/4.0.4/xml/features\):\1, \\\\n    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
         -i etc/org.apache.karaf.features.cfg
 
 EXPOSE 5005
