@@ -1,9 +1,10 @@
-FROM apix-poc/build:latest 
+FROM emetsger/apix-build:latest 
 
 ENV FCREPO_RUNTIME /opt/fcrepo
-ENV FCREPO_VERSION 4.5.0
+ENV FCREPO_VERSION 4.6.0
 ENV FCREPO_PORT    8080
 
+EXPOSE ${FCREPO_PORT}
     
 RUN export FCREPO_JAR=fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar                                 && \
     mkdir -p ${FCREPO_RUNTIME}                                                                          && \
