@@ -18,7 +18,13 @@ RUN apk --no-cache update   && \
     apk add                    \
        openjdk8                \
        maven                   \
-       git
+       git                     \
+       bash                    \
+       curl
+
+# JAVA_HOME
+
+ENV JAVA_HOME /usr/lib/jvm/default-jvm
 
 # Prepare the Maven repository
 
