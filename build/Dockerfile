@@ -1,32 +1,24 @@
-FROM alpine:3.4
+FROM ubuntu:16.04
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Java 8 JDK, Git, Maven, and a seeded Maven repository under ${MAVEN_REPO}"
 
-# Packages:
-# - java 'openjdk8'
-# - maven 'maven'
-# - git 'git'
+# Update repository contents and add base packages
 
-# Add the APK 'testing' repository (contains 'maven')
+RUN apt-get update && \
+    apt-get -y install \
+      default-jdk \
+      maven \
+      git \
+      bash \
+      curl \
+      maven
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+# Set JAVA_HOME
 
-# Update repository contents and add packages
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
-RUN apk --no-cache update   && \
-    apk add                    \
-       openjdk8                \
-       maven                   \
-       git                     \
-       bash                    \
-       curl
-
-# JAVA_HOME
-
-ENV JAVA_HOME /usr/lib/jvm/default-jvm
-
-# Prepare the Maven repository
+# Prepare the Maven repository by seeding some commonly used artifacts
 
 ENV MAVEN_REPO /build/repository
 
