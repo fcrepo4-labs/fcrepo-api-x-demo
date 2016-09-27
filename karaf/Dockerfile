@@ -7,7 +7,7 @@ LABEL description = "Provides a Karaf container configured with a local Maven re
 ENV KARAF_RUNTIME /opt/karaf
 
 # The version of Karaf to download and install in the container
-ENV KARAF_VERSION 4.0.5
+ENV KARAF_VERSION 4.0.6
 
 # Download and install Karaf, then clean up.
 RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                                                       && \
@@ -22,10 +22,10 @@ WORKDIR ${KARAF_RUNTIME}/apache-karaf-${KARAF_VERSION}
 
 # Update the Karaf configuration so that the Maven repository under ${MAVEN_REPO}
 # is used by Karaf to discover features.
-# RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:"    \
-        # -i etc/org.ops4j.pax.url.mvn.cfg                                                                     && \
-    # sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                               \
-        # -i etc/org.ops4j.pax.url.mvn.cfg
+RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:"    \
+        -i etc/org.ops4j.pax.url.mvn.cfg                                                                     && \
+    sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                               \
+        -i etc/org.ops4j.pax.url.mvn.cfg
 
 # Launch Karaf...
 ENTRYPOINT [ "bin/karaf" ]
