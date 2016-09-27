@@ -1,32 +1,20 @@
-FROM emetsger/apix-docker-test:karaf
+FROM emetsger/apix-karaf:4.0.6
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
 
-# Locations and versions of Amherst features
-ENV ACDC_REPO             https://gitlab.amherst.edu/acdc/repository-extension-services.git
-ENV ACDC_COMMIT           master
-ENV ACDC_FEATURES_VERSION 1.0.1-SNAPSHOT
+# Allow the string "acrepo" to be recognized by Karaf as the Amherst feature repository
 
-# Clone, checkout, and install Amherst features into ${MAVEN_REPO}.
-# Clean up after
-RUN mkdir /code                                  && \
-    cd /code                                     && \
-    git clone -n $ACDC_REPO                      && \
-    cd repository-extension-services             && \
-    git checkout ${ACDC_COMMIT}                  && \
-    mvn -Dmaven.repo.local=${MAVEN_REPO} install && \
-    mvn clean                                    && \
-    cd ..                                        && \
-    rm -rf repository-extension-services
+RUN echo "acrepo=mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/org.apache.karaf.features.repos.cfg
 
-# Allow the string "acdc" to be recognized by Karaf as the Amherst ACDC feature repository
-# RUN echo "acdc=mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/org.apache.karaf.features.repos.cfg
+# Add the Amherst acrepo as a feature repository, and install all of the features found there on boot
+
+RUN echo "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/shell.init.script
 
 # Add ACDC as a registered features repository by default
 
-RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/4.0.4/xml/features\):\1, \\\
-    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
-        -i etc/org.apache.karaf.features.cfg
+#RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/xml/features\):\1, \\\
+#    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
+#        -i etc/org.apache.karaf.features.cfg
 
 EXPOSE 5005
