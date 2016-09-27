@@ -27,6 +27,15 @@ RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.loc
     sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                                \
         -i etc/org.ops4j.pax.url.mvn.cfg
 
+# Start Karaf, run a simple command with the client (to verify that Karaf
+# started) then stop it.  This establishes some kind of state that enables
+# commands to be scripted on container initialization
+# See https://goo.gl/5VfWsn
+
+RUN bin/start                      && \
+    bin/client -r 5 system:version && \
+    bin/stop
+
 # Launch Karaf...
 ENTRYPOINT [ "bin/karaf" ]
 
