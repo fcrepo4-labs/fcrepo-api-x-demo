@@ -10,21 +10,21 @@ ENV KARAF_RUNTIME /opt/karaf
 ENV KARAF_VERSION 4.0.6
 
 # Download and install Karaf, then clean up.
-RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                                                       && \
-    curl -SL "http://archive.apache.org/dist/karaf/${KARAF_VERSION}/${KARAF_DIST}"   \
-        > /tmp/${KARAF_DIST}                                                                                     && \
-    mkdir -p ${KARAF_RUNTIME}                                                                                    && \
-    cd ${KARAF_RUNTIME}                                                                                          && \
-    tar -xzf /tmp/${KARAF_DIST}                                                                                  && \
+RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                         && \
+    curl -SL "http://archive.apache.org/dist/karaf/${KARAF_VERSION}/${KARAF_DIST}"    \
+        > /tmp/${KARAF_DIST}                                                       && \
+    mkdir -p ${KARAF_RUNTIME}                                                      && \
+    cd ${KARAF_RUNTIME}                                                            && \
+    tar -xzf /tmp/${KARAF_DIST}                                                    && \
     rm -rf /tmp/apache-karaf-${KARAF_VERSION}*
 
 WORKDIR ${KARAF_RUNTIME}/apache-karaf-${KARAF_VERSION}
 
 # Update the Karaf configuration so that the Maven repository under ${MAVEN_REPO}
 # is used by Karaf to discover features.
-RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:"    \
-        -i etc/org.ops4j.pax.url.mvn.cfg                                                                     && \
-    sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                               \
+RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:"     \
+        -i etc/org.ops4j.pax.url.mvn.cfg                                                                      && \
+    sed -e "s:^#\(org.ops4j.pax.url.mvn.defaultLocalRepoAsRemote=\)false:\1true:"                                \
         -i etc/org.ops4j.pax.url.mvn.cfg
 
 # Launch Karaf...
