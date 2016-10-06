@@ -7,14 +7,16 @@ LABEL description = "Provides a Karaf container configured with Amherst features
 
 RUN echo "acrepo=mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/org.apache.karaf.features.repos.cfg
 
-# Add the Amherst acrepo as a feature repository, and install all of the features found there on boot
+# Add acrepo as a registered features repository by default
 
-RUN echo "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/shell.init.script
+RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/xml/features\):\1, \\\
+    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
+        -i etc/org.apache.karaf.features.cfg
 
-# Add ACDC as a registered features repository by default
+# Install all of the latest features found in the acrepo features repository (typically these features will be SNAPSHOT versions)
 
-#RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/xml/features\):\1, \\\
-#    mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
-#        -i etc/org.apache.karaf.features.cfg
+RUN bin/start && \
+    bin/client -r 5 "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
+    bin/stop
 
 EXPOSE 5005
