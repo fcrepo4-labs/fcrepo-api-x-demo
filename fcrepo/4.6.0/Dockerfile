@@ -1,17 +1,23 @@
 FROM emetsger/apix-build:latest 
 
-ENV FCREPO_RUNTIME /opt/fcrepo
 ENV FCREPO_VERSION 4.6.0
+ENV FCREPO_RUNTIME /opt/fcrepo/${FCREPO_VERSION}
 ENV FCREPO_PORT    8080
 
+ENV DEBUG          false
+ENV DEBUG_PORT     5006
+ENV DEBUG_ARG      "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=${DEBUG_PORT}"
+
 EXPOSE ${FCREPO_PORT}
+EXPOSE ${DEBUG_PORT}
     
 RUN export FCREPO_JAR=fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar                                 && \
     mkdir -p ${FCREPO_RUNTIME}                                                                          && \
     curl -L https://github.com/fcrepo4/fcrepo4/releases/download/fcrepo-${FCREPO_VERSION}/${FCREPO_JAR}    \
         > /tmp/${FCREPO_JAR}
 
-CMD java -Dfcrepo.home=${FCREPO_RUNTIME}                             \
-         -jar /tmp/fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar \
-         --port ${FCREPO_PORT}                                       \
-         --headless 2>&1
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod 700 /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
