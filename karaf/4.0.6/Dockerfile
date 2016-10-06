@@ -9,6 +9,10 @@ ENV KARAF_RUNTIME /opt/karaf
 # The version of Karaf to download and install in the container
 ENV KARAF_VERSION 4.0.6
 
+# The port Karaf will listen on when debugging is enabled
+ENV DEBUG_PORT 5007
+ENV JAVA_DEBUG_PORT=${DEBUG_PORT}
+
 # Download and install Karaf, then clean up.
 RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                         && \
     curl -SL "http://archive.apache.org/dist/karaf/${KARAF_VERSION}/${KARAF_DIST}"    \
@@ -35,6 +39,8 @@ RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.loc
 RUN bin/start                      && \
     bin/client -r 5 system:version && \
     bin/stop
+
+EXPOSE ${DEBUG_PORT}
 
 # Launch Karaf...
 ENTRYPOINT [ "bin/karaf" ]
