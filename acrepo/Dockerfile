@@ -1,4 +1,4 @@
-FROM emetsger/apix-karaf:latest
+FROM emetsger/apix-karaf:4.0.6
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
