@@ -3,10 +3,7 @@ FROM emetsger/apix-build:latest
 ENV FCREPO_VERSION 4.6.0
 ENV FCREPO_RUNTIME /opt/fcrepo/${FCREPO_VERSION}
 ENV FCREPO_PORT    8080
-
-ENV DEBUG          false
 ENV DEBUG_PORT     5006
-ENV DEBUG_ARG      "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=${DEBUG_PORT}"
 
 EXPOSE ${FCREPO_PORT}
 EXPOSE ${DEBUG_PORT}

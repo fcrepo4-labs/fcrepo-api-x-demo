@@ -2,7 +2,7 @@
 
 if [ ${DEBUG} -a ${DEBUG} != "false" ] ;
 then
-    java ${DEBUG_ARG}                                                \
+    java `echo ${DEBUG_ARG} | envsubst`                              \
          -Dfcrepo.home=${FCREPO_RUNTIME}                             \
          -jar /tmp/fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar \
          --port ${FCREPO_PORT}                                       \
