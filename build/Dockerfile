@@ -19,6 +19,10 @@ RUN apt-get update && \
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
+ENV DEBUG          false
+ENV DEBUG_PORT     5005
+ENV DEBUG_ARG      "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=\${DEBUG_PORT}"
+
 # Prepare the Maven repository by seeding some commonly used artifacts
 
 ENV MAVEN_REPO /build/repository
