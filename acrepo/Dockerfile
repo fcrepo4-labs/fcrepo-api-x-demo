@@ -21,5 +21,5 @@ RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/
 # Install all of the latest features found in the acrepo features repository (typically these features will be SNAPSHOT versions)
 
 RUN bin/start && \
-    bin/client -r 5 "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
+    bin/client -r 10 -d 5  "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
     bin/stop
