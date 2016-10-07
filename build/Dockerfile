@@ -11,7 +11,9 @@ RUN apt-get update && \
       maven \
       git \
       bash \
-      curl
+      curl \
+      gettext \
+      net-tools
 
 # Set JAVA_HOME
 
