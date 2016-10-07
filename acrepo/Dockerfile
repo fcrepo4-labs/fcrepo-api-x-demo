@@ -4,6 +4,7 @@ MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
 
 # The port acrepo Karaf will listen on when debugging is enabled
+
 ENV DEBUG_PORT 5008
 ENV JAVA_DEBUG_PORT ${DEBUG_PORT}
 EXPOSE ${DEBUG_PORT}
@@ -23,3 +24,12 @@ RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/
 RUN bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
     bin/stop
+
+# Update the Karaf logging configuration so that `bin/karaf` will echo logging
+# to the console, viewable by `docker logs`
+
+RUN sed -e "s/osgi:/stdout, osgi:/" -i etc/org.ops4j.pax.logging.cfg
+
+# Launch Karaf with no console, and debugging enabled by default.
+
+CMD [ "server", "debug" ]
