@@ -1,5 +1,5 @@
 #!/bin/bash
-set -vx
+
 if [ ${DEBUG} -a ${DEBUG} != "false" ] ;
 then
     java ${DEBUG_ARG}                                                \
