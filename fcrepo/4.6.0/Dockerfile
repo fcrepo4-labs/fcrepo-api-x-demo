@@ -7,7 +7,9 @@ ENV DEBUG_PORT     5006
 
 EXPOSE ${FCREPO_PORT}
 EXPOSE ${DEBUG_PORT}
-    
+EXPOSE 61613
+EXPOSE 61616
+
 RUN export FCREPO_JAR=fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar                                 && \
     mkdir -p ${FCREPO_RUNTIME}                                                                          && \
     curl -L https://github.com/fcrepo4/fcrepo4/releases/download/fcrepo-${FCREPO_VERSION}/${FCREPO_JAR}    \
