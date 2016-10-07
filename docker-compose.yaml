@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+
+  fuseki:
+    image: emetsger/apix-fuseki:2.3.1
+    container_name: fuseki
+    ports:
+      - "3030:3030"
+
+  fcrepo:
+    image: emetsger/apix-fcrepo:4.6.0
+    container_name: fcrepo
+    ports:
+      - "8080:8080"
+      - "61616:61616"
+      - "61613:61613"
+
+  acrepo:
+    image: emetsger/apix-acrepo:latest
+    container_name: acrepo
