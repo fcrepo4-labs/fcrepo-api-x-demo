@@ -19,3 +19,7 @@ services:
   acrepo:
     image: emetsger/apix-acrepo:latest
     container_name: acrepo
+    environment:
+      - DEBUG_PORT=5008
+    ports:
+      - "5008:5008"
