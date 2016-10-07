@@ -42,8 +42,8 @@ RUN sed -e "s:^#org.ops4j.pax.url.mvn.localRepository=:org.ops4j.pax.url.mvn.loc
 # commands to be scripted on container initialization
 # See https://goo.gl/5VfWsn
 
-RUN bin/start                      && \
-    bin/client -r 5 system:version && \
+RUN bin/start                            && \
+    bin/client -r 10 -d 5 system:version && \
     bin/stop
 
 # Launch Karaf...
