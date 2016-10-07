@@ -8,9 +8,7 @@ ENV FUSEKI_BASE            ${SHARED}/fuseki-data
 ENV FUSEKI_JAR             fuseki-server.jar
 ENV FUSEKI_DEFAULT_DATASET /fcrepo-triple-index
 
-ENV DEBUG      false
 ENV DEBUG_PORT 5009
-ENV DEBUG_ARG  "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=${DEBUG_PORT}"
 
 RUN export FUSEKI_DIST=apache-jena-fuseki-${FUSEKI_VERSION}.tar.gz       && \
     mkdir -p ${APPS}                                                     && \

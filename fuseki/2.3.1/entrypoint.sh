@@ -7,7 +7,7 @@ find ${FUSEKI_BASE} -name *.lock | xargs -r rm
 
 if [ ${DEBUG} -a ${DEBUG} != "false" ] ;
 then
-    java ${DEBUG_ARG}                                          \
+    java `echo ${DEBUG_ARG} | envsubst`                        \
       -jar ${FUSEKI_HOME}/${FUSEKI_JAR}                        \
       --update                                                 \
       --loc=${FUSEKI_BASE}/databases/${FUSEKI_DEFAULT_DATASET} \
