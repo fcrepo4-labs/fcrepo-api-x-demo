@@ -12,7 +12,7 @@ See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more in
 * [Docker Toolbox for Mac](https://www.docker.com/products/docker-toolbox), or
 * [Docker for Linux](https://docs.docker.com/engine/installation/)
 
-To verify you have the Docker platform installed correctly, you should obtain a command shell and run:
+To verify you have the Docker platform installed correctly (or to check and see if you have Docker already installed), you should obtain a command shell and run:
 
 1. `docker -v`
 2. `docker-compose -v`
@@ -27,6 +27,13 @@ To bring up this environment, you need to:
 2. Clone this repository
 3. `cd` into the repository directory
 4. Invoke `docker-compose up -d`
+
+## Verification
+
+Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.
+
+* Visit (http://localhost:8080/rest) and see the Fedora REST API web page
+* Visit (http://localhost:9102/jsonld/) and see a JSON LD representation of the root Fedora container.
 
 # Image descriptions
 
