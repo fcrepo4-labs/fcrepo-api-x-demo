@@ -28,12 +28,18 @@ To bring up this environment, you need to:
 3. `cd` into the repository directory
 4. Invoke `docker-compose up -d`
 
+Depending on the speed of your platform, it may take a bit for the containers to download and to start.  Keep that in mind when you are verifying that the environment started up.  The containers should only be downloaded once.  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
+
+*Note:* To _destroy_ the environment, run `docker-compose down`.  To _stop_ the environment, run `docker-compose stop`.  
+
 ## Verification
 
-Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.
+Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.  
 
 * Visit http://localhost:8080/rest and see the Fedora REST API web page
 * Visit http://localhost:9102/jsonld/ and see a JSON LD representation of the root Fedora container.
+
+Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](apix-exercises.md).
 
 # Image descriptions
 
