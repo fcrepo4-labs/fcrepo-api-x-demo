@@ -30,6 +30,8 @@ Debugger can then be attached to port 5008, logs emitted to console, allows CTRL
 #### Obtain a Karaf console in a running container
 `$ docker exec -ti <container name> bin/client`
 
+It seems that backspace (or other keys) do not work when executing the client.  I am not sure why this is.
+
 #### Mount your local Maven repository in a container
 `$ docker run -ti -v ~/.m2/repository:/build/repository emetsger/apix-acrepo:latest`
 
