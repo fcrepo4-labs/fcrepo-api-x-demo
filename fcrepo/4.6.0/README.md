@@ -34,9 +34,13 @@ Logs displayed to the console, allows container to be killed using CTRL-C.
 
 #### Debugging
 
-Enable Java remote debugging, on `${DEBUG_PORT}`
+Enable Java remote debugging, on the default `${DEBUG_PORT}` (in this example port 5006):
 
-`$ docker run -ti -e DEBUG emetsger/apix-fcrepo:4.6.0`
+`$ docker run -ti -e DEBUG -p "5006:5006" emetsger/apix-fcrepo:4.6.0`
+
+To use a different debugging port (in this example 4000):
+
+`$ docker run -ti -e DEBUG_PORT=4000 -e DEBUG -p "4000:4000" emetsger/apix-fcrepo:4.6.0`
 
 #### Display logs
 

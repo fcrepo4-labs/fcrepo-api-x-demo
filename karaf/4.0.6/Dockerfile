@@ -18,6 +18,7 @@ ENV KARAF_VERSION 4.0.6
 ENV DEBUG_PORT 5007
 ENV JAVA_DEBUG_PORT=${DEBUG_PORT}
 EXPOSE ${DEBUG_PORT}
+EXPOSE ${JAVA_DEBUG_PORT}
 
 # Download and install Karaf, then clean up.
 RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                         && \

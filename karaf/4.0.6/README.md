@@ -21,6 +21,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 ## Exposed ports
 
 * ${DEBUG_PORT}
+* ${JAVA_DEBUG_PORT}
 
 ## Example Usage
 
@@ -32,9 +33,13 @@ Launches a Karaf interactive console, which may be exited using CTRL-D.
 
 #### Debugging
 
-Launches an interactive Karaf console with Java remote debugging enabled on `${JAVA_DEBUG_PORT}`
+Launches an interactive Karaf console with Java remote debugging enabled on the default `${JAVA_DEBUG_PORT}` (in this example port 5007):
 
-`$ docker run -ti emetsger/apix-karaf:4.0.6 debug`
+`$ docker run -ti -p "5007:5007" emetsger/apix-karaf:4.0.6 debug`
+
+To use a different debugging port (in this example 4000):
+
+`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" emetsger/apix-karaf:4.0.6 debug`
 
 #### Display logs
 

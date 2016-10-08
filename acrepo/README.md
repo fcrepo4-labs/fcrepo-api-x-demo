@@ -22,7 +22,11 @@ Logs emitted to console, allows CTRL-C to stop the container:
 
 #### Start a container for debugging purposes
 Debugger can then be attached to port 5008, logs emitted to console, allows CTRL-C to stop container:
-`$ docker run -p "5008:5008" emetsger/apix-acrepo`
+`$ docker run -p "5008:5008" emetsger/apix-acrepo debug`
+
+To use a different debugging port (in this example 4000):
+
+`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" emetsger/apix-acrepo debug`
 
 #### View container console log
 `$ docker logs <container name>`
@@ -40,4 +44,4 @@ It seems that backspace (or other keys) do not work when executing the client.  
 * DEBUG_PORT=5008
 * JAVA_DEBUG_PORT=${DEBUG_PORT}
 
-This image inherits from the [karaf image](../karaf/4.0.6), so its environment is also available.
+*N.B.:* If you want to change the remote debugging port, you will need to set the `JAVA_DEBUG_PORT` environment variable, _not_ `DEBUG_PORT`.
