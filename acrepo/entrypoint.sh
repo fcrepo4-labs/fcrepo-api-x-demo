@@ -17,7 +17,7 @@ done
 # localhost:8080/fits to acrepo:8080/fits
 for f in `ls etc/edu.amherst.*` ;
 do
-    sed -e "s:localhost\:8080/fits:acrepo\:8080/fits:" -i $f
+    sed -e "s:localhost\:8080/fits:0\.0\.0\.0\:8080/fits:" -i $f
 done
 
 # Change "rest.host=localhost" to "rest.host=acrepo"
