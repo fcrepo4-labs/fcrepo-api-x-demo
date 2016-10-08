@@ -34,19 +34,11 @@ RUN bin/start && \
 
 RUN sed -e "s/osgi:/stdout, osgi:/" -i etc/org.ops4j.pax.logging.cfg
 
-# Update Amherst configurations
+COPY entrypoint.sh /entrypoint.sh
 
-# Change "fcrepo.baseUrl=localhost:8080/fcrepo/rest" to "fcrepo.baseUrl=fcrepo:${FCREPO_PORT}/rest"
-#RUN for f in `ls etc/edu.amherst.*` ; do sed -e "s:localhost\:8080/fcrepo/rest:fcrepo\:${FCREPO_PORT}/rest:" -i $f ; done
+RUN chmod 700 /entrypoint.sh
 
-# localhost:8080/fits to acrepo:8080/fits
-#RUN for f in `ls etc/edu.amherst.*` ; do sed -e "s:localhost\:8080/fits:acrepo\:8080/fits:" -i $f ; done
-
-# Change "rest.host=localhost" to "rest.host=acrepo"
-RUN for f in `ls etc/edu.amherst.*` ; do sed -e "s:rest\.host=localhost:rest\.host=0\.0\.0\.0:" -i $f ; done
-
-# Change "jms.brokerUrl=tcp://localhost:61616" to "jms.brokerUrl=tcp://fcrepo:61616"
-#RUN for f in `ls etc/edu.amherst.*` ; do sed -e "s:localhost\:61616:fcrepo\:61616:" -i $f ; done
+ENTRYPOINT [ "/entrypoint.sh" ]
 
 # Launch Karaf with no console, and debugging enabled by default.
 

@@ -30,6 +30,9 @@ Debugger can then be attached to port 5008, logs emitted to console, allows CTRL
 #### Obtain a Karaf console in a running container
 `$ docker exec -ti <container name> bin/client`
 
+#### Mount your local Maven repository in a container
+`$ docker run -ti -v ~/.m2/repository:/build/repository emetsger/apix-acrepo:latest`
+
 ### Environment variables and default values
 
 * DEBUG_PORT=5008
