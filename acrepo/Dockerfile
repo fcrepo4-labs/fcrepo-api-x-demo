@@ -25,12 +25,18 @@ RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/
 
 # Install all of the latest features found in the acrepo features repository (typically these features will be SNAPSHOT versions)
 
-RUN bin/start && \
+RUN set -vx && bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
+    sleep 15 && \
+    #[[ \"`bin/client -r 10 -d 5  "feature:list" | grep acrepo | grep -v Started`\" == \"\" ]] && \
+    #[[ \"`bin/client -r 10 -d 5  "bundle:list"  | grep acrepo | grep -v Active`\"  == \"\" ]] && \
     bin/stop
 
 # Update the Karaf logging configuration so that `bin/karaf` will echo logging
-# to the console, viewable by `docker logs`
+# to the console, viewable by `docker logs`.  This makes using the Karaf console
+# difficult, so the recommended way to obtain the Karaf console is to use
+# `docker exec -ti <container> bin/client` after the container has been started
+# by `docker run`
 
 RUN sed -e "s/osgi:/stdout, osgi:/" -i etc/org.ops4j.pax.logging.cfg
 
