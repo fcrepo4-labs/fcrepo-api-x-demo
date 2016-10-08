@@ -32,8 +32,8 @@ To bring up this environment, you need to:
 
 Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.
 
-* Visit [http://localhost:8080/rest] and see the Fedora REST API web page
-* Visit [http://localhost:9102/jsonld/] and see a JSON LD representation of the root Fedora container.
+* Visit http://localhost:8080/rest and see the Fedora REST API web page
+* Visit http://localhost:9102/jsonld/ and see a JSON LD representation of the root Fedora container.
 
 # Image descriptions
 
