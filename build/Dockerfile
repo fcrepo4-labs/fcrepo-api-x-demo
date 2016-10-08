@@ -31,8 +31,6 @@ RUN mkdir -p ${MAVEN_REPO}
 
 WORKDIR /tmp
 
-RUN alias mvn="mvn -Dmaven.repo.local=${MAVEN_REPO}"
-
 RUN \
 
     # Simple project used for mvn commands below
@@ -47,3 +45,13 @@ RUN \
     rm pom.xml               && \
     rm -rf target/           && \
     rm -rf ${MAVEN_REPO}/foo
+
+# Alias the `mvn` command to `mvn -Dmaven.repo.local=${MAVEN_REPO}`
+# The alias is created at container runtime so that child images can override
+# the ${MAVEN_REPO} environment variable
+
+RUN \
+  echo "eval 'alias mvn=\"mvn -Dmaven.repo.local=\${MAVEN_REPO}\"'" \
+    >> /etc/skel/.bashrc                                                 && \
+  echo "eval 'alias mvn=\"mvn -Dmaven.repo.local=\${MAVEN_REPO}\"'" \
+    >> ~/.bashrc
