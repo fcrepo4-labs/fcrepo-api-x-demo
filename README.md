@@ -54,5 +54,5 @@ Extends the base image, and provides a default-configured Fedora 4.6.0 runtime o
 ## [karaf 4.0.6](karaf/4.0.6)
 Extends the base image, and provides a Karaf container running version 4.0.6.  Debugging the runtime is possible by supplying `debug` as an argument to `docker run`.
 
-## [acrepo](acrepo/)
+## [acrepo](acrepo/LATEST)
 Extends the _karaf_ image, and provides a Karaf container with the Amherst features already installed and running.

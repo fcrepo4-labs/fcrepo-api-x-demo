@@ -1,6 +1,6 @@
 ## acrepo Dockerfile
 
-This image inherits from the [karaf image](../karaf/4.0.6), so its configuration and environment also hold for this image.  However, this image does have some modifications which facilitate the installation and execution of Amherst features.
+This image inherits from the [karaf image](../../karaf/4.0.6), so its configuration and environment also hold for this image.  However, this image does have some modifications which facilitate the installation and execution of Amherst features.
 
 The string "acrepo" is a short cut recognized as the Amherst feature repository at `mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features`.  At _image build time_, all of the latest features (typically SNAPSHOTs) found in the Amherst feature repository are installed into this Karaf image.
 
