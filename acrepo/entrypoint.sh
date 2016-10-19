@@ -14,13 +14,13 @@ do
   sed -e "s:localhost\:8080/fcrepo/rest:fcrepo\:${FCREPO_PORT}/rest:" -i $f
 done
 
-# localhost:8080/fits to acrepo:8080/fits
+# localhost:8080/fits to 0.0.0.0:8080/fits
 for f in `ls etc/edu.amherst.*` ;
 do
     sed -e "s:localhost\:8080/fits:0\.0\.0\.0\:8080/fits:" -i $f
 done
 
-# Change "rest.host=localhost" to "rest.host=acrepo"
+# Change "rest.host=localhost" to "rest.host=0.0.0.0"
 for f in `ls etc/edu.amherst.*` ;
 do
     sed -e "s:rest\.host=localhost:rest\.host=0\.0\.0\.0:" -i $f
