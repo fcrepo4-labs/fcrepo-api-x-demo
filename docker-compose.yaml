@@ -19,9 +19,23 @@ services:
     container_name: acrepo
     environment:
       - DEBUG_PORT=5008
+      - FCREPO_HOST=fcrepo
       - FCREPO_PORT=8080
     ports:
       - "5008:5008"
       - "9102:9102"
+    depends_on:
+      - fcrepo
+
+  apix:
+    image: emetsger/apix-core:latest
+    container_name: apix
+    environment:
+      - DEBUG_PORT=5009
+      - FCREPO_HOST=fcrepo
+    ports:
+      - "5009:5009"
+      - "80:80"
+      - "8081:8081"
     depends_on:
       - fcrepo
