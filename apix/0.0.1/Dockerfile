@@ -13,7 +13,9 @@ ENV APIX_VERSION 0.0.1-SNAPSHOT
 
 # The Fedora repository base URI
 ENV FCREPO_HOST=fcrepo
-ENV FCREPO_BASEURI=http://${FCREPO_HOST}:8080/rest
+ENV FCREPO_PORT=8080
+ENV FCREPO_CONTEXT_PATH=/fcrepo
+ENV FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
 
 # The Fuseki triplestore base URI
 ENV FUSEKI_HOST=fuseki
@@ -21,9 +23,11 @@ ENV FUSEKI_PORT=3030
 ENV FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}
 
 # API-X base URI
-ENV APIX_HOST=0.0.0.0
+ENV APIX_HOST=localhost
 ENV APIX_PORT=80
-ENV APIX_BASEURI=http://${APIX_HOST}:${APIX_PORT}/rest
+ENV APIX_INTERCEPT_PATH=fcrepo/rest
+ENV APIX_BASEURI=http://${APIX_HOST}:${APIX_PORT}/${APIX_INTERCEPT_PATH}
+EXPOSE ${APIX_PORT}
 
 # Allow the string "apix" to be recognized by Karaf as the Fedora API-X feature repository
 
