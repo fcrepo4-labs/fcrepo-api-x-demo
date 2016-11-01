@@ -11,6 +11,8 @@ services:
   fcrepo:
     image: emetsger/apix-fcrepo:4.6.0
     container_name: fcrepo
+    environment:
+      - CONTEXT_PATH=/fcrepo
     ports:
       - "8080:8080"
 
@@ -33,6 +35,7 @@ services:
     environment:
       - DEBUG_PORT=5009
       - FCREPO_HOST=fcrepo
+      - APIX_INTERCEPT_PATH=/fcrepo/rest
     ports:
       - "5009:5009"
       - "80:80"
