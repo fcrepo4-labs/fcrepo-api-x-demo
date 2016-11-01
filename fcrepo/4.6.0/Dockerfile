@@ -1,9 +1,11 @@
-FROM emetsger/apix-build:latest 
+FROM emetsger/apix-build:latest
 
 ENV FCREPO_VERSION 4.6.0
 ENV FCREPO_RUNTIME /opt/fcrepo/${FCREPO_VERSION}
 ENV FCREPO_PORT    8080
+ENV FCREPO_CONTEXT_PATH /fcrepo
 ENV DEBUG_PORT     5006
+
 
 EXPOSE ${FCREPO_PORT}
 EXPOSE ${DEBUG_PORT}

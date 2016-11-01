@@ -36,8 +36,9 @@ Depending on the speed of your platform, it may take a bit for the containers to
 
 Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.  
 
-* Visit http://localhost:8080/rest and see the Fedora REST API web page
+* Visit http://localhost:8080/fcrepo/rest and see the Fedora REST API web page
 * Visit http://localhost:9102/jsonld/ and see a JSON LD representation of the root Fedora container.
+* `curl -i http://localhost/fcrepo/rest` and see a response from API-X
 
 Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](apix-exercises.md).
 

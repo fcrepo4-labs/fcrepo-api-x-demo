@@ -8,10 +8,10 @@ sed -e "s:^org.ops4j.pax.url.mvn.localRepository=.*:org.ops4j.pax.url.mvn.localR
 
 # Update Amherst configurations
 
-# Change "fcrepo.baseUrl=localhost:8080/fcrepo/rest" to "fcrepo.baseUrl=fcrepo:${FCREPO_PORT}/rest"
+# Change "fcrepo.baseUrl=localhost:8080/fcrepo/rest" to "fcrepo.baseUrl=fcrepo:${FCREPO_PORT}/fcrepo/rest"
 for f in `ls etc/edu.amherst.*` ;
 do
-  sed -e "s:localhost\:8080/fcrepo/rest:fcrepo\:${FCREPO_PORT}/rest:" -i $f
+  sed -e "s:localhost\:8080/fcrepo/rest:fcrepo\:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest:" -i $f
 done
 
 # localhost:8080/fits to 0.0.0.0:8080/fits

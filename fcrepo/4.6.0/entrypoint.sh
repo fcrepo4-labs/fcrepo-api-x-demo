@@ -6,12 +6,12 @@ then
          -Dfcrepo.home=${FCREPO_RUNTIME}                             \
          -jar /tmp/fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar \
          --port ${FCREPO_PORT}                                       \
-         --contextPath ${CONTEXT_PATH}                               \
+         --contextPath ${FCREPO_CONTEXT_PATH}                        \
          --headless 2>&1
 else
     java -Dfcrepo.home=${FCREPO_RUNTIME}                             \
          -jar /tmp/fcrepo-webapp-${FCREPO_VERSION}-jetty-console.jar \
          --port ${FCREPO_PORT}                                       \
-         --contextPath ${CONTEXT_PATH}                               \
+         --contextPath ${FCREPO_CONTEXT_PATH}                        \
          --headless 2>&1
 fi
