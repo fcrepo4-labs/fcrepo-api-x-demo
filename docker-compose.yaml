@@ -33,5 +33,3 @@ services:
       - "8081:8081"
     depends_on:
       - fcrepo
-    volumes:
-      - ~/.m2/repository:/build/repository
