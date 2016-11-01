@@ -26,7 +26,10 @@ To bring up this environment, you need to:
 1. Install Docker and verify the installation (above)
 2. Clone this repository
 3. `cd` into the repository directory
-4. Invoke `docker-compose up -d`
+4. **`docker-machine` users only:** set the `APIX_HOST` environment variable.  Substitute the name of your docker machine for the `default` machine if necessary:
+    * `docker-machine ip default` (ensure the output is an IP address, and not an error message)
+    * <code>echo "APIX_HOST=&#x60;docker-machine ip default&#x60;" >> apix.env</code>
+5. Invoke `docker-compose up -d`
 
 Depending on the speed of your platform, it may take a bit for the containers to download and to start.  Keep that in mind when you are verifying that the environment started up.  The containers should only be downloaded once.  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
 
@@ -34,7 +37,7 @@ Depending on the speed of your platform, it may take a bit for the containers to
 
 ## Verification
 
-Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ls`), and use that IP address anywhere you see `localhost` in the following instructions.  
+Note that if you are using Docker Toolbox for Mac, you will need to find the IP address of your Docker Machine (try `docker-machine ip default`), and use that IP address anywhere you see `localhost` in the following instructions.  
 
 * Visit http://localhost:8080/fcrepo/rest and see the Fedora REST API web page
 * Visit http://localhost:9102/jsonld/ and see a JSON LD representation of the root Fedora container.
