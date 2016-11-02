@@ -26,7 +26,11 @@ To bring up this environment, you need to:
 1. Install Docker and verify the installation (above)
 2. Clone this repository
 3. `cd` into the repository directory
-4. Invoke `docker-compose up -d`
+4. **`docker-machine` users only:** set the `APIX_HOST` and `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
+    * `docker-machine ip default` (ensure the output is an IP address, and not an error message)
+    * <code>echo "APIX_HOST=&#x60;docker-machine ip default&#x60;" > apix.env</code>
+    * <code>echo "APIX_BASEURI=http://&#x60;docker-machine ip default&#x60;/fcrepo/rest" >> apix.env</code>
+5. Invoke `docker-compose up -d`
 
 Depending on the speed of your platform, it may take a bit for the containers to download and to start.  Keep that in mind when you are verifying that the environment started up.  The containers should only be downloaded once.  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
 
@@ -38,7 +42,7 @@ Note that if you are using Docker Toolbox for Mac, you will need to find the IP 
 
 * Visit http://localhost:8080/fcrepo/rest and see the Fedora REST API web page
 * Visit http://localhost:9102/jsonld/ and see a JSON LD representation of the root Fedora container.
-* `curl -i http://localhost/fcrepo/rest` and see a response from API-X
+* `curl -i -I http://localhost/fcrepo/rest` and see a response from API-X
 
 Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](apix-exercises.md).
 
@@ -50,10 +54,19 @@ This repository provides Dockerfiles for the following images:
 A base image, built from Ubuntu 16.04 (for various reasons, but mainly because Karaf 4.0.6+ requires glibc, and cannot use musl), containing a Java 8 build environment with Maven.
 
 ## [fcrepo 4.6.0](fcrepo/4.6.0)
-Extends the base image, and provides a default-configured Fedora 4.6.0 runtime on port 8080.  Debugging the runtime is possible by supplying an environment variable named "DEBUG".
+Extends the _build_ image, and provides a default-configured Fedora 4.6.0 runtime.
 
 ## [karaf 4.0.6](karaf/4.0.6)
-Extends the base image, and provides a Karaf container running version 4.0.6.  Debugging the runtime is possible by supplying `debug` as an argument to `docker run`.
+Extends the _build_ image, and provides a Karaf container running version 4.0.6.  Provides a base image for containers that need a Karaf runtime.
+
+## [fuseki](fuseki/2.3.1)
+Provides a triplestore index, useful for demonstrating the contents of the Fedora repository.  Extends the _build_ image.
 
 ## [acrepo](acrepo/LATEST)
-Extends the _karaf_ image, and provides a Karaf container with the Amherst features already installed and running.
+Ad-hoc [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/).  Extends the _karaf_ image, and provides a Karaf container with the Amherst features already installed and running.
+
+## [apix](apix/0.0.1)
+The core API-X image.  Extends the _karaf_ image, and provides a Karaf container with API-X features already installed and running.
+
+## [indexing](indexing/0.0.1)
+Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestore up-to-date.

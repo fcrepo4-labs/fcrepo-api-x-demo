@@ -8,6 +8,21 @@ The acrepo image default debugging port is 5008.  Debugging is enabled by defaul
 
 If running on a `docker-machine`, remember to publish the ports to the [host](https://docs.docker.com/engine/reference/run/#/expose-incoming-ports).
 
+## Environment variables and default values
+
+* DEBUG_PORT=5008
+* JAVA_DEBUG_PORT=${DEBUG_PORT}
+* FCREPO_HOST=fcrepo
+* FCREPO_PORT=8080
+* FCREPO_CONTEXT_PATH=/fcrepo
+
+*N.B.:* If you want to change the remote debugging port, you will need to set the `JAVA_DEBUG_PORT` environment variable, _not_ `DEBUG_PORT`.
+
+## Exposed ports
+
+* ${DEBUG_PORT}/${JAVA_DEBUG_PORT}
+* 9102
+
 ## Example Usage
 
 By default this container does _not_ start a Karaf console, and will emit logs to stdout (viewable by `docker logs <container name>`).
@@ -43,11 +58,6 @@ It seems that backspace (or other keys) do not work when executing the client.  
 
 #### Mount your local Maven repository in a container
 
+Useful when you wish to expose unpublished Maven artifacts or Karaf features to the container.
+
 `$ docker run -ti -v ~/.m2/repository:/build/repository emetsger/apix-acrepo:latest`
-
-### Environment variables and default values
-
-* DEBUG_PORT=5008
-* JAVA_DEBUG_PORT=${DEBUG_PORT}
-
-*N.B.:* If you want to change the remote debugging port, you will need to set the `JAVA_DEBUG_PORT` environment variable, _not_ `DEBUG_PORT`.
