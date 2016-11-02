@@ -15,6 +15,15 @@ services:
       - "5006:5006"
       - "8080:8080"
 
+  indexing:
+    image: emetsger/apix-indexing:latest
+    container_name: indexing
+    ports:
+      - "9090:9090"
+    depends_on:
+      - fcrepo
+      - fuseki
+
   acrepo:
     image: emetsger/apix-acrepo:latest
     container_name: acrepo
@@ -27,7 +36,6 @@ services:
   apix:
     image: emetsger/apix-core:latest
     container_name: apix
-    env_file: apix.env
     ports:
       - "5009:5009"
       - "80:80"
