@@ -23,6 +23,8 @@ services:
     depends_on:
       - fcrepo
       - fuseki
+    links:
+      - apix:localhost
 
   acrepo:
     image: emetsger/apix-acrepo:latest
