@@ -55,7 +55,8 @@ RUN export REGISTRY_ONTOLOGY_CREATE=false  && \
     export REGISTRY_SERVICE_CREATE=false   && \
     export REGISTRY_ONTOLOGY_INDEX=false   && \
     bin/start && \
-    bin/client -r 10 -d 5  "feature:repo-add -i mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5 "feature:repo-add  mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5 "feature:install fcrepo-api-x" && \
     bin/stop
 
 COPY entrypoint.sh /entrypoint.sh
