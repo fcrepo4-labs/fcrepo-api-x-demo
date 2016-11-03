@@ -4,7 +4,7 @@ MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"
 
 # The port Karaf will listen on when debugging is enabled
-ENV DEBUG_PORT 5009
+ENV DEBUG_PORT 5011
 ENV JAVA_DEBUG_PORT ${DEBUG_PORT}
 EXPOSE ${DEBUG_PORT}
 
@@ -16,11 +16,6 @@ ENV FCREPO_HOST=fcrepo
 ENV FCREPO_PORT=8080
 ENV FCREPO_CONTEXT_PATH=/fcrepo
 ENV FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
-
-# The Fuseki triplestore base URI
-ENV FUSEKI_HOST=fuseki
-ENV FUSEKI_PORT=3030
-ENV FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fcrepo-triple-index
 
 # API-X base URI
 ENV APIX_HOST=localhost

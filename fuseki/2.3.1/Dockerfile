@@ -10,6 +10,9 @@ ENV FUSEKI_DEFAULT_DATASET /fcrepo-triple-index
 
 ENV DEBUG_PORT 5009
 
+EXPOSE 3030
+EXPOSE ${DEBUG_PORT}
+
 RUN export FUSEKI_DIST=apache-jena-fuseki-${FUSEKI_VERSION}.tar.gz       && \
     mkdir -p ${APPS}                                                     && \
     curl -L http://archive.apache.org/dist/jena/binaries/${FUSEKI_DIST}     \

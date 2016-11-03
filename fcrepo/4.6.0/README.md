@@ -12,6 +12,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FCREPO_RUNTIME=/opt/fcrepo/4.0.6
 * FCREPO_PORT=8080
 * DEBUG_PORT=5006
+* FCREPO_CONTEXT_PATH=/fcrepo
 
 ## Exposed ports
 

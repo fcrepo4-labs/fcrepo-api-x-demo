@@ -15,7 +15,8 @@ This image provides a Fuseki runtime.
 
 ## Exposed ports
 
-None.
+* 3030
+* ${DEBUG_PORT}
 
 ## entrypoint
 
