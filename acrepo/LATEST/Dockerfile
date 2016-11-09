@@ -11,8 +11,8 @@ EXPOSE ${DEBUG_PORT}
 EXPOSE 9102
 
 # The host and port that the Fedora repository is running on (in a separate container)
-ENV FCREPO_HOST fcrepo
-ENV FCREPO_PORT 8080
+ENV FCREPO_HOST localhost
+ENV FCREPO_PORT 80
 ENV FCREPO_CONTEXT_PATH /fcrepo
 
 # Allow the string "acrepo" to be recognized by Karaf as the Amherst feature repository
