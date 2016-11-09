@@ -11,13 +11,13 @@ sed -e "s:^org.ops4j.pax.url.mvn.localRepository=.*:org.ops4j.pax.url.mvn.localR
 # Change "fcrepo.baseUrl=localhost:8080/fcrepo/rest" to "fcrepo.baseUrl=fcrepo:${FCREPO_PORT}/fcrepo/rest"
 for f in `ls etc/edu.amherst.*` ;
 do
-  sed -e "s:localhost\:8080/fcrepo/rest:fcrepo\:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest:" -i $f
+  sed -e "s:localhost\:8080/fcrepo/rest:${FCREPO_HOST}\:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest:" -i $f
 done
 
 # localhost:8080/fits to 0.0.0.0:8080/fits
 for f in `ls etc/edu.amherst.*` ;
 do
-    sed -e "s:localhost\:8080/fits:0\.0\.0\.0\:8080/fits:" -i $f
+    sed -e "s:localhost\:8080/fits:fits\:8080/fits:" -i $f
 done
 
 # Change "rest.host=localhost" to "rest.host=0.0.0.0"
@@ -31,6 +31,8 @@ for f in `ls etc/edu.amherst.*` ;
 do
     sed -e "s:localhost\:61616:fcrepo\:61616:" -i $f
 done
+
+echo "#empty" > /etc/hosts
 
 # Execute `bin/karaf` with any arguments suppled by CMD
 exec bin/karaf "$@"

@@ -31,8 +31,15 @@ services:
     container_name: acrepo
     ports:
       - "9102:9102"
+      - "9103:9103"
+      - "9104:9104"
+      - "9105:9105"
+      - "9106:9106"
+      - "9107:9107"
     depends_on:
       - fcrepo
+    links:
+      - apix:localhost
 
   apix:
     image: emetsger/apix-core:latest
