@@ -50,3 +50,9 @@ services:
       - "8081:8081"
     depends_on:
       - fcrepo
+ 
+  fits:
+    image: emetsger/apix-fits:1.0.3
+    container_name: fits
+    ports:
+      - "8082:8080"
