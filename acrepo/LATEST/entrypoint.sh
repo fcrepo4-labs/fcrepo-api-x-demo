@@ -20,10 +20,10 @@ do
     sed -e "s:localhost\:8080/fits:fits\:8080/fits:" -i $f
 done
 
-# Change "rest.host=localhost" to "rest.host=0.0.0.0"
+# Change "rest.host=localhost" to "rest.host=acrepo"
 for f in `ls etc/edu.amherst.*` ;
 do
-    sed -e "s:rest\.host=localhost:rest\.host=0\.0\.0\.0:" -i $f
+    sed -e "s:rest\.host=localhost:rest\.host=acrepo:" -i $f
 done
 
 # Change "jms.brokerUrl=tcp://localhost:61616" to "jms.brokerUrl=tcp://fcrepo:61616"

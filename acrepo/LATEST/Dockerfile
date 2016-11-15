@@ -2,6 +2,8 @@ FROM emetsger/apix-karaf:4.0.6
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
+# Needed for -image
+RUN apt-get update && apt-get -y install imagemagick
 
 # The port acrepo Karaf will listen on when debugging is enabled
 
