@@ -1,4 +1,4 @@
-FROM emetsger/apix-karaf:4.0.6
+FROM fcrepoapix/apix-karaf:4.0.6
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with Amherst features"
@@ -26,6 +26,8 @@ RUN echo "acrepo=mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" >> etc/o
 RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/xml/features\):\1, \\\
     mvn\:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features \\\:" \
         -i etc/org.apache.karaf.features.cfg
+
+#ADD maven/ /build/repository/
 
 # Install all of the latest features found in the acrepo features repository (typically these features will be SNAPSHOT versions)
 

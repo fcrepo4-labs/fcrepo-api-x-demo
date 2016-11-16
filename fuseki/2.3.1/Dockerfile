@@ -1,4 +1,4 @@
-FROM emetsger/apix-build:latest
+FROM fcrepoapix/apix-build:latest
 
 ENV APPS                   /opt
 ENV SHARED                 /shared

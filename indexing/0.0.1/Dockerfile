@@ -1,4 +1,4 @@
-FROM emetsger/apix-karaf:4.0.6
+FROM fcrepoapix/apix-karaf:4.0.6
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with indexing features"
@@ -41,7 +41,7 @@ EXPOSE 9090
 RUN sed -e "s/osgi:/stdout, osgi:/" -i etc/org.ops4j.pax.logging.cfg
 
 # Temporary for local development; copy any Maven artifacts into `maven/` that you want the image build process to see (e.g. locally build features that have yet to be published)
-# ADD maven/ /build/repository/
+#ADD maven/ /build/repository/
 
 # Copy Karaf feature configuration files into the image
 COPY cfg/* etc/

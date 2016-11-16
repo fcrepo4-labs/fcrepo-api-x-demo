@@ -1,4 +1,4 @@
-FROM emetsger/apix-build:latest
+FROM fcrepoapix/apix-build:latest
 
 ENV FCREPO_VERSION 4.6.0
 ENV FCREPO_RUNTIME /opt/fcrepo/${FCREPO_VERSION}
