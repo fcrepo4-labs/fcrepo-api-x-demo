@@ -1,2 +1,5 @@
 .DS_Store
-*.sh
+rebuild.sh
+create-images.sh
+delete-images.sh
+env.sh
