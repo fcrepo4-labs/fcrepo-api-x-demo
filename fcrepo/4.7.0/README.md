@@ -1,29 +1,16 @@
-## fcrepo 4.0.6 Dockerfile
+## fcrepo 4.7.0 Dockerfile
 
-Image contains the `fcrepo-webapp-4.6.0-jetty-console.jar`, and is launched on port `8080` by default.  `stderr` and `stdout` are directed to the console.
-
-If the environment variable named `DEBUG` exists, then a debugger is launched on port `5006` by default.
+Image contains the `fcrepo-webapp-4.7.0.war, and is launched on port `8080` by default.  `stderr` and `stdout` are directed to the console.
 
 If running on a `docker-machine`, remember to publish the ports to the [host](https://docs.docker.com/engine/reference/run/#/expose-incoming-ports).
 
 ## Environment variables and default values
 
-* FCREPO_VERSION=4.6.0
-* FCREPO_RUNTIME=/opt/fcrepo/4.0.6
-* FCREPO_PORT=8080
-* DEBUG_PORT=5006
-* FCREPO_CONTEXT_PATH=/fcrepo
-
 ## Exposed ports
 
-* ${FCREPO_PORT}
-* ${DEBUG_PORT}
+* 8080 (Fedora default port)
 * 61613 (STOMP protocol)
 * 61616 (JMS broker port)
-
-## entrypoint
-
-The [entrypoint](entrypoint.sh) is used to evaluate any environment variables that may have been set at run time, such as `${FCREPO_PORT}` or `${DEBUG_PORT}`.
 
 ## Example Usage
 
@@ -31,17 +18,7 @@ The [entrypoint](entrypoint.sh) is used to evaluate any environment variables th
 
 Logs displayed to the console, allows container to be killed using CTRL-C.
 
-`$ docker run -ti emetsger/apix-fcrepo:4.6.0`
-
-#### Debugging
-
-Enable Java remote debugging, on the default `${DEBUG_PORT}` (in this example port 5006):
-
-`$ docker run -ti -e DEBUG -p "5006:5006" emetsger/apix-fcrepo:4.6.0`
-
-To use a different debugging port (in this example 4000):
-
-`$ docker run -ti -e DEBUG_PORT=4000 -e DEBUG -p "4000:4000" emetsger/apix-fcrepo:4.6.0`
+`$ docker run -ti emetsger/apix-fcrepo:4.7.0`
 
 #### Display logs
 
@@ -57,4 +34,12 @@ To obtain a shell in a running container, first [start the container](#starting)
 
 Alternately, to simply shell into a non-existent container, override the entrypoint:
 
-`$ docker run -ti --entrypoint=/bin/bash emetsger/apix-fcrepo:4.6.0`
+`$ docker run -ti --entrypoint=/bin/bash emetsger/apix-fcrepo:4.7.0`
+
+#### Debugging
+To debug, set the `CATALINA_OPTS`environment variable to listen on the desired
+port.  Expose that port.
+
+   docker run \
+     -e "CATALINA_OPTS=-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n" \
+     -p "5005:5005" ...
