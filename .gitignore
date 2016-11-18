@@ -3,3 +3,4 @@ rebuild.sh
 create-images.sh
 delete-images.sh
 env.sh
+maven.sh
