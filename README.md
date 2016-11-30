@@ -14,6 +14,7 @@ See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more in
 
 "Docker for Mac" and "Docker for Windows" place requirements significant requirements on the mimimum required OS version and features.  An additional flavor of Docker (which we'll refer to as _docker-machine_) runs Docker inside Virtualbox, and can be run on almost any OS.  Unfortunately, the evaluation instructions differ slightly for _docker-machine_.   
 * [Docker Toolbox for Mac/Windows](https://www.docker.com/products/docker-toolbox)
+  * You need to start an instance of docker-machine to run the docker containers.  See the [create a machine](https://docs.docker.com/machine/get-started/) documentation for how to do that.
 
 To verify you have the Docker platform installed correctly (or to check and see if you have Docker already installed), you should obtain a command shell and run:
 
@@ -38,10 +39,19 @@ To bring up the API-X environment, you need to:
   * Clone this git repository:  `git clone https://github.com/fcrepo4-labs/fcrepo-api-x-demo.git`.  This will create a directory `fcrepo-api-x-demo` with the required file(s) in it
   * [Directly download it](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/docker-compose.yaml) by following the preceeding link.
 3. `cd` into the directory containing the docker-compose file
-4. **_docker-machine_ users only:** set the `APIX_HOST` and `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
+4. If you directly downloaded the `docker-compose.yaml` file (i.e. did not clone from github) create a file in the current directory called apix.env
+  <pre>
+  touch apix.env
+  </pre>
+5. **_docker-machine_ users only:** set the `APIX_HOST` and `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
     * `docker-machine ip default` (ensure the output is an IP address, and not an error message)
     * <code>echo "APIX_HOST=&#x60;docker-machine ip default&#x60;" > apix.env</code>
     * <code>echo "APIX_BASEURI=http://&#x60;docker-machine ip default&#x60;/fcrepo/rest" >> apix.env</code>
+    * Here's an example `apix.env` file using a docker machine with IP of 192.168.99.100
+    <pre>
+    APIX_HOST=192.168.99.100
+    APIX_BASEURI=http://192.168.99.100/fcrepo/rest
+    </pre>
 5. Invoke `docker-compose up -d`
 
 Depending on the speed of your platform, it may take a bit for the containers to download and to start.  Keep that in mind when you are verifying that the environment started up.  The containers should only be downloaded once.  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
