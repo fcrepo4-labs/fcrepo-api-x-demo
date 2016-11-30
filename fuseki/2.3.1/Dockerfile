@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-build:latest
+FROM openjdk:8-jre-alpine
 
 ENV APPS                   /opt
 ENV SHARED                 /shared

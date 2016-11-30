@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-karaf:4.0.6
+FROM fcrepoapix/apix-karaf:4.0.7
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with indexing features"
