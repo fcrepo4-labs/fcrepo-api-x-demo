@@ -16,6 +16,7 @@ The [getting started](https://github.com/birkland/fcrepo-api-x-demo/blob/doc-upd
 ## Starting, stopping, cleaning
 
 The demo can be started by
+    
     docker-compose up -d
 
 _Stopping_ the containers shuts down all services, but keeps data on disk.  Once the demo has been stopped, it can be started at any time in order to resume where you left off
