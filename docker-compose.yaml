@@ -3,10 +3,10 @@ version: "2"
 services:
 
   fuseki:
-    image: fcrepoapix/apix-fuseki:2.3.1
+    image: fcrepoapix/apix-fuseki:2.4.1
     container_name: fuseki
     ports:
-      - "3030:3030"
+      - "3030:8080"
 
   fcrepo:
     image: fcrepoapix/apix-fcrepo:4.7.0
