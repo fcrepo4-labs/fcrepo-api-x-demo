@@ -26,15 +26,15 @@ This exercise explores aspects related to [binding](https://github.com/fcrepo4-l
 
 OWL inference allows binding extensions to objects based upon their characteristics, rather than requiring objects to explicitly declare an `rdf:type` that matches an extension.  This allows considerable flexibility deploying extensions over an existing repository.  A [PCDM extension](https://github.com/birkland/repository-extension-services/tree/apix-demo/acrepo-exts-pcdm) simply describes the kinds of objects it can operate over according to some ontology (e.g. PCDM objects), and the API-X framework utilises OWL reasoning to determine which objects in the repository fit that description.  It sounds complicated, but it's not.
 
-As we saw earlier, the PCDM extension operates over any repository objects that are a `pcdm:Object`.  The [PCDM ontology](http://pcdm.org/2016/04/18/models#Object) describes this concept, and properties that are relevant to it.   Notice a property [hasFile](http://pcdm.org/2016/04/18/models#hasFile);  It has a _domain_ of `pcdm:Object`.  That is to say, a resource that has a `hasFile` property can be inferred to be a `pcdm:Object` according to the PCDM ontology.  Let's explore how API-X can use this fact for extension binding.
+As we saw earlier, the PCDM extension operates over any repository objects that are a `pcdm:Object`.  The [PCDM ontology](http://pcdm.org/models#Object) describes this concept, and properties that are relevant to it.   Notice a property [hasFile](http://pcdm.org/models#hasFile);  It has a _domain_ of `pcdm:Object`.  That is to say, a resource that has a `hasFile` property can be inferred to be a `pcdm:Object` according to the PCDM ontology.  Let's explore how API-X can use this fact for extension binding.
 
 1. Create an object we want to bind the PCDM extension to.  Earlier exercises had us creating an _images_ container and depositing images into it.  If you don't still have these in your repository from the, add them.  For the sake of this exercise, let's assume the container is <code>http://**localhost**/fcrepo/rest/images</code>, and it has a binary in it <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
 2. Add a PCDM `hasFile` relationship to the container, which points to the image.
-  * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://pcdm.org/2016/04/18/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;}</code>, and click _update_
+  * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;}</code>, and click _update_
   * If using the command line, do
   <pre>
-  curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://pcdm.org/2016/04/18/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/images
+  curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/images
   </pre>
 
 3. Now look at the service document for the _images_ container <code>http://**localhost**/discovery/images</code>.  Do you see the PCDM extension?  Why or why not?
