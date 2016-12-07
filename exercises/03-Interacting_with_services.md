@@ -51,14 +51,14 @@ You'll see a simple html document that presents two choices.  In your browser, v
 
 In this exercise, we'll take a look at a fascinating image manipulation extension that is a thin wrapper around the ImageMagick [convert](https://www.imagemagick.org/script/convert.php) utility.
 
-1. Load an jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/farside.jpg</code>
+1. Load an jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
 2. Look at the image resource's service document, and find the endpoint uri that corresponds to the service of type:
-`http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/farside.jpg/svc:image</code>
+`http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
 
 3. You should simply see the image in your browser.  According to its [documentation](https://gitlab.amherst.edu/acdc/repository-extension-services/tree/master/acrepo-exts-image) this image extension accepts a URL parameter called "options", the content of which is simply applied to the convert command line.  So let's re-size the image by adding an appropriate query param:
-<code>http://**localhost**/services/images/farside.jpg/svc:image?<em>options=-resize 200x200</em></code>
-  1. Maybe we want to invert the colors.  Try doing that: <code>http://**localhost**/services/images/farside.jpg/svc:image?<em>options=-negate</em></code>
-  2. Negate and flip:<code>http://**localhost**/services/images/farside.jpg/svc:image?<em>options=-negate -flip</em></code>
+<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-resize 200x200</em></code>
+  1. Maybe we want to invert the colors.  Try doing that: <code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate</em></code>
+  2. Negate and flip:<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate -flip</em></code>
 
 Much like the xml services from [(B)][#ex3b], API-X  is simply passing along the query parameters unmodified to the underlying image manipulation service.
