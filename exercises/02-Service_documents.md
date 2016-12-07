@@ -28,11 +28,11 @@ and
 
 It's anticipated that a common use case for service documents involves searching for the endpoint URI to a service of a known type; e.g "Where is the image shrinking service for this particular object"
 
-1. Upload an image to the repository as a binary resource, or simply use the one from [exercise (1)](01-Resources_and_URIs.md#ex1b).  Let's say its URI is `http://localhost/discovery/images/filename.jpg`
+1. Upload an image to the repository as a binary resource, or simply use the one from [exercise (1)](01-Resources_and_URIs.md#ex1b).  Let's say its URI is `http://localhost/fcrepo/rest/images/filename.jpg`
 
 2. Use curl to look at its headers, get the URI for the service document
   <pre>
-  curl -I http://<b>localhost</b>/discovery/images/filename.jpg
+  curl -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
   </pre>
 
 3. ...and follow that link to look at the service document.
