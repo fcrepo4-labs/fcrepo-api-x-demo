@@ -24,7 +24,7 @@ Look at a fedora object via direct and proxy URIs in order to compare and contra
     <pre>
     curl -I http://<b>localhost</b>:8080/fcrepo/rest/apix/extensions
     </pre>
-  - Notice that there is no longer a "service" link relation; but everything else is the same
+  - Notice that there is no longer a "service" link relation; but other links are the same
 
 7. Now view the direct link in the browser.  It's the same as in step 3, except for the URIs.  All URIs are also *direct* links.
 

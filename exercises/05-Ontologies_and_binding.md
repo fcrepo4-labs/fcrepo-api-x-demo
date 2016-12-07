@@ -4,7 +4,7 @@ This exercise explores aspects related to [binding](https://github.com/fcrepo4-l
 
 <h2><a href="#ex5a" id="ex5a" class="anchor">A. Simple binding by type</a></h2>
 
-1. The Fedora repository ontology defines a [RepositoryRoot](http://fedora.info/definitions/v4/2016/10/18/repository#RepositoryRoot) class, used for describing those objects that function as the root node of the repository.  Take a look at the repository root resource and verify that it's a member of this class: <code>http://**localhost**/fcrepo/rest/</code>.  
+1. The Fedora repository ontology defines a [RepositoryRoot](http://fedora.info/definitions/v4/2016/10/18/repository#RepositoryRoot) class, used for describing those objects that function as the root node of the repository.  Take a look at the properties of the repository root resource and verify that it's a member of this class: <code>http://**localhost**/fcrepo/rest/</code>.  
   * This class membership is a server-managed property.  It cannot be modified by the user.
 
 2. Take a look at the [extension definition](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/fcrepo-api-x-loader/src/main/resources/options.ttl) used by the loader service, or look at its representation as a Fedora object: <code>http://**localhost**/fcrepo/rest/apix/extensions/load</code>.  Do you see how it binds to the repository root?  Is it clear from the extension definition that this is a repository-scoped extension?
@@ -19,8 +19,8 @@ This exercise explores aspects related to [binding](https://github.com/fcrepo4-l
     <pre>
     curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</span>&gt; &lt;<span>http://pcdm.org/models#Object</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/extensions/pcdm
     </pre>
-    * In either case, you need to write out the whole pcdm namespace, rather than using a convenient prefix like `pcdm:`.  This is due to the relative difficulty of defining prefixes and namespaces in Fedora, which is outsisde of the scope of this exercise.
-  3. Look again at the service document of the object.  Do you see the pcdm service endpoint now?  Good!
+    * In either case, you need to write out the whole pcdm namespace, rather than using a convenient prefix like `pcdm:`.  This is due to the relative difficulty of defining prefixes and namespaces in Fedora, which is outside of the scope of this exercise.
+  3. Look again at the service document of the object. <code>http://localhost/discovery/apix/extensions/pcdm</code>  Do you see the pcdm service endpoint now?  Good!
 
 <h2><a href="#ex5b" id="ex5b" class="anchor">B. Binding by inference</a></h2>
 
@@ -28,7 +28,7 @@ OWL inference allows binding extensions to objects based upon their characterist
 
 As we saw earlier, the PCDM extension operates over any repository objects that are a `pcdm:Object`.  The [PCDM ontology](http://pcdm.org/models#Object) describes this concept, and properties that are relevant to it.   Notice a property [hasFile](http://pcdm.org/models#hasFile);  It has a _domain_ of `pcdm:Object`.  That is to say, a resource that has a `hasFile` property can be inferred to be a `pcdm:Object` according to the PCDM ontology.  Let's explore how API-X can use this fact for extension binding.
 
-1. Create an object we want to bind the PCDM extension to.  Earlier exercises had us creating an _images_ container and depositing images into it.  If you don't still have these in your repository from the, add them.  For the sake of this exercise, let's assume the container is <code>http://**localhost**/fcrepo/rest/images</code>, and it has a binary in it <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
+1. Create an object we want to bind the PCDM extension to.  Earlier exercises had us creating an _images_ container and depositing images into it.  If you don't still have these in your repository from [exercise 1B](https://github.com/fcrepo4-labs/fcrepo-api-x-demo/blob/master/exercises/01-Resources_and_URIs.md#ex1b), add them.  For the sake of this exercise, let's assume the container is <code>http://**localhost**/fcrepo/rest/images</code>, and it has a binary in it <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
 2. Add a PCDM `hasFile` relationship to the container, which points to the image.
   * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;}</code>, and click _update_
@@ -84,7 +84,7 @@ Let's explore the API-X ontology registry and associated services!
 
 3. Notice that the PCDM ontology resource is a binary <code>http://**localhost**/fcrepo/rest/apix/ontologies/pcdm.org-models</code>. For the reasons discussed above, API-X persists ontologies as binaries in the registry as a matter of course.  
 
-4. Let's add a more complicated ontology to an extension and see what happens.  Import the [PREMIS](http://www.loc.gov/premis/rdf/v1#) ontology into the PCDM extension
+4. Let's add a more complicated ontology to an extension and see what happens.  Import the [PREMIS](http://www.loc.gov/premis/rdf/v1#) ontology into the PCDM extension <code>http://localhost/fcrepo/rest/apix/extensions/pcdm</code>
    * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://www.w3.org/2002/07/owl#imports</span>&gt; &lt;<span>http://www.loc.gov/premis/rdf/v1#</span>&gt;}</code>, and click _update_
   * If using the command line, do
   <pre>

@@ -21,6 +21,7 @@ The simplest API for an exposed service is simply returning something useful in 
 
 4. Simply copy and paste the fits endpoint URI into your browser.  It may take a few seconds for the initial load; you know how slow Java services are when they're used for the first time after a cold start.
   * You should get back a plausible metadata about the file. Feel free to upload different kinds of binaries and look at the resulting output
+  * Note that in this example, each time you call the FITS service a new XML document is being created from the binary. It is not retrieving a document that already exists in the repository, nor will it store the metadata that is retrieved.  
 
 5. Now, look at the service document for an rdf resource in Fedora (a container, not a binary), such as <code>http://<b>localhost</b>/fcrepo/rest/apix/extensions</code>.  Do you see the fits service in the discovery document?  Can you form a hypothesis as to why or why not?  
 
@@ -30,7 +31,7 @@ The simplest API for an exposed service is simply returning something useful in 
 
 <h2><a href="#ex3b" id="ex3b" class="anchor">B. Links within exposed services</a></h2>
 
-Exposed service endpoint URIs are really just entrypoints; they link to services that may produce resources that link to other resources within that services, as seen in [HATEOAS](http://restcookbook.com/Basics/hateoas/)-style APIs.  So the ability for an exposed service to be able to link within itself is important.  This task presents a very simple example.  The "xml" extension provides xml-based MODS and DC representations of a Fedora resource.  It presents users with a choice of formats in the form of an html document that links to URIs for the different formats.
+Exposed service endpoint URIs are really just entrypoints; they link to services that may produce resources that link to other resources within that service, as seen in [HATEOAS](http://restcookbook.com/Basics/hateoas/)-style APIs.  So the ability for an exposed service to be able to link within itself is important.  This task presents a very simple example.  The "xml" extension provides xml-based MODS and DC representations of a Fedora resource.  It presents users with a choice of formats in the form of an html document that links to URIs for the different formats.
 
 1. Fetch the service document for an arbitrary RDF fedora resource, and look for a service of type `http://acdc.amherst.edu/extensions#XmlMetadataService`.  For example, on resource <code>http://**localhost**/fcrepo/rest/apix/extensions</code>
 that's <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
@@ -39,10 +40,10 @@ that's <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</cod
   1. Look for the `exposesServiceAt` property in your browser: <code>http://**localhost**/fcrepo/rest/apix/extensions/xml</code>
   2. Compare to an extension whose service URIs do not have the trailing slash: <code>http://**localhost**/fcrepo/rest/apix/extensions/fits</code>
 
-3. Now follow the service endpoint URI for the xml extension in your browser: <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
+3. Continuing on from step 1, follow the service endpoint URI for the xml extension in your browser: <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
 You'll see a simple html document that presents two choices.  In your browser, view its source.  As you can probably guess, this is just a static html resource; being able to use relative URIs lets us get away with that easily.
 
-4. Follow the link to the DC format xml.  The extension applies an XSLT to select any rdf properties that correspond to Dublin Core elements.  If there are none in the resource, then the resulting document is largely empty; the same is true for MODS.  For our purposes, we're more interested in looking at its URI:
+4. Follow the link to the DC format xml.  The extension applies an XSLT to select any rdf properties that correspond to Dublin Core elements.  If there are none in the resource, as is the case in the example, then the resulting document is largely empty; the same is true for MODS.  For our purposes, we're more interested in looking at its URI:
 <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/dc</code>
   * The underlying service that implements this extension happens to be implemented in Java using Apache Camel.  [These lines of code] (https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-serialize-xml/src/main/java/edu/amherst/acdc/exts/serialize/xml/EventRouter.java#L38-L49) implement the routing logic with respect to the incoming service request.
   * In exercise 4, we will explore extension deployment and registering services in a little more detail.  Suffice it to say, the underlying implementation of the xml service in this demo is `http://acrepo:9104/xml`.  A request to API-X <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/dc</code> gets forwarded via the API-X to `http://acrepo:9104/xml/dc`.  Read the [execution engine](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/execution-and-routing.md#generic-endpoint-proxy) documentation to get a greater understanding of the interaction between API-X and the underlying service.
@@ -51,9 +52,9 @@ You'll see a simple html document that presents two choices.  In your browser, v
 
 In this exercise, we'll take a look at a fascinating image manipulation extension that is a thin wrapper around the ImageMagick [convert](https://www.imagemagick.org/script/convert.php) utility.
 
-1. Load an jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
+1. Load a jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
-2. Look at the image resource's service document, and find the endpoint uri that corresponds to the service of type:
+2. Look at the image resource's service document, and find the endpoint URI that corresponds to the service of type:
 `http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
 
 3. You should simply see the image in your browser.  According to its [documentation](https://gitlab.amherst.edu/acdc/repository-extension-services/tree/master/acrepo-exts-image) this image extension accepts a URL parameter called "options", the content of which is simply applied to the convert command line.  So let's re-size the image by adding an appropriate query param:

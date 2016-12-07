@@ -1,6 +1,6 @@
 <h1><a href="#ex4" id="ex4" class="anchor">Exercise 4: Loading and deploying extensions</a></h1>
 
-The current API-X implementation uses LDP containers in Fedora as registries for extensions, services, and ontologies.  It's possible to add an extension to API-x simply by depositing the right kind of objects into the right containers.  However, there's an even easier way.  Included in API-X is a Loader service that allows service instances to manually or self-register.  This set of exercises explores this loader to deploy extensions into API-X.
+The current API-X implementation uses LDP containers in Fedora as registries for extensions, services, and ontologies.  It's possible to add an extension to API-X simply by depositing the right kind of objects into the right containers.  However, there's an even easier way.  Included in API-X is a Loader service that allows service instances to manually or self-register.  This set of exercises explores this loader to deploy extensions into API-X.
 
 <h2><a href="#ex4a" id="ex4a" class="anchor">A. Registries</a></h2>
 
@@ -9,16 +9,16 @@ Let's first take a look at the contents of the [service registry](https://github
 1. Take a look at the service registry container.  Enter its URI in your browser: <code>http://<b>localhost</b>/fcrepo/rest/apix/services</code>
   * This container, like all of API-X's internal LDP registries, is automatically created by API-X upon startup.  
 
-2. The service registry is an LDP indirect container.  The API-X service ontology specifies a relationship `containsService` to indicate membership in the service registry.  Compare the URIs of the resources pointed to by `containsService` vs `ldp:contains`.  As you can see, [service](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/service-discovery-and-binding.md#apixservice) URIs are distinct from fedora [resource](http://fedora.info/definitions/v4/2016/10/18/repository#Resource) URIs.  Why do you think that is?
+2. The service registry is an LDP [indirect container](https://www.w3.org/TR/ldp/#ldpic).  The API-X service ontology specifies a relationship `containsService` to indicate membership in the service registry.  Compare the URIs of the resources pointed to by `containsService` vs `ldp:contains`.  As you can see, [service](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/service-discovery-and-binding.md#apixservice) URIs are distinct from fedora [resource](http://fedora.info/definitions/v4/2016/10/18/repository#Resource) URIs.  Why do you think that is?
 
 3. Click on the service URI for the FITS service: <code>http://**localhost**/fcrepo/rest/apix/services/extensions-fits#service</code>
-You'll see the fits service page.  At the bottom, notice the "other resources" section.  Click on the _instances_ link:
+You'll see the FITS service page.  At the bottom, notice the "other resources" section.  Click on the _instances_ link:
 <code>http://**localhost**/fcrepo/rest/apix/services/extensions-fits#instances</code>
 
 4. Look for the property `hasEndpoint`.  This is a URI to a web service that implements the FITS service.  [Exercise 3A](03-Interacting_with_services.md#ex3a) had us exploring the FITS service.  Under the covers, API-X was accepting requests at exposed service URIs like
 <code>http://**localhost**/services/images/filename.jpg/svc:fits</code> and forwarding them to the underlying implementation at
 `http://acrepo:9106/fits` The notion of these underlying implementation services will become relevant to this loader exercise.
-  * The underlying implementation of the fits service is a Java-based Apache Camel route which acts as a mediator between the client and an instance of FITS running in a Tomcat container.  Take a look at [this code segment](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/java/edu/amherst/acdc/exts/fits/FitsRouter.java#L49-L62) for a glimpse at how an underlying service impl handles requests.  On GET, it reads the URI of the [relevant resource](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/uris-in-apix.md#resource-scoped-services), and ultimately feeds its contents into the FITS service.
+  * The underlying implementation of the FITS service is a Java-based Apache Camel route which acts as a mediator between the client and an instance of FITS running in a Tomcat container.  Take a look at [this code segment](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/java/edu/amherst/acdc/exts/fits/FitsRouter.java#L49-L62) for a glimpse at how an underlying service impl handles requests.  On GET, it reads the URI of the [relevant resource](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/uris-in-apix.md#resource-scoped-services), and ultimately feeds its contents into the FITS service.
   * Notice the [OPTIONS handling code](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/java/edu/amherst/acdc/exts/fits/FitsRouter.java#L59-L62).  This will become important shortly.
 
 <h2><a href="#ex4b" id="ex4b" class="anchor">B. The loader extension</a></h2>
@@ -49,7 +49,7 @@ We will use the html form provided by the loader extension to manually provide i
 
 2. In the text box, type the URI to an underlying implementation service: `http://acrepo:9102/jsonld?apix.scope=resource`
   * This is the URI to a service that is running as part of the demo, but is not yet registered as an extension.
-  * The hostname is 'acrepo'.  This is an artifact of how Docker resolves host names; the underlying service is running in a Docker container whose hostname, according to Docker’s internal DNS service, is 'acrepo'.  
+  * The hostname is 'acrepo'.  This is an artifact of how Docker resolves host names; the underlying service is running in a Docker container whose hostname, according to Docker’s internal DNS service, is 'acrepo'.    To access the equivalent URI through your browser, you would use `http://localhost:9102/jsonld?apix.scope=resource`
   * The query parameter `apix.scope=resource` is an implementation detail of this specific service.  It is able to be registered as a resource-scoped extension, or a repository-scoped extension.  The parameter tells it which one.  See [this code snippet](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/java/edu/amherst/acdc/exts/jsonld/EventRouter.java#L55-L59) to get a sense on how this particular service uses the parameter.  If repository-scoped, it will register [this extension](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/resources/options.ttl).  If resource-scoped, [a different one](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/resources/options_resource.ttl)
 
 3. Click the "submit" button to tell the loader to process that URI.  If successful, you'll be redirected to a Fedora resource corresponding to the newly-loaded extension.  In our case, we just loaded a JSON-LD compaction extension.
@@ -63,13 +63,13 @@ We will use the html form provided by the loader extension to manually provide i
 `http://acdc.amherst.edu/extensions#JsonLDService`.  We can also see that it binds to (all) repository resources, and it's a resource-scoped extension.  Can you see how we know that from the extension definition?
 
 6. Now, pick an arbitrary object (say the extension you just created; <code>http://**localhost**/fcrepo/rest/apix/extensions/jsonld</code>).  Look at its service doc, and look for the endpoint URI for the jsonld service on it.  In this case, it's <code>http://localhost/services/apix/extensions/jsonld/svc:compact</code>
-Follow that URI.  The result should be a compact Json-LD representation of the resource!
+Follow that URI.  The result should be a compact JSON-LD representation of the resource!
 
 <h2><a href="#ex4d" id="ex4d" class="anchor">D. Auto-loading extensions</a></h2>
 
 The loader service can accept underlying service URIs in `application/x-www-form-urlencoded` (for html forms) or `text/plain`.  A service can be configured to POST its own URI to the loader service upon startup to self-register.
 
-1. Take a look at [this section of camel route xml](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L30-L54).  This is how the fits service (which happens to use Apache Camel) self-registers.  Let's dissect it a little bit to understand what is happening.
+1. Take a look at [this section of camel route xml](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L30-L54).  This is how the FITS service (which happens to use Apache Camel) self-registers.  Let's dissect it a little bit to understand what is happening.
   * This route is [configured to trigger](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L32) once, upon startup
   * It ultimately [sends a request](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L51) to a configurable URI of the loader service
   * It POSTs [its own URI](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L45) in the body of an http request, with content-type [text/plain](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-fits/src/main/resources/OSGI-INF/blueprint/fits-service.xml#L45).  The loader service accepts plain text POSTS, or urlencoded forms.  Programatically, plain text is easier to deal with.
