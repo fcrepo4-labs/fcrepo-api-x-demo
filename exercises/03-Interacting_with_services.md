@@ -62,4 +62,4 @@ In this exercise, we'll take a look at a fascinating image manipulation extensio
   1. Maybe we want to invert the colors.  Try doing that: <code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate</em></code>
   2. Negate and flip:<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate -flip</em></code>
 
-Much like the xml services from [(B)][#ex3b], API-X  is simply passing along the query parameters unmodified to the underlying image manipulation service.
+Much like the xml services from [(B)](#ex3b), API-X  is simply passing along the query parameters unmodified to the underlying image manipulation service.
