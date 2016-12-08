@@ -45,7 +45,7 @@ Binary resources in Fedora are a little more complicated than plain RDF objects.
   * If using the UI, in _Create New Child Resource_, select Type: _binary_, Identifier: _filename.jpg_ (or whatever you wish to call it).  When you select _binary_, you'll be prompted to upload an image from your local machine.  Choose an arbitrary image, or download one from the internet to use.  Feel free to do a Google Image Search for "cows".
   * If using the command line, for a file named `filename.jpg` in your current directory, do
   <pre>
-  curl -i -X POST --data-binary "@filename.jpg" -H "Content-Disposition: attachment; filename=\"filename.jpg\"" http://<b>localhost</b>/fcrepo/rest/images
+  curl -i -X POST --data-binary "@filename.jpg" -H "Slug: filename.jpg" -H "Content-Disposition: attachment; filename=\"filename.jpg\"" http://<b>localhost</b>/fcrepo/rest/images
   </pre>
 
 4. When you upload a binary from the UI, you will be redirected to the binary's _metadata_ resource.  Via the command line, you will be returned a `Location` header which points to the newly created binary resource itself.  Currently in Fedora, the URIs of a binary and its properties/metadata are distinct. Let's explore the metadata resource first.  Its URI will be something like: <code>http://**localhost**/fcrepo/rest/images/filename.jpg/fcr:metadata</code>.  Look at its headers using:
