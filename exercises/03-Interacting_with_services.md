@@ -58,7 +58,7 @@ In this exercise, we'll take a look at a fascinating image manipulation extensio
 `http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
 
 3. You should simply see the image in your browser.  According to its [documentation](https://gitlab.amherst.edu/acdc/repository-extension-services/tree/master/acrepo-exts-image) this image extension accepts a URL parameter called "options", the content of which is simply applied to the convert command line.  So let's re-size the image by adding an appropriate query param:
-<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-resize 200x200</em></code>
+<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-resize 200x200!</em></code>
   1. Maybe we want to invert the colors.  Try doing that: <code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate</em></code>
   2. Negate and flip:<code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-negate -flip</em></code>
 
