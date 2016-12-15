@@ -18,7 +18,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FUSEKI_HOST=fuseki
 * FUSEKI_PORT=3030
 * FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fcrepo-triple-index
-* APIX_VERSION=0.0.1-SNAPSHOT
+* APIX_VERSION=0.1.0
 * APIX_HOST=apix
 * APIX_PORT=80
 * APIX_INTERCEPT_PATH=fcrepo/rest

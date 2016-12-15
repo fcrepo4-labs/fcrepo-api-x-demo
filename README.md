@@ -25,7 +25,7 @@ If either of these commands fail to print out version information, then you'll n
 
 ## curl
 curl is available for [many platforms](https://curl.haxx.se/download.html), and is included by default some operating systems.  To determine if you have curl installed, obtain a command shell and run:
-  
+
     curl --version
 
 If no version information is printed, then you'll need to download and install curl, or otherwise troubleshoot your installation.  Any semi-modern version of curl ought to suffice.
@@ -56,7 +56,7 @@ To bring up the API-X environment, you need to:
 
 Depending on the speed of your platform, it may take a bit for the containers to download and to start.  Keep that in mind when you are verifying that the environment started up.  The containers should only be downloaded once.  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
 
-*Note:* To _destroy_ the environment, run `docker-compose down`; this will stop all services _and remove all data_, such that the next time you start the environment, it will be starting up from scratch.  To _stop_ the environment, run `docker-compose stop`; this will shut down the environment, but keep the data so that you can resume where you left off.  Use `docker-compose up -d` to start or re-start the environment. 
+*Note:* To _destroy_ the environment, run `docker-compose down`; this will stop all services _and remove all data_, such that the next time you start the environment, it will be starting up from scratch.  To _stop_ the environment, run `docker-compose stop`; this will shut down the environment, but keep the data so that you can resume where you left off.  Use `docker-compose up -d` to start or re-start the environment.
 
 ## Verification
 
@@ -73,7 +73,7 @@ Once you can verify that the environment is up and working, move on to some of t
 This repository provides Dockerfiles for the following images that will be run in containers orchestrated by docker-compose:
 
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
-* [apix](apix/0.0.1) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
+* [apix](apix/0.1.0) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
 * [fcrepo](fcrepo/4.7.0) - Provides a default-configured Fedora 4.7.0.
 * [fuseki](fuseki/2.3.1) - Provides a triplestore index of API-X service documents
-* [indexing](indexing/0.0.1) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestore up-to-date
+* [indexing](indexing/0.1.0) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestore up-to-date

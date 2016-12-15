@@ -15,7 +15,7 @@ services:
       - "8080:8080"
 
   indexing:
-    image: fcrepoapix/apix-indexing:latest
+    image: fcrepoapix/apix-indexing:0.1.0
     container_name: indexing
     env_file: apix.env
     ports:
@@ -42,7 +42,7 @@ services:
       - apix:localhost
 
   apix:
-    image: fcrepoapix/apix-core:latest
+    image: fcrepoapix/apix-core:0.1.0
     container_name: apix
     env_file: apix.env
     ports:
@@ -50,7 +50,7 @@ services:
       - "8081:8081"
     depends_on:
       - fcrepo
- 
+
   fits:
     image: fcrepoapix/apix-fits:1.0.3
     container_name: fits

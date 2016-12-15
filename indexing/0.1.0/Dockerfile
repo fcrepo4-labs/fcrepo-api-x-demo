@@ -4,7 +4,7 @@ MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with indexing features"
 
 # The version of API-X features being included in the image
-ENV APIX_VERSION=0.0.1-SNAPSHOT \
+ENV APIX_VERSION=0.1.0 \
     APIX_HOST=apix \
     APIX_PORT=80 \
     APIX_INTERCEPT_PATH=fcrepo/rest \

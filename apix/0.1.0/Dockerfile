@@ -9,7 +9,7 @@ ENV JAVA_DEBUG_PORT ${DEBUG_PORT}
 EXPOSE ${DEBUG_PORT}
 
 # The version of API-X being included in the image
-ENV APIX_VERSION 0.0.1-SNAPSHOT
+ENV APIX_VERSION 0.1.0
 
 # The Fedora repository base URI
 ENV FCREPO_HOST=fcrepo

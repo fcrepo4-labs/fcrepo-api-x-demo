@@ -16,7 +16,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FCREPO_PORT=8080
 * FCREPO_CONTEXT_PATH=/fcrepo
 * FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
-* APIX_VERSION=0.0.1-SNAPSHOT
+* APIX_VERSION=0.1.0
 * APIX_HOST=localhost
 * APIX_PORT=80
 * APIX_INTERCEPT_PATH=fcrepo/rest
