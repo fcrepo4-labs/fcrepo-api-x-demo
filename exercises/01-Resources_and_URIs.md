@@ -4,14 +4,13 @@ API-X supports a [proxy mode](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/
 
 <h2><a href="#ex1a" id="ex1a" class="anchor">A. Look at a Fedora object</a></h2>
 
-Look at a fedora object via direct and proxy URIs in order to compare and contrast representations:
+Look at a Fedora object via direct and proxy URIs in order to compare and contrast representations:
 
 1. Point your browser to the *proxied* fedora root object:  <code>http://**localhost**/fcrepo/rest</code>
 
 2. Look at the list of children.  Note that their URIs all begin with the *proxied* base URI
 
 3. Follow the link to the extensions child: <code>http://**localhost**/fcrepo/rest/apix/extensions</code>.  This is the API-X extension registry container.  You'll see that it already contains some extensions in it; we'll talk about these in another exercise.  Just like the root resource, all URIs are *proxy* URIs
-
 
 4. Now look at the extensions resource at the command line via curl.  Let's look at a HEAD request:
     <pre>
@@ -52,7 +51,7 @@ Binary resources in Fedora are a little more complicated than plain RDF objects.
     <pre>
     curl -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg/fcr:metadata
     </pre>
-You should see a link to a service document.  This is a service document for the _metadata_ of the binary resource.  The service document for the binary resource itself can be found by exploring its headers.  Before doing that, realize that you shouldn't try to construct a metadata URI given a binary resource URI or vice versa based on _a priori_ knowledge of how a particular Fedora implementation constructs its URIs.  Instead, look for `rel=describes` or `rel=describedby` headers, and follow those links.  When retrieving the headers for the metadata resource above, you should have seen a `rel=describes` link which points to the binary it describes.  Do a HEAD request on it
+You should see a link to a service document.  This is a service document for the _metadata_ of the binary resource.  The service document for the binary resource itself can be found by exploring _its_ headers.  Before doing that, realize that you shouldn't try to construct a metadata URI given a binary resource URI or vice versa based on _a priori_ knowledge of how a particular Fedora implementation constructs its URIs.  Instead, look for `rel=describes` or `rel=describedby` headers, and follow those links.  When retrieving the headers for the metadata resource above, you should have seen a `rel=describes` link which points to the binary it describes.  Do a HEAD request on it
     <pre>
     curl -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
     </pre>
