@@ -6,17 +6,19 @@ This repository provides Docker images and orchestration for various Fedora API-
 Before proceeding with the [evaluation tasks](exercises/README.md) in this for API-X you will need to download, install, and verify required software.  It does not make sense to proceed with the evaluation until these prerequisites are satisfied.
 
 ## Docker
-See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more information on getting started with Docker for your platform.  These three flavors of docker largely behave the same, as far as instructions for the demo are concerned:
+See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more information on getting started with Docker for your platform.  These four flavors of docker largely behave the same, as far as instructions for the demo are concerned:
 
 * [Docker for Mac](https://download.docker.com/mac/stable/Docker.dmg), or
 * [Docker for Windows](https://download.docker.com/win/stable/InstallDocker.msi), or
-* [Docker for Linux](https://docs.docker.com/engine/installation/)
+* [Docker for Linux](https://docs.docker.com/engine/installation/), or
+* [Docker Toolbox for Mac/Windows](https://www.docker.com/products/docker-toolbox) (a/k/a _docker-machine_)
 
-"Docker for Mac" and "Docker for Windows" place requirements significant requirements on the mimimum required OS version and features.  An additional flavor of Docker (which we'll refer to as _docker-machine_) runs Docker inside Virtualbox, and can be run on almost any OS.  Unfortunately, the evaluation instructions differ slightly for _docker-machine_.   
-* [Docker Toolbox for Mac/Windows](https://www.docker.com/products/docker-toolbox)
-  * You need to start an instance of docker-machine to run the docker containers.  See the [create a machine](https://docs.docker.com/machine/get-started/) documentation for how to do that.
+"Docker for Mac" and "Docker for Windows" place significant requirements on the mimimum required OS version and features.
 
-To verify you have the Docker platform installed correctly (or to check and see if you have Docker already installed), you should obtain a command shell and run:
+In contrast, the legacy flavor of Docker (which we'll refer to as _docker-machine_) runs Docker inside Virtualbox, and can be run on almost any OS.  Unfortunately, the evaluation instructions differ slightly for _docker-machine_.   
+* You need to start an instance of _docker-machine_ to run the docker containers.  See the [create a machine](https://docs.docker.com/machine/get-started/) documentation for how to do that.
+
+After installing *one* of the four variants of Docker above (or to simply check and see if you have Docker already installed), verify you have the Docker platform installed correctly. Obtain a command shell and run:
 
     docker -v
     docker-compose -v
