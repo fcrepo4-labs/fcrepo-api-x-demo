@@ -6,7 +6,7 @@ This repository provides Docker images and orchestration for various Fedora API-
 Before proceeding with the [evaluation tasks](exercises/README.md) in this for API-X you will need to download, install, and verify required software.  It does not make sense to proceed with the evaluation until these prerequisites are satisfied.
 
 ## Docker
-See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more information on getting started with Docker for your platform.  These three flavors of docker largely behave the same, as far as instrictions for the demo are concerned:
+See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more information on getting started with Docker for your platform.  These three flavors of docker largely behave the same, as far as instructions for the demo are concerned:
 
 * [Docker for Mac](https://download.docker.com/mac/stable/Docker.dmg), or
 * [Docker for Windows](https://download.docker.com/win/stable/InstallDocker.msi), or
