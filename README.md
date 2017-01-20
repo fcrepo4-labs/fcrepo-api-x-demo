@@ -65,7 +65,7 @@ Depending on the speed of your platform, it may take a bit for the containers to
 _**docker-machine users only** You will need to find the IP address of your Docker Machine (try `docker-machine ip default`), and use that IP address anywhere you see `localhost` in the following instructions._
 
 * Visit `http://localhost:8080/fcrepo/rest` and see the Fedora REST API web page
-* Visit `http://localhost:9102/jsonld/` to directly invole an Amherst service and see a JSON LD representation of the root Fedora container.
+* Visit `http://localhost:9102/jsonld/` to directly invoke an Amherst service and see a JSON LD representation of the root Fedora container.
 * Visit `http://localhost/fcrepo/rest` and see a a Fedora resource as exposed by API-X
 
 Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](exercises/README.md).
