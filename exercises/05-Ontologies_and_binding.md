@@ -17,7 +17,7 @@ This exercise explores aspects related to [binding](https://github.com/fcrepo4-l
     * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; rdf:type &lt;<span>http://pcdm.org/models#Object</span>&gt;}</code>, and click _update_
     * If using the command line, do
     <pre>
-    curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</span>&gt; &lt;<span>http://pcdm.org/models#Object</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/extensions/pcdm
+    curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</span>&gt; &lt;<span>http://pcdm.org/models#Object</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/apix/extensions/pcdm
     </pre>
     * In either case, you need to write out the whole pcdm namespace, rather than using a convenient prefix like `pcdm:`.  This is due to the relative difficulty of defining prefixes and namespaces in Fedora, which is outside of the scope of this exercise.
   3. Look again at the service document of the object. <code>http://localhost/discovery/apix/extensions/pcdm</code>  Do you see the pcdm service endpoint now?  Good!
