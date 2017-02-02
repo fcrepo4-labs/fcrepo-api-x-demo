@@ -1,16 +1,11 @@
 ## fuseki Dockerfile
 
-This image provides a Fuseki runtime.
+This image provides a Fuseki runtime with two indexes: one available at `/fuseki/service-index` and another available at `/fuseki/fcrepo-triple-index`.
 
 ## Environment variables and default values
 
-* APPS=/opt
-* SHARED=/shared
-* FUSEKI_VERSION=2.3.1
-* FUSEKI_HOME=${APPS}/apache-jena-fuseki-2.3.1
-* FUSEKI_BASE=${SHARED}/fuseki-data
-* FUSEKI_JAR=fuseki-server.jar
-* FUSEKI_DEFAULT_DATASET=/fcrepo-triple-index
+* FUSEKI_VERSION=2.4.1
+* FUSEKI_BASE=/shared/fuseki-data
 * DEBUG_PORT=5009
 
 ## Exposed ports
@@ -18,23 +13,13 @@ This image provides a Fuseki runtime.
 * 3030
 * ${DEBUG_PORT}
 
-## entrypoint
-
-The [entrypoint](entrypoint.sh) is used to evaluate any environment variables that may have been set at run time, such as `${DEBUG_PORT}`.
-
 ## Example Usage
 
 #### Starting
 
 Logs displayed to the console, allows container to be killed using CTRL-C.
 
-`$ docker run -ti emetsger/apix-fuseki:2.3.1`
-
-#### Debugging
-
-Enable Java remote debugging on `${DEBUG_PORT}`
-
-`$ docker run -ti -e DEBUG emetsger/apix-fuseki:2.3.1`
+`$ docker run -ti fcrepoapix/apix-fuseki:2.4.1`
 
 #### Display logs
 
@@ -50,4 +35,4 @@ To obtain a shell in a running container, first [start the container](#starting)
 
 Alternately, to simply shell into a non-existent container, override the entrypoint:
 
-`$ docker run -ti --entrypoint=/bin/bash emetsger/apix-fuseki:2.3.1`
+`$ docker run -ti --entrypoint=/bin/ash fcrepoapix/apix-fuseki:2.4.1`

@@ -9,10 +9,12 @@ services:
       - "3030:8080"
 
   fcrepo:
-    image: fcrepoapix/apix-fcrepo:4.7.0
+    image: fcrepoapix/apix-fcrepo:4.7.1
     container_name: fcrepo
+    env_file: apix.env
     ports:
-      - "8080:8080"
+      - "8080:80"
+      - "5006:5006"
 
   indexing:
     image: fcrepoapix/apix-indexing:latest
@@ -20,6 +22,7 @@ services:
     env_file: apix.env
     ports:
       - "9090:9090"
+      - "5010:5010"
     depends_on:
       - fcrepo
       - fuseki

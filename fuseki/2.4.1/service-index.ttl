@@ -5,15 +5,30 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix fuseki: <http://jena.apache.org/fuseki#> .
 
-:service_tdb_all  a                   fuseki:Service ;
+:service_tdb_service_index  a                   fuseki:Service ;
   rdfs:label                    "service-index" ;
-  fuseki:dataset                :tdb_dataset_readwrite ;
+  fuseki:dataset                :tdb_dataset_service_index ;
   fuseki:name                   "service-index" ;
   fuseki:serviceQuery           "query" , "sparql" ;
   fuseki:serviceReadGraphStore  "get" ;
   fuseki:serviceReadWriteGraphStore "data" ;
   fuseki:serviceUpdate          "update" ;
   fuseki:serviceUpload          "upload" .
-										:tdb_dataset_readwrite
+
+:tdb_dataset_service_index
       a             tdb:DatasetTDB ;
       tdb:location  "/shared/service-index_data" .
+
+:service_tdb_fcrepo_triple_index  a                   fuseki:Service ;
+  rdfs:label                    "fcrepo-triple-index" ;
+  fuseki:dataset                :tdb_dataset_fcrepo_triple_index ;
+  fuseki:name                   "fcrepo-triple-index" ;
+  fuseki:serviceQuery           "query" , "sparql" ;
+  fuseki:serviceReadGraphStore  "get" ;
+  fuseki:serviceReadWriteGraphStore "data" ;
+  fuseki:serviceUpdate          "update" ;
+  fuseki:serviceUpload          "upload" .
+
+:tdb_dataset_fcrepo_triple_index
+      a             tdb:DatasetTDB ;
+      tdb:location  "/shared/fcrepo-triple-index_data" .

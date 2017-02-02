@@ -9,7 +9,7 @@ ENV APIX_VERSION=0.2.0-SNAPSHOT \
     APIX_PORT=80 \
     APIX_INTERCEPT_PATH=fcrepo/rest \
     FCREPO_HOST=fcrepo \
-    FCREPO_PORT=8080 \
+    FCREPO_PORT=80 \
     FCREPO_CONTEXT_PATH=/fcrepo \
     FUSEKI_HOST=fuseki \
     FUSEKI_PORT=8080 \
@@ -21,6 +21,7 @@ ENV APIX_VERSION=0.2.0-SNAPSHOT \
 RUN bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-indexing" && \
+    bin/client -r 10 -d 5  "feature:install fcrepo-indexing-triplestore" && \
     bin/stop
 
 

@@ -14,7 +14,8 @@ RUN export FUSEKI_DIST=${FUSEKI_VERSION}/jena-fuseki-war-${FUSEKI_VERSION}.war  
     echo "aa3948d154dc32083524232f3e44894059698a4e *${CATALINA_HOME}/webapps/fuseki.war" \
         | sha1sum -c -                                                             && \
     mkdir -p ${FUSEKI_BASE}/configuration && \
-    mkdir -p ${FUSEKI_BASE}/service-index_data
+    mkdir -p ${FUSEKI_BASE}/service-index_data && \
+    mkdir -p ${FUSEKI_BASE}/fcrepo-triple-index_data
 
 COPY shiro.ini ${FUSEKI_BASE}
 COPY service-index.ttl ${FUSEKI_BASE}/configuration
