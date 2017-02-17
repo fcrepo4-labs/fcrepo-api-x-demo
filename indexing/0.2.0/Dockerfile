@@ -5,9 +5,6 @@ LABEL description = "Provides a Karaf container configured with indexing feature
 
 # The version of API-X features being included in the image
 ENV APIX_VERSION=0.2.0-SNAPSHOT \
-    APIX_HOST=apix \
-    APIX_PORT=80 \
-    APIX_INTERCEPT_PATH=fcrepo/rest \
     FCREPO_HOST=fcrepo \
     FCREPO_PORT=80 \
     FCREPO_CONTEXT_PATH=/fcrepo \
@@ -26,7 +23,6 @@ RUN bin/start && \
 
 
 ENV JAVA_DEBUG_PORT=${DEBUG_PORT} \
-    APIX_BASEURI=http://${APIX_HOST}:${APIX_PORT}/${APIX_INTERCEPT_PATH} \
     FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fuseki/service-index \
     FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
 

@@ -19,10 +19,6 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FUSEKI_PORT=3030
 * FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fcrepo-triple-index
 * APIX_VERSION=0.2.0-SNAPSHOT
-* APIX_HOST=apix
-* APIX_PORT=80
-* APIX_INTERCEPT_PATH=fcrepo/rest
-* APIX_BASEURI=http://${APIX_HOST}:${APIX_PORT}/${APIX_INTERCEPT_PATH}
 * APIX_REINDEXING_SERVICE_URI=http://0.0.0.0:9090/reindexing
 
 *N.B.:* If you want to change the remote debugging port, you will need to set the `JAVA_DEBUG_PORT` environment variable, _not_ `DEBUG_PORT`.
@@ -39,21 +35,21 @@ By default this container does _not_ start a Karaf console, and will emit logs t
 #### Starting a container in the background
 
 No logs emitted to console:
-`$ docker run -d emetsger/apix-indexing`
+`$ docker run -d fcrepoapix/apix-indexing`
 
 #### Starting a container in the foreground
 
 Logs emitted to console, allows CTRL-C to stop the container:
-`$ docker run -ti emetsger/apix-indexing`
+`$ docker run -ti fcrepoapix/apix-indexing`
 
 #### Start a container for debugging purposes
 
 Debugger can then be attached to port 5010, logs emitted to console, allows CTRL-C to stop container:
-`$ docker run -p "5010:5010" emetsger/apix-indexing debug`
+`$ docker run -p "5010:5010" fcrepoapix/apix-indexing debug`
 
 To use a different debugging port (in this example 4000):
 
-`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" emetsger/apix-indexing debug`
+`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" fcrepoapix/apix-indexing debug`
 
 #### View container console log
 
@@ -69,4 +65,4 @@ It seems that backspace (or other keys) do not work when executing the client.  
 
 Useful when you wish to expose unpublished Maven artifacts or Karaf features to the container.
 
-`$ docker run -ti -v ~/.m2/repository:/build/repository emetsger/apix-indexing:latest`
+`$ docker run -ti -v ~/.m2/repository:/build/repository fcrepoapix/apix-indexing:latest`

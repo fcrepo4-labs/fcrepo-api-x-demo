@@ -2,7 +2,6 @@
 This repository provides Docker images and orchestration for various Fedora API-X components in support of [demonstrating and evaluating](exercises/README.md) API-X in action.  
 
 # Requirements
-
 Before proceeding with the [evaluation tasks](exercises/README.md) in this for API-X you will need to download, install, and verify required software.  It does not make sense to proceed with the evaluation until these prerequisites are satisfied.
 
 ## Docker
@@ -33,7 +32,6 @@ curl is available for [many platforms](https://curl.haxx.se/download.html), and 
 If no version information is printed, then you'll need to download and install curl, or otherwise troubleshoot your installation.  Any semi-modern version of curl ought to suffice.
 
 # Getting Started
-
 To bring up the API-X environment, you need to:
 
 1. Install Docker and verify the installation (above)
@@ -45,13 +43,11 @@ To bring up the API-X environment, you need to:
   <pre>
   touch apix.env
   </pre>
-5. **_docker-machine_ users only:** set the `APIX_HOST` and `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
+5. **_docker-machine_ users only:** set the `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
     * `docker-machine ip default` (ensure the output is an IP address, and not an error message)
-    * <code>echo "APIX_HOST=&#x60;docker-machine ip default&#x60;" > apix.env</code>
     * <code>echo "APIX_BASEURI=http://&#x60;docker-machine ip default&#x60;/fcrepo/rest" >> apix.env</code>
     * Here's an example `apix.env` file using a docker machine with IP of 192.168.99.100
     <pre>
-    APIX_HOST=192.168.99.100
     APIX_BASEURI=http://192.168.99.100/fcrepo/rest
     </pre>
 5. Invoke `docker-compose up -d`
@@ -60,22 +56,60 @@ Depending on the speed of your platform, it may take a bit for the containers to
 
 *Note:* To _destroy_ the environment, run `docker-compose down`; this will stop all services _and remove all data_, such that the next time you start the environment, it will be starting up from scratch.  To _stop_ the environment, run `docker-compose stop`; this will shut down the environment, but keep the data so that you can resume where you left off.  Use `docker-compose up -d` to start or re-start the environment.
 
-## Verification
+## Using alternate ports
+By default, the API-X environment will publish several services, binding to a number of ports in the process.  
 
+Users of _Docker for Mac_, _Docker for Windows_, or _Docker for Linux_ may experience port conflicts with non-API-X services that are already running on the local host.  If shutting down the conflicting services is not an option, it will be necessary to map the API-X-related services to alternate ports.  This can be done by editing the [port mappings](https://docs.docker.com/compose/compose-file/compose-file-v2/#/ports) in `docker-compose.yaml`.  **Note:** After modifying `docker-compose.yaml` you will need to destroy and re-build the containers, performing a `docker-compose down` followed by `docker-compose up -d`.
+
+For example, to publish the API-X proxy on port `8000` instead of the default port `80`, edit the `ports:` section, changing `80:80` to `8000:80`:
+
+(original, port 80)
+
+<pre>
+    apix:
+      image: fcrepoapix/apix-core:latest
+      container_name: apix
+      env_file: apix.env
+      <b>ports:</b>
+        - "<b>80</b>:80"
+        - "8081:8081"
+      depends_on:
+        - fcrepo
+</pre>
+
+(updated, port 8000)
+
+<pre>
+    apix:
+      image: fcrepoapix/apix-core:latest
+      container_name: apix
+      env_file: apix.env
+      <b>ports:</b>
+        - "<b>8000</b>:80"
+        - "8081:8081"
+      depends_on:
+        - fcrepo
+</pre>
+
+If the published port of the API-X proxy is modified from port `80`, you **_must_** create or edit a file named `apix.env` in the same directory as `docker-compose.yaml`, and add a single line defining the `APIX_BASEURI` environment variable.  If you modified the value to `8000`, an example `apix.env` file would contain:
+<pre>
+APIX_BASEURI=http://localhost:8000/fcrepo/rest
+</pre>
+
+## Verification
 _**docker-machine users only** You will need to find the IP address of your Docker Machine (try `docker-machine ip default`), and use that IP address anywhere you see `localhost` in the following instructions._
 
 * Visit `http://localhost:8080/fcrepo/rest` and see the Fedora REST API web page
 * Visit `http://localhost:9102/jsonld/` to directly invoke an Amherst service and see a JSON LD representation of the root Fedora container.
-* Visit `http://localhost/fcrepo/rest` and see a a Fedora resource as exposed by API-X
+* Visit `http://localhost/fcrepo/rest` and see a Fedora resource as exposed by API-X
 
 Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](exercises/README.md).
 
 # Image descriptions
-
 This repository provides Dockerfiles for the following images that will be run in containers orchestrated by docker-compose:
 
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
-* [apix](apix/0.1.0) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
-* [fcrepo](fcrepo/4.7.0) - Provides a default-configured Fedora 4.7.0.
-* [fuseki](fuseki/2.3.1) - Provides a triplestore index of API-X service documents
-* [indexing](indexing/0.1.0) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestore up-to-date
+* [apix](apix/0.2.0) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
+* [fcrepo](fcrepo/4.7.1-tomcat) - Provides a default-configured Fedora 4.7.1.
+* [fuseki](fuseki/2.4.1) - Provides a triplestore index of API-X service documents and repository objects
+* [indexing](indexing/0.2.0) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
