@@ -17,7 +17,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
 * FUSEKI_HOST=fuseki
 * FUSEKI_PORT=3030
-* FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fcrepo-triple-index
+* FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/service-index
 * APIX_VERSION=0.2.0-SNAPSHOT
 * APIX_REINDEXING_SERVICE_URI=http://0.0.0.0:9090/reindexing
 

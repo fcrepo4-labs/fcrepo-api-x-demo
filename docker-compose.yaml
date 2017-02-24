@@ -1,25 +1,27 @@
 version: "2"
 
+
 services:
 
   fuseki:
     image: fcrepoapix/apix-fuseki:2.4.1
+    env_file: .env
     container_name: fuseki
     ports:
-      - "3030:8080"
+      - "${FUSEKI_PORT}:${FUSEKI_PORT}"
 
   fcrepo:
     image: fcrepoapix/apix-fcrepo:4.7.1
     container_name: fcrepo
-    env_file: apix.env
+    env_file: .env
     ports:
-      - "8080:80"
+      - "${FCREPO_PORT}:${FCREPO_PORT}"
       - "5006:5006"
 
   indexing:
     image: fcrepoapix/apix-indexing:latest
     container_name: indexing
-    env_file: apix.env
+    env_file: .env
     ports:
       - "9090:9090"
       - "5010:5010"
@@ -32,13 +34,14 @@ services:
   acrepo:
     image: fcrepoapix/apix-acrepo:latest
     container_name: acrepo
+    env_file: .env
     ports:
-      - "9102:9102"
-      - "9103:9103"
-      - "9104:9104"
-      - "9105:9105"
-      - "9106:9106"
-      - "9107:9107"
+      - "${ACREPO_FITS_PORT}:${ACREPO_FITS_PORT}"
+      - "${ACREPO_IMAGE_PORT}:${ACREPO_IMAGE_PORT}"
+      - "${ACREPO_JSONLD_PORT}:${ACREPO_JSONLD_PORT}"
+      - "${ACREPO_PCDM_PORT}:${ACREPO_PCDM_PORT}"
+      - "${ACREPO_SERIALIZE_XML_PORT}:${ACREPO_SERIALIZE_XML_PORT}"
+      - "${ACREPO_TEMPLATE_PORT}:${ACREPO_TEMPLATE_PORT}"
     depends_on:
       - fcrepo
     links:
@@ -47,15 +50,16 @@ services:
   apix:
     image: fcrepoapix/apix-core:latest
     container_name: apix
-    env_file: apix.env
+    env_file: .env
     ports:
-      - "80:80"
-      - "8081:8081"
+      - "${APIX_PORT}:${APIX_PORT}"
+      - "${APIX_LOADER_PORT}:${APIX_LOADER_PORT}"
     depends_on:
       - fcrepo
 
   fits:
     image: fcrepoapix/apix-fits:1.0.3
     container_name: fits
+    env_file: .env
     ports:
-      - "8082:8080"
+      - "${FITS_PORT}:${FITS_PORT}"

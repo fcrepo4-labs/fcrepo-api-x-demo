@@ -25,5 +25,8 @@ RUN  wget -O ${CATALINA_HOME}/webapps/fits.war \
     && echo "shared.loader=\${fits.home}/lib/*.jar" \
      >> ${CATALINA_HOME}/conf/catalina.properties
 
-    
+COPY entrypoint.sh /
 
+RUN chmod 700 /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
