@@ -17,22 +17,27 @@ ENV FCREPO_HOST localhost
 ENV FCREPO_PORT 80
 ENV FCREPO_CONTEXT_PATH /fcrepo
 
+ENV ACREPO_VERSION 1.0.99-SNAPSHOT
 
 ADD maven/ /build/repository/
+
+# Allow the string "acrepo" to be recognized by Karaf as the Amherst feature repository
+
+RUN echo "acrepo=mvn:edu.amherst.acdc/acrepo-karaf/${ACREPO_VERSION}/xml/features" >> etc/org.apache.karaf.features.repos.cfg
+
+# Add acrepo as a registered features repository by default
+
+RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/xml/features\):\1, \\\
+    mvn\:edu.amherst.acdc/acrepo-karaf/${ACREPO_VERSION}/xml/features \\\:" \
+        -i etc/org.apache.karaf.features.cfg
 
 # Install all of the latest features found in the acrepo features repository (typically these features will be SNAPSHOT versions)
 
 RUN bin/start && \
-    bin/client -r 10 -d 5  "feature:repo-add mvn:org.apache.activemq/activemq-karaf/5.14.2/xml/features" && \
-    bin/client -r 10 -d 5  "feature:repo-add mvn:org.apache.camel.karaf/apache-camel/2.18.2/xml/features" && \
-    bin/client -r 10 -d 5  "feature:repo-add -i mvn:edu.amherst.acdc/acrepo-karaf/LATEST/xml/features" && \
-    #bin/client -r 10 -d 5  "feature:install acrepo-exts-image acrepo-exts-pcdm acrepo-exts-serialize-xml acrepo-exts-template acrepo-exts-fits acrepo-exts-jsonld " && \
+    bin/client -r 10 -d 5  "feature:repo-add mvn:edu.amherst.acdc/acrepo-karaf/${ACREPO_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5  "feature:install acrepo-exts-image acrepo-exts-pcdm acrepo-exts-fits acrepo-exts-jsonld acrepo-exts-serialize-xml" && \
     /bin/sleep 15 && \
-    #[[ \"`bin/client -r 10 -d 5  "feature:list" | grep acrepo | grep -v Started`\" == \"\" ]] && \
-    #[[ \"`bin/client -r 10 -d 5  "bundle:list"  | grep acrepo | grep -v Active`\"  == \"\" ]] && \
     bin/stop
-
-COPY cfg/* etc/
 
 # Update the Karaf logging configuration so that `bin/karaf` will echo logging
 # to the console, viewable by `docker logs`.  This makes using the Karaf console

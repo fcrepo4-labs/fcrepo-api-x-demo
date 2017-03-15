@@ -32,7 +32,7 @@ services:
       - apix:localhost
 
   acrepo:
-    image: fcrepoapix/apix-acrepo:latest
+    image: fcrepoapix/apix-acrepo:1.0.99
     container_name: acrepo
     env_file: .env
     ports:
