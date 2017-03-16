@@ -1,5 +1,9 @@
 <h1><a href="#ex4" id="ex4" class="anchor">Exercise 4: Loading and deploying extensions</a></h1>
 
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+
 The current API-X implementation uses LDP containers in Fedora as registries for extensions, services, and ontologies.  It's possible to add an extension to API-X simply by depositing the right kind of objects into the right containers.  However, there's an even easier way.  Included in API-X is a Loader service that allows service instances to manually or self-register.  This set of exercises explores this loader to deploy extensions into API-X.
 
 <h2><a href="#ex4a" id="ex4a" class="anchor">A. Registries</a></h2>

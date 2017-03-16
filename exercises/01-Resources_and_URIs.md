@@ -1,5 +1,9 @@
 <h1><a href="#ex1" id="ex1" class="anchor">Exercise 1: Resources and URIs</a></h1>
 
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+
 API-X supports a [proxy mode](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/uris-in-apix.md#api-x-intercepting-uris) that is used to support the [intercepting](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/execution-and-routing.md#intercepting-modality) extension modality, and link to a [service document](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/service-discovery-and-binding.md#service-document) for each resource which itself links to all services exposed on the object by API-X.  This exercise will explore the out-of-the-box of API-X proxy mode.  We'll call links directly to Fedora *direct* links, and links via the API-X proxy *proxied*.  Typically, the *proxied* URIs are made public (and shared/linked by others on the Internet at large), whereas the *direct* URIs are used by internal infrastructure for specific purposes.
 
 <h2><a href="#ex1a" id="ex1a" class="anchor">A. Look at a Fedora object</a></h2>

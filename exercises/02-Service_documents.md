@@ -1,4 +1,9 @@
 <h1><a href="#ex2" id="ex2" class="anchor">Exercise 2: Service Documents</a></h1>
+
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+
 [Service documents](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/service-discovery-and-binding.md#service-document) list and describe the services that API-X extensions expose on a given object, using the API-X [service ontology](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/fcrepo-api-x-ontology/src/main/resources/ontologies/apix-service.ttl).  [Evaluation task (1)](01-Resources_and_URIs.md#ex1) explored looking at HTTP headers, which is the mechanism by which API-X links to service documents.  This set of evaluation tasks involves exploring and using these documents to locate extensions.  Although each task involves manual steps, consider what it would take to perform each task programmatically in your favorite language.  Bonus points for actually writing a program that interacts with service documents.
 
 <h2><a href="#ex2a" id="ex2a" class="anchor">A. Retrieve and analyze a service document</a></h2>
