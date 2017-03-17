@@ -72,7 +72,7 @@ For example, to publish the API-X proxy on port `8000` instead of the default po
 If you wish to move the Fedora repository from port `8080` to port `10000`, modify:
 * `FCREPO_PORT` to read `FCREPO_PORT=10000`
 * `FCREPO_BASEURI` to read `FCREPO_BASEURI=http://fcrepo:10000/fcrepo/rest`
-* `FCREPO_PROXYURI` to read `FCREPO_PROXYURI=http://fcrepo:8080/fcrepo`
+* `FCREPO_PROXYURI` to read `FCREPO_PROXYURI=http://fcrepo:10000/fcrepo`
 
 **Note:** After saving your changes to `.env`, you will need to destroy and re-build the containers, performing a `docker-compose down` followed by `docker-compose up -d`.  Double-check your changes to the `.env` file, being aware of any potential typos!!
 
