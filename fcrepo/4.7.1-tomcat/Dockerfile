@@ -17,15 +17,31 @@ RUN apk --no-cache update   && \
     apk --no-cache add         \
       curl                     \
       gettext                  \
+      git                      \
+      maven                    \
+      openjdk8                 \
       net-tools             && \
     rm -rf /var/cache/apk/* && \
- curl -L \
- https://github.com/fcrepo4/fcrepo4/releases/download/${FCREPO_WEBAPP} \
-    > ${CATALINA_HOME}/webapps/fcrepo.war \
- && echo "fcrepo.modeshape.configuration=classpath:/config/file-simple/repository.json" \
-    >> ${CATALINA_HOME}/conf/catalina.properties \
- && echo "org.apache.catalina.webresources.Cache.level = SEVERE" \
-    >> ${CATALINA_HOME}/conf/logging.properties
+
+    git clone https://github.com/fcrepo4/fcrepo4.git                                     && \
+    cd fcrepo4                                                                           && \
+    git config --global user.email "emetsger@jhu.edu"                                    && \
+    git config --global user.name "Fcrepo API-X Container"                               && \
+    git checkout -b 4.7.1 fcrepo-4.7.1                                                   && \
+    git cherry-pick 447728cf                                                             && \
+    git cherry-pick da933468                                                             && \
+    PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
+      mvn clean verify -Djavadoc.skip -Dcheckstyle.skip -Denforcer.skip -DskipTests      && \
+    cp fcrepo-webapp/target/fcrepo-webapp-4.7.1.war \
+      ${CATALINA_HOME}/webapps/fcrepo.war                                                && \
+    echo "fcrepo.modeshape.configuration=classpath:/config/file-simple/repository.json" \
+      >> ${CATALINA_HOME}/conf/catalina.properties \                                     && \
+    echo "org.apache.catalina.webresources.Cache.level = SEVERE" \
+      >> ${CATALINA_HOME}/conf/logging.properties                                        && \
+    cd ..                                                                                && \
+    rm -rf fcrepo4                                                                       && \
+    rm -rf /build/repository                                                             && \
+    rm -rf ~/.m2
 
 COPY entrypoint.sh /
 

@@ -45,24 +45,15 @@ It will let you know if it pulls in any updates to images.  If so, you can simpl
 
     docker-compose up -d
 
-## [Accessing web services](#access-ws)
+## [Non-default URIs and ports](#uris)
 
-By default, Docker exposes ports from running containers and makes them available to your local machine.  That is to say, if Fedora is running on port `8080` and its container exposes port `8080`, then Docker can expose port `8080` on your local machine such that the URI `http://localhost:8080` will be routed to the Fedora container.  If you have any locally running services, these can conflict with the ports used by the demo.  You either need to stop your local services, edit the `docker-compose.yaml` file so that the services use different ports, or use _docker-machine_.
+As mentioned in the [alternate ports](../README.md#alternate-ports) and [verification](../README.md#verification) sections, users may have modified their environment (the `.env` file) for a couple of reasons:
+* You are a *docker-machine* user, and have modified the `APIX_BASEURI` to point to the IP address of your docker machine
+* You have a port conflict, and have modified one or more API-X-related services to use a different port.
 
-The default ports are
+It is important to remember as you go through the exercises that you may need to modify the bold **localhost** URIs, especially if you have modified your `APIX_BASEURI` or `APIX_PORT`.
 
-* 80 - API-X
-* 3030 - Fuseki (triple store)
-* 8080 - Fedora
-* 8081 - API-X Loader Service
-* 9102-9107 - Various Amherst services
-
-
-### [Docker-machine URIs](#docker-machine-uris)
-
-_**This section is for docker-machine users only**.  All others can safely ignore this section, and simply cut and past URIs as present in the evaluation task instructions._
-
-As mentioned in the [verification section](../README.md#verification), throughout the evaluation instructions the bold localhost in URIs should be replaced with your docker-machine IP address if you’re running docker via docker-machine.  For example you may need to replace this
+For example, if you have modified your APIX_BASEURI and API_PORT to `http://192.168.99.100:10000/fcrepo/rest` and `10000`, respectively, you must replace this
 
 <pre>
 http://<b>localhost</b>/fcrepo/rest/path/to/object
@@ -71,7 +62,11 @@ http://<b>localhost</b>/fcrepo/rest/path/to/object
 with
 
 <pre>
-http://<b>192.168.99.100</b>/fcrepo/rest/path/to/object
+http://<b>192.168.99.100:10000</b>/fcrepo/rest/path/to/object
 </pre>
 
-where `192.168.99.100` is the IP address of your docker-machine.
+To that end, each exercise carries the following reminder at the top of the page:
+
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*

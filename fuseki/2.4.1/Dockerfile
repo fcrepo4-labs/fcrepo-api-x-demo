@@ -5,7 +5,7 @@ ENV FUSEKI_BASE            /shared/fuseki-data
 
 ENV DEBUG_PORT 5009
 
-EXPOSE 3030
+EXPOSE 8080
 EXPOSE ${DEBUG_PORT}
 
 RUN export FUSEKI_DIST=${FUSEKI_VERSION}/jena-fuseki-war-${FUSEKI_VERSION}.war      && \
@@ -19,3 +19,9 @@ RUN export FUSEKI_DIST=${FUSEKI_VERSION}/jena-fuseki-war-${FUSEKI_VERSION}.war  
 
 COPY shiro.ini ${FUSEKI_BASE}
 COPY service-index.ttl ${FUSEKI_BASE}/configuration
+
+COPY entrypoint.sh /
+
+RUN chmod 700 /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]

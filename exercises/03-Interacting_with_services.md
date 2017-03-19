@@ -1,5 +1,9 @@
 <h1><a href="#ex3" id="ex3" class="anchor">Exercise 3: Interacting with Services</a></h1>
 
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+
 This set of tasks explores interacting with a variety of extensions that provide a variety of different "APIs".  
 
 <h2><a href="#ex3a" id="ex3a" class="anchor">A. Passive resource-scoped service</a></h2>

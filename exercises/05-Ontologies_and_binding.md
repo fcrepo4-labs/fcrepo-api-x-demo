@@ -1,5 +1,9 @@
 <h1><a href="#ex5" id="ex5" class="anchor">Exercise 5: Ontologies and binding</a></h1>
 
+> *Please remember:*
+> *The instructions below use the **default** URLs and ports found in the environment file*  
+> *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+
 This exercise explores aspects related to [binding](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#extension-binding) services to repository objects, as well as management of owl ontologies.  The [bindsTo](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#apixbindsto) relationship specifies the class of objects that an extension binds to.  The simplest case is when an object has an `rdf:type` property that matches a given extension.  Otherwise, [owl reasoning](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#owl-reasoning) may be used to infer membership in a particular class based on the characteristics/properties of a given repository object.  
 
 <h2><a href="#ex5a" id="ex5a" class="anchor">A. Simple binding by type</a></h2>
