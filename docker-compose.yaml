@@ -4,14 +4,14 @@ version: "2"
 services:
 
   fuseki:
-    image: fcrepoapix/apix-fuseki:2.4.1
+    image: fcrepoapix/apix-fuseki:2.4.1-1
     env_file: .env
     container_name: fuseki
     ports:
       - "${FUSEKI_PORT}:${FUSEKI_PORT}"
 
   fcrepo:
-    image: fcrepoapix/apix-fcrepo:4.7.1
+    image: fcrepoapix/apix-fcrepo:4.7.1-1
     container_name: fcrepo
     env_file: .env
     ports:
@@ -19,7 +19,7 @@ services:
       - "5006:5006"
 
   indexing:
-    image: fcrepoapix/apix-indexing:latest
+    image: fcrepoapix/apix-indexing:0.2.0-SNAPSHOT-1
     container_name: indexing
     env_file: .env
     ports:
@@ -48,7 +48,7 @@ services:
       - apix:localhost
 
   apix:
-    image: fcrepoapix/apix-core:latest
+    image: fcrepoapix/apix-core:0.2.0-SNAPSHOT-1
     container_name: apix
     env_file: .env
     ports:
@@ -58,7 +58,7 @@ services:
       - fcrepo
 
   fits:
-    image: fcrepoapix/apix-fits:1.0.3
+    image: fcrepoapix/apix-fits:1.0.3-1
     container_name: fits
     env_file: .env
     ports:
