@@ -130,7 +130,7 @@ This assures that all subsequent builds (regardless of host they are built on) u
 
 ### Base images
 
-`docker-compose build` only builds images defined in a given `docker-compose.yaml` file.  Some images (such as `apix-core`) are built on top of other images provied by api-x, such as `fcrepoapix/apix-karaf/4.0.7`.  Karaf would be consider a _base image_.  Normally, base images will simply be pulled in by dockerhub.  However, if specifically re-building a base image, or incrementing the version of one, then base images need to be specifically built and pushed to the dockerhub separately.
+`docker-compose build` only builds images defined in a given `docker-compose.yaml` file.  Some images (such as `apix-core`) are built on top of other images provied by api-x, such as `fcrepoapix/apix-karaf:4.0.7`.  Karaf would be considered a _base image_.  Normally, base images will simply be pulled in by dockerhub.  However, if specifically re-building a base image, or incrementing the version of one, then base images need to be specifically built and pushed to the dockerhub separately.
 
 Base image directories (e.g. [karaf](karaf)) have their own `docker-compose.yaml` files that obey the same conventions.  So `docker-compose` can be used to build them as well. 
 
