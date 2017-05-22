@@ -1,0 +1,8 @@
+version: "2"
+
+
+services:
+
+    karaf_base_image:
+      image: fcrepoapix/apix-karaf:4.0.7
+      build: 4.0.7
