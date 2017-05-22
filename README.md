@@ -90,7 +90,53 @@ Once you can verify that the environment is up and working, move on to some of t
 This repository provides Dockerfiles for the following images that will be run in containers orchestrated by docker-compose:
 
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
-* [apix](apix/0.2.0) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
-* [fcrepo](fcrepo/4.7.1-tomcat) - Provides a default-configured Fedora 4.7.1.
-* [fuseki](fuseki/2.4.1) - Provides a triplestore index of API-X service documents and repository objects
-* [indexing](indexing/0.2.0) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
+* [apix](apix/0.3.0-SNAPSHOT) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
+* [fcrepo](fcrepo/4.7.1-1) - Provides a default-configured Fedora 4.7.1.
+* [fuseki](fuseki/2.4.1-1) - Provides a triplestore index of API-X service documents and repository objects
+* [indexing](indexing/0.3.0-SNAPSHOT) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
+
+# Developer Documentation
+
+This section is for developers wishing to update and build images
+
+## Naming conventions
+
+In this repository, the `Dockerfile` for an image that contains a particular version of software should be placed in a directory that correponds to the version number.  For example, version `1.2.3` of `foo` should be found in `foo/1.2.3`.  
+
+The suffix `-N` (as in `foo/1.2.3-1` or `foo/1.2.3-2`) is used to distinguish mutually incompatible images containing the same version of software.  That is to say, if the image changes in an incompatible manner (such as refactoring the names of configuration environment variables), then the version should be incremented by appending a suffix.  
+
+## Building images
+
+The `docker-compose.yaml` file contains `build` instructions that point to the directory containing the `Dockerfile` that builds the corresponding image.  For example:
+
+      fcrepo:
+        image: fcrepoapix/apix-fcrepo:4.7.1-1
+        build: fcrepo/4.7.1-1
+Note that due to the naming conventions above, the image tag will match the terminal directory in the `build` instuction.
+
+To build all images, run `docker-compose build`
+
+To push all images to dockerhub, run `docker-compose push`.
+
+To build or push a specific image, add the _service_ name, as used by docker-compose; `docker-compose build fcrepo`.
+
+## Reproducable builds
+
+To avoid subtle bugs, all `Dockerfile`s should specify the hash of the base images they are derived from in the `FROM` statement.  For example:
+
+    FROM tomcat:8.5.15-jre8@sha256:c8c45c1b463ecdae66bca3ffd8d6c75079a90fc4f3bfef061b4ba89f35e16b0f
+    
+This assures that all subsequent builds (regardless of host they are built on) use the exact same base image.  Updating the base image needs to be an explicit operation that resuults in a commit that updates the hash.
+
+### Base images
+
+`docker-compose build` only builds images defined in a given `docker-compose.yaml` file.  Some images (such as `apix-core`) are built on top of other images provied by api-x, such as `fcrepoapix/apix-karaf/4.0.7`.  Karaf would be consider a _base image_.  Normally, base images will simply be pulled in by dockerhub.  However, if specifically re-building a base image, or incrementing the version of one, then base images need to be specifically built and pushed to the dockerhub separately.
+
+Base image directories (e.g. [karaf](karaf)) have their own `docker-compose.yaml` files that obey the same conventions.  So `docker-compose` can be used to build them as well. 
+
+Once new base images are created, _they must be pushed to dockerhub before any other image can use them_.  So the procedure for incrementing the version of Karaf used for API-X would be:
+1. Create a new `karaf/my.new.version` directory containg the updated Dockerfile
+2. Build the Karaf image with `docker-compose build`
+3. Push the Karaf image with `docker-compose push`
+4. Edit the Dockerfiles of any images that are built on that base image.   Update the hash in the `FROM` section so that it matches the image you just built and pushed.  
+5. Use `docker-compose build` to build and push the new images.
