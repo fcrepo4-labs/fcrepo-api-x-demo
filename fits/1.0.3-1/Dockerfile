@@ -1,4 +1,4 @@
-FROM tomcat:8.5-jre8
+FROM tomcat:8.5.15-jre8@sha256:c8c45c1b463ecdae66bca3ffd8d6c75079a90fc4f3bfef061b4ba89f35e16b0f
 
 ENV FITS_VERSION=1.0.3 \
     FITS_WEB_VERSION=1.1.3

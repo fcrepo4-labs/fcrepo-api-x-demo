@@ -1,4 +1,4 @@
-FROM tomcat:8.5-jre8-alpine
+FROM tomcat:8.5-jre8-alpine@sha256:7ba4d49795a3783d08cc53b896616a0397ae8a3cf61ecb4c0b77ebd45cce3b76
 
 ENV FCREPO_VERSION      4.7.1
 ENV FCREPO_WEBAPP       fcrepo-${FCREPO_VERSION}/fcrepo-webapp-${FCREPO_VERSION}.war
@@ -13,7 +13,13 @@ EXPOSE ${DEBUG_PORT}
 EXPOSE ${FCREPO_PORT}
 
 # Fcrepo webapp
-RUN apk --no-cache update   && \
+RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories && \
+    echo "http://dl-3.alpinelinux.org/alpine/v3.5/community/" > /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.5/main/" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.5/community/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.5/main/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.5/community/" >> /etc/apk/repositories && \
+    apk --no-cache update   && \
     apk --no-cache add         \
       curl                     \
       gettext                  \

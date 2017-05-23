@@ -1,18 +1,14 @@
-FROM fcrepoapix/apix-karaf:4.0.7
+FROM fcrepoapix/apix-karaf:4.0.7@sha256:b258ee07e6e578fc80b791aa0a02d54bcf18dc94acb7c3b340bea3ea8949f7c7
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with indexing features"
 
 # The version of API-X features being included in the image
-ENV APIX_VERSION=0.1.0 \
-    APIX_HOST=apix \
-    APIX_PORT=80 \
-    APIX_INTERCEPT_PATH=fcrepo/rest \
-    FCREPO_HOST=fcrepo \
-    FCREPO_PORT=8080 \
-    FCREPO_CONTEXT_PATH=/fcrepo \
+ENV APIX_VERSION=0.3.0-SNAPSHOT \
     FUSEKI_HOST=fuseki \
-    FUSEKI_PORT=8080 \
+    FCREPO_HOST=fcrepo \
+    FCREPO_PORT=80 \
+    FCREPO_CONTEXT_PATH=/fcrepo \
     DEBUG_PORT=5010  \
     REINDEXING_PORT=9090
 
@@ -20,13 +16,13 @@ ENV APIX_VERSION=0.1.0 \
 #ADD maven/ /build/repository/
 RUN bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5  "feature:install fcrepo-api-x-registry" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-indexing" && \
+    bin/client -r 10 -d 5  "feature:install fcrepo-indexing-triplestore" && \
     bin/stop
 
 
 ENV JAVA_DEBUG_PORT=${DEBUG_PORT} \
-    APIX_BASEURI=http://${APIX_HOST}:${APIX_PORT}/${APIX_INTERCEPT_PATH} \
-    FUSEKI_BASEURI=http://${FUSEKI_HOST}:${FUSEKI_PORT}/fuseki/service-index \
     FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
 
 

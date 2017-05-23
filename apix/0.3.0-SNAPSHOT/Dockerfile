@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-karaf:4.0.7
+FROM fcrepoapix/apix-karaf:4.0.7@sha256:b258ee07e6e578fc80b791aa0a02d54bcf18dc94acb7c3b340bea3ea8949f7c7
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"
@@ -9,7 +9,7 @@ ENV JAVA_DEBUG_PORT ${DEBUG_PORT}
 EXPOSE ${DEBUG_PORT}
 
 # The version of API-X being included in the image
-ENV APIX_VERSION 0.2.0-SNAPSHOT
+ENV APIX_VERSION 0.3.0-SNAPSHOT
 
 # The Fedora repository base URI
 ENV FCREPO_HOST=fcrepo

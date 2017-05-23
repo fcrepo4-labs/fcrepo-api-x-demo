@@ -1,4 +1,4 @@
-FROM tomcat:8.5-alpine
+FROM tomcat:8.5.15-jre8-alpine@sha256:7ba4d49795a3783d08cc53b896616a0397ae8a3cf61ecb4c0b77ebd45cce3b76
 
 ENV FUSEKI_VERSION         2.4.1
 ENV FUSEKI_BASE            /shared/fuseki-data

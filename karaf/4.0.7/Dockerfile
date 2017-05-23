@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:8u131-jre@sha256:a25ff451426302414f6e77af2c759ed7ee877f5bcaddba8b3bcced87d3db9d72
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with a local Maven repository at ${MAVEN_REPO}"
@@ -7,7 +7,7 @@ LABEL description = "Provides a Karaf container configured with a local Maven re
 ENV KARAF_RUNTIME /opt/karaf
 
 # The version of Karaf to download and install in the container
-ENV KARAF_VERSION 4.0.4
+ENV KARAF_VERSION 4.0.7
 
 ENV MAVEN_REPO /build/repository
 
