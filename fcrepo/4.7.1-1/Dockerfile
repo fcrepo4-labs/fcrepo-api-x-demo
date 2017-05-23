@@ -36,6 +36,7 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories
     git checkout -b 4.7.1 fcrepo-4.7.1                                                   && \
     git cherry-pick 447728cf                                                             && \
     git cherry-pick da933468                                                             && \
+    git cherry-pick 03f95c41                                                             && \
     PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
       mvn clean verify -Djavadoc.skip -Dcheckstyle.skip -Denforcer.skip -DskipTests      && \
     cp fcrepo-webapp/target/fcrepo-webapp-4.7.1.war \
