@@ -24,6 +24,7 @@ done
 for f in `ls etc/edu.amherst.*` ;
 do
     sed -e "s:rest\.host=localhost:rest\.host=acrepo:" -i $f
+    sed -e "s:extension\.load=false:extension\.load=true" -i $f
 done
 
 # Change "jms.brokerUrl=tcp://localhost:61616" to "jms.brokerUrl=tcp://fcrepo:61616"
@@ -32,11 +33,19 @@ do
     sed -e "s:localhost\:61616:fcrepo\:61616:" -i $f
 done
 
-# Add 'extension.load.uri' to each config file
+# Load extensions by default
 for f in `ls etc/edu.amherst.*` ;
 do
-    echo "extension.load.uri=http://apix:\${env:APIX_PORT:-80}/services//apix:load" >> $f
+    sed -e "s:extension\.load=.*:extension\.load=true:" -i $f
 done
+
+
+# Set'extension.load.uri' in each config file
+for f in `ls etc/edu.amherst.*` ;
+do
+    sed -e "s:extension\.load\.uri=.*:http\://apix:\${env\:APIX_PORT\:-80}/services//apix\:load:" >> $f
+done
+
 
 # Add 'extension.load.maximumRediveries' to each config file
 for f in `ls etc/edu.amherst.*` ;
