@@ -21,7 +21,7 @@ The simplest API for an exposed service is simply returning something useful in 
   curl http://<b>localhost</b>/discovery/images/filename.jpg
   </pre>
 
-3. Look for the "fits" service named `http://acdc.amherst.edu/extensions#fits`.  Get its service endpoint URI; which should be something like <code>http://**localhost**/services/images/filename.jpg/svc:fits</code>
+3. Look for the "fits" service named `http://acdc.amherst.edu/ns/registry#fits`.  Get its service endpoint URI; which should be something like <code>http://**localhost**/services/images/filename.jpg/svc:fits</code>
 
 4. Simply copy and paste the fits endpoint URI into your browser.  It may take a few seconds for the initial load; you know how slow Java services are when they're used for the first time after a cold start.
   * You should get back a plausible metadata about the file. Feel free to upload different kinds of binaries and look at the resulting output
@@ -37,7 +37,7 @@ The simplest API for an exposed service is simply returning something useful in 
 
 Exposed service endpoint URIs are really just entrypoints; they link to services that may produce resources that link to other resources within that service, as seen in [HATEOAS](http://restcookbook.com/Basics/hateoas/)-style APIs.  So the ability for an exposed service to be able to link within itself is important.  This task presents a very simple example.  The "xml" extension provides xml-based MODS and DC representations of a Fedora resource.  It presents users with a choice of formats in the form of an html document that links to URIs for the different formats.
 
-1. Fetch the service document for an arbitrary RDF fedora resource, and look for a service of type `http://acdc.amherst.edu/extensions#XmlMetadataService`.  For example, on resource <code>http://**localhost**/fcrepo/rest/apix/extensions</code>
+1. Fetch the service document for an arbitrary RDF fedora resource, and look for a service of type `http://acdc.amherst.edu/ns/registry#XmlMetadataService`.  For example, on resource <code>http://**localhost**/fcrepo/rest/apix/extensions</code>
 that's <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
 
 2. Note the trailing slash in the URI, it's [important](https://cdivilly.wordpress.com/2014/03/11/why-trailing-slashes-on-uris-are-important/) for using relative URIs- we'll be exploring that shortly.  How did API-X know how to include a trailing slash for this particular exposed service?  Take a look at its extension definition to find out.  
@@ -59,7 +59,7 @@ In this exercise, we'll take a look at a fascinating image manipulation extensio
 1. Load a jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
 2. Look at the image resource's service document, and find the endpoint URI that corresponds to the service of type:
-`http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
+`http://acdc.amherst.edu/ns/registry#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
 
 3. You should simply see the image in your browser.  According to its [documentation](https://gitlab.amherst.edu/acdc/repository-extension-services/tree/master/acrepo-exts-image) this image extension accepts a URL parameter called "options", the content of which is simply applied to the convert command line.  So let's re-size the image by adding an appropriate query param:
 <code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-resize 200x200!</em></code>

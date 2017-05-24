@@ -45,7 +45,7 @@ It's anticipated that a common use case for service documents involves searching
   curl http://<b>localhost</b>/discovery/images/filename.jpg
   </pre>
 
-4. Look for the "image" service; named `http://acdc.amherst.edu/extensions#ImageService`
+4. Look for the "image" service; named `http://acdc.amherst.edu/ns/registry#ImageService`
 Is this a resource-scoped service?  What is the URI to its service endpoint?
 
 5. Using your favorite programming language, can you find the endpoint URI of the image service programmatically, given only the resource URI `http://localhost/discovery/images/filename.jpg`?  How easy or difficult is it to do so?
