@@ -39,7 +39,7 @@ RUN bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:edu.amherst.acdc/acrepo-karaf/${ACREPO_VERSION}/xml/features" && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.apache.camel.karaf/apache-camel/${CAMEL_VERSION}/xml/features" && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.camel/fcrepo-camel/${FCREPO_CAMEL_VERSION}/xml/features" && \
-    bin/client -r 10 -d 5  "feature:install camel fcrepo-camel acrepo-exts-image acrepo-exts-pcdm acrepo-exts-fits acrepo-exts-serialize-xml" && \
+    bin/client -r 10 -d 5  "feature:install camel fcrepo-camel acrepo-exts-ore acrepo-exts-image acrepo-exts-pcdm acrepo-exts-fits acrepo-exts-serialize-xml" && \
     /bin/sleep 15 && \
     bin/stop
 
