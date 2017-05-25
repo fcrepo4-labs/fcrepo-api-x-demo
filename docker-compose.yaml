@@ -62,6 +62,16 @@ services:
     depends_on:
       - fcrepo
 
+  rdfvis:
+     image: fcrepoapix/apix-rdfvis:1.0.0
+     build: extensions/rdfvis/1.0.0
+     container_name: rdfvis
+     env_file: .env
+     ports:
+       - "${EXT_RDF_VIS_PORT}:${EXT_RDF_VIS_PORT}"
+     environment: 
+       - "PORT=${EXT_RDF_VIS_PORT}"
+
   fits:
     image: fcrepoapix/apix-fits:1.0.3-1
     build: fits/1.0.3-1
