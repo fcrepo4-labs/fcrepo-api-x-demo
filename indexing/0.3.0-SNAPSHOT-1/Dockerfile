@@ -22,9 +22,12 @@ RUN apk add --update --no-cache gettext && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-registry" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-indexing" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-indexing-triplestore" && \
+    bin/client -r 10 -d 5  "feature:install fcrepo-indexing-solr" && \
     bin/stop && \
     rm -rf instances/* && \
     rm -rf /build/repository/*
+    bin/stop
+
 
 # Copy Karaf feature configuration files into the image
 COPY cfg/* etc/
