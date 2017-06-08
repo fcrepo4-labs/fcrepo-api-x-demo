@@ -23,4 +23,5 @@ COPY entrypoint.sh /
 WORKDIR /www
 ENTRYPOINT ["/entrypoint.sh"]
 COPY www/* /www/
-RUN patch -p0 -i /www/easyrdf.patch
+RUN  chmod 700 /entrypoint.sh && \
+     patch -p0 -i /www/easyrdf.patch
