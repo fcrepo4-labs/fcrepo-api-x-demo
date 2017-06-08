@@ -17,9 +17,11 @@ ENV FCREPO_HOST localhost
 ENV FCREPO_PORT 80
 ENV FCREPO_CONTEXT_PATH /fcrepo
 
-ENV ACREPO_VERSION 1.0.99-SNAPSHOT
+ENV ACREPO_VERSION 1.1.0
+ENV CAMEL_VERSION 2.18.3
+ENV FCREPO_CAMEL_VERSION 4.5.0
 
-ADD maven/ /build/repository/
+#ADD maven/ /build/repository/
 
 # Allow the string "acrepo" to be recognized by Karaf as the Amherst feature repository
 
@@ -35,7 +37,9 @@ RUN sed -e "s:^\(    mvn\:org.apache.karaf.features/enterprise/${KARAF_VERSION}/
 
 RUN bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:edu.amherst.acdc/acrepo-karaf/${ACREPO_VERSION}/xml/features" && \
-    bin/client -r 10 -d 5  "feature:install acrepo-exts-image acrepo-exts-pcdm acrepo-exts-fits acrepo-exts-jsonld acrepo-exts-serialize-xml" && \
+    bin/client -r 10 -d 5  "feature:repo-add mvn:org.apache.camel.karaf/apache-camel/${CAMEL_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.camel/fcrepo-camel/${FCREPO_CAMEL_VERSION}/xml/features" && \
+    bin/client -r 10 -d 5  "feature:install camel fcrepo-camel acrepo-exts-ore acrepo-exts-image acrepo-exts-pcdm acrepo-exts-fits acrepo-exts-serialize-xml" && \
     /bin/sleep 15 && \
     bin/stop
 

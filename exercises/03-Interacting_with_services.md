@@ -21,7 +21,7 @@ The simplest API for an exposed service is simply returning something useful in 
   curl http://<b>localhost</b>/discovery/images/filename.jpg
   </pre>
 
-3. Look for the "fits" service named `http://acdc.amherst.edu/extensions#fits`.  Get its service endpoint URI; which should be something like <code>http://**localhost**/services/images/filename.jpg/svc:fits</code>
+3. Look for the "fits" service named `http://acdc.amherst.edu/ns/registry#fits`.  Get its service endpoint URI; which should be something like <code>http://**localhost**/services/images/filename.jpg/svc:fits</code>
 
 4. Simply copy and paste the fits endpoint URI into your browser.  It may take a few seconds for the initial load; you know how slow Java services are when they're used for the first time after a cold start.
   * You should get back a plausible metadata about the file. Feel free to upload different kinds of binaries and look at the resulting output
@@ -37,20 +37,20 @@ The simplest API for an exposed service is simply returning something useful in 
 
 Exposed service endpoint URIs are really just entrypoints; they link to services that may produce resources that link to other resources within that service, as seen in [HATEOAS](http://restcookbook.com/Basics/hateoas/)-style APIs.  So the ability for an exposed service to be able to link within itself is important.  This task presents a very simple example.  The "xml" extension provides xml-based MODS and DC representations of a Fedora resource.  It presents users with a choice of formats in the form of an html document that links to URIs for the different formats.
 
-1. Fetch the service document for an arbitrary RDF fedora resource, and look for a service of type `http://acdc.amherst.edu/extensions#XmlMetadataService`.  For example, on resource <code>http://**localhost**/fcrepo/rest/apix/extensions</code>
-that's <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
+1. Fetch the service document for an arbitrary RDF fedora resource, and look for a service of type `http://example.org/services/RdfVisualization`.  For example, on resource <code>http://**localhost**/fcrepo/rest/apix/extensions</code>
+that's <code>http://**localhost**/services/apix/extensions/demo:rdfvis/</code>
 
 2. Note the trailing slash in the URI, it's [important](https://cdivilly.wordpress.com/2014/03/11/why-trailing-slashes-on-uris-are-important/) for using relative URIs- we'll be exploring that shortly.  How did API-X know how to include a trailing slash for this particular exposed service?  Take a look at its extension definition to find out.  
-  1. Look for the `exposesServiceAt` property in your browser: <code>http://**localhost**/fcrepo/rest/apix/extensions/xml</code>
+  1. Look for the `exposesServiceAt` property of the extension definition in your browser: <code>http://**localhost**/fcrepo/rest/apix/extensions/rdfVis</code>
   2. Compare to an extension whose service URIs do not have the trailing slash: <code>http://**localhost**/fcrepo/rest/apix/extensions/fits</code>
 
-3. Continuing on from step 1, follow the service endpoint URI for the xml extension in your browser: <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/</code>
+3. Continuing on from step 1, follow the service endpoint URI for the xml extension in your browser: <code>http://**localhost**/services/apix/extensions/demo:rdfvis/</code>
 You'll see a simple html document that presents two choices.  In your browser, view its source.  As you can probably guess, this is just a static html resource; being able to use relative URIs lets us get away with that easily.
 
-4. Follow the link to the DC format xml.  The extension applies an XSLT to select any rdf properties that correspond to Dublin Core elements.  If there are none in the resource, as is the case in the example, then the resulting document is largely empty; the same is true for MODS.  For our purposes, we're more interested in looking at its URI:
-<code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/dc</code>
-  * The underlying service that implements this extension happens to be implemented in Java using Apache Camel.  [These lines of code] (https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-serialize-xml/src/main/java/edu/amherst/acdc/exts/serialize/xml/EventRouter.java#L38-L49) implement the routing logic with respect to the incoming service request.
-  * In exercise 4, we will explore extension deployment and registering services in a little more detail.  Suffice it to say, the underlying implementation of the xml service in this demo is `http://acrepo:9104/xml`.  A request to API-X <code>http://**localhost**/services/apix/extensions/svc:xmlmetadata/dc</code> gets forwarded via the API-X to `http://acrepo:9104/xml/dc`.  Read the [execution engine](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/execution-and-routing.md#generic-endpoint-proxy) documentation to get a greater understanding of the interaction between API-X and the underlying service.
+4. Follow the link to "View as image".  This extension renders the RDF in the repository resource as an image.  For our purposes, we're more interested in looking at its URI:
+<code>http://**localhost**/services/apix/extensions/demo:rdfvis/image</code>
+  * The underlying service that implements this extension happens to be implemented in PHP.  [These lines of code] (https://github.com/birkland/fcrepo-api-x-demo/blob/acrepo-1.1.0/extensions/rdfvis/1.0.0/www/index.php#L15-L30) implement the routing logic with respect to the incoming service request.  If no path is present (or it doesn't match), the html present after this code block will be displayed.
+  * In exercise 4, we will explore extension deployment and registering services in a little more detail.  Suffice it to say, the underlying implementation of the rdf visualization service in this demo is `http://172.22.0.6:12000/rdfVis` (or whatever the address it happens to be in your local environment).  A request to API-X <code>http://**localhost**/services/apix/extensions/demo:rdfvis/**image**</code> gets forwarded via the API-X to <code>http://172.22.0.6:12000/rdfVis**/image**</code>.  Read the [execution engine](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/execution-and-routing.md#generic-endpoint-proxy) documentation to get a greater understanding of the interaction between API-X and the underlying service.
 
 <h2><a href="#ex3c" id="ex3c" class="anchor">C. Query Parameters may be part of the API exposed by an extension</a></h2>
 
@@ -59,7 +59,7 @@ In this exercise, we'll take a look at a fascinating image manipulation extensio
 1. Load a jpeg image into the repository, and note its URI.  For example: <code>http://**localhost**/fcrepo/rest/images/filename.jpg</code>
 
 2. Look at the image resource's service document, and find the endpoint URI that corresponds to the service of type:
-`http://acdc.amherst.edu/extensions#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
+`http://acdc.amherst.edu/ns/registry#ImageService`.  Find its endpoint and put it in your browser: <code>http://**localhost**/services/images/filename.jpg/svc:image</code>
 
 3. You should simply see the image in your browser.  According to its [documentation](https://gitlab.amherst.edu/acdc/repository-extension-services/tree/master/acrepo-exts-image) this image extension accepts a URL parameter called "options", the content of which is simply applied to the convert command line.  So let's re-size the image by adding an appropriate query param:
 <code>http://**localhost**/services/images/filename.jpg/svc:image?<em>options=-resize 200x200!</em></code>

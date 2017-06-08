@@ -51,23 +51,22 @@ We will use the html form provided by the loader extension to manually provide i
 
 1. Bring up the loader page in a browser: <code>http://localhost/services//apix:load</code>
 
-2. In the text box, type the URI to an underlying implementation service: `http://acrepo:9102/jsonld?apix.scope=resource`
+2. In the text box, type the URI to an underlying implementation service: `http://acrepo:9108/ore`
   * This is the URI to a service that is running as part of the demo, but is not yet registered as an extension.
-  * The hostname is 'acrepo'.  This is an artifact of how Docker resolves host names; the underlying service is running in a Docker container whose hostname, according to Docker’s internal DNS service, is 'acrepo'.    To access the equivalent URI through your browser, you would use `http://localhost:9102/jsonld?apix.scope=resource`
-  * The query parameter `apix.scope=resource` is an implementation detail of this specific service.  It is able to be registered as a resource-scoped extension, or a repository-scoped extension.  The parameter tells it which one.  See [this code snippet](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/java/edu/amherst/acdc/exts/jsonld/EventRouter.java#L55-L59) to get a sense on how this particular service uses the parameter.  If repository-scoped, it will register [this extension](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/resources/options.ttl).  If resource-scoped, [a different one](https://github.com/birkland/repository-extension-services/blob/apix-demo/acrepo-exts-jsonld/src/main/resources/options_resource.ttl)
+  * The hostname is 'acrepo'.  This is an artifact of how Docker resolves host names; the underlying service is running in a Docker container whose hostname, according to Docker’s internal DNS service, is 'acrepo'.    To access the equivalent URI through your browser, you would use `http://localhost:9108/ore`
 
-3. Click the "submit" button to tell the loader to process that URI.  If successful, you'll be redirected to a Fedora resource corresponding to the newly-loaded extension.  In our case, we just loaded a JSON-LD compaction extension.
+3. Click the "submit" button to tell the loader to process that URI.  If successful, you'll be redirected to a Fedora resource corresponding to the newly-loaded extension.  In our case, we just loaded an ORE traversal extension.
 
 4. Take a look at the API-X logs; The last log entry should tell you what the loader service just did.  Does it make sense?
     <pre>
     docker logs apix
     </pre>
 
-5. From the looks of the extension definition document shown to you after loading the extension (most likely <code>http://**localhost**/fcrepo/rest/apix/extensions/jsonld</code>), you just loaded a service of type
-`http://acdc.amherst.edu/extensions#JsonLDService`.  We can also see that it binds to (all) repository resources, and it's a resource-scoped extension.  Can you see how we know that from the extension definition?
+5. From the looks of the extension definition document shown to you after loading the extension (most likely <code>http://**localhost**/fcrepo/rest/apix/extensions/ore</code>), you just loaded a service of type
+`http://acdc.amherst.edu/ns/registry#OreService`.  We can also see that it binds to (all) repository RdfSources, and it's a resource-scoped extension.  Can you see how we know that from the extension definition?
 
-6. Now, pick an arbitrary object (say the extension you just created; <code>http://**localhost**/fcrepo/rest/apix/extensions/jsonld</code>).  Look at its service doc, and look for the endpoint URI for the jsonld service on it.  In this case, it's <code>http://localhost/services/apix/extensions/jsonld/svc:compact</code>
-Follow that URI.  The result should be a compact JSON-LD representation of the resource!
+6. Now, pick an arbitrary object (say the extension you just created; <code>http://**localhost**/fcrepo/rest/apix/extensions/ore</code>).  Look at its service doc, and look for the endpoint URI for the ore service on it.  In this case, it's <code>http://localhost/services/apix/extensions/ore/svc:ore</code>
+Since this particular resource is not an ore aggregregation, it doesn't do anything interesting.  In the next set of exercises, you'll learn how API-X binds to resources and can apply owl reasoning.  If this particular extension were more specific about the kinds of resources it can bind to, it wouldn't have bound to the resource we just looked at.
 
 <h2><a href="#ex4d" id="ex4d" class="anchor">D. Auto-loading extensions</a></h2>
 

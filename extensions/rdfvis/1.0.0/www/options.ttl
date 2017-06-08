@@ -1,0 +1,10 @@
+@prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ldp:<http://www.w3.org/ns/ldp#> .
+@prefix apix:<http://fedora.info/definitions/v4/api-extension#> .
+
+<> a apix:Extension;
+    rdfs:label "RDF visualization extension";
+    rdfs:comment "An extension that can visualize RDF";
+    apix:exposesService <http://example.org/services/RdfVisualization>;
+    apix:exposesServiceAt "demo:rdfvis/";
+    apix:bindsTo ldp:RDFSource .
