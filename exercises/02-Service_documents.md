@@ -23,10 +23,10 @@ curl http://<b>localhost</b>/discovery/
 4. Look at the document for the following:
   1. The endpoint for each exposed service is linked to via the `hasEndpoint` relationship.  If you are looking at the service document of the root resource as described in the running example, you should see at least two endpoints <code>http://<b>localhost</b>/services//apix:load</code>
 and
-<code>http://<b>localhost</b>/services/svc:xmlmetadata/</code>
+<code>http://<b>localhost</b>/services/demo:rdfvis/</code>
 (as we will see later all slashes, including trailing slashes, are significant).  Can you look at the document and find these services?
   2. The type/kind/name of service is indicated by the `isServiceInstanceOf` relationship.  The two services we noted above are instances of `http://fedora.info/definitions/v4/api-extension#LoaderService` and
-`http://acdc.amherst.edu/extensions#XmlMetadataService`.  Can you look at the document and come to the same conclusion?
+`http://example.org/services/RdfVisualization`.  Can you look at the document and come to the same conclusion?
   3. An exposed service is *resource-scoped* if it operates on a specific object.  That is to say, the URI of a resource-scoped service points to a resource whose representation is some function or derivation of a specific object in the repository.  This is indicated by the `isFunctionOf` relationship.  Of the two services we have been looking at, which one is resource-scoped, and which one is not?
 
 <h2><a href="#ex2b" id="ex2b" class="anchor">B. Look for a specific service in a service document</a></h2>
