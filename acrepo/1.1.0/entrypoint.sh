@@ -26,8 +26,8 @@ do
     sed -e "s:localhost\:61616:fcrepo\:61616:" -i $f
 done
 
-# Load extensions by default
-for f in `ls etc/edu.amherst.*` ;
+# Load extensions by default, except ORE service
+for f in `ls etc/edu.amherst.* | grep -v ore` ;
 do
     sed -e "s:extension\.load=.*:extension\.load=true:" -i $f
 done
