@@ -1,0 +1,27 @@
+diff --git lib/EasyRdf/Http/Response.php lib/EasyRdf/Http/Response.php
+index 21f986a..7a520f6 100644
+--- lib/EasyRdf/Http/Response.php
++++ lib/EasyRdf/Http/Response.php
+@@ -278,7 +278,7 @@ class EasyRdf_Http_Response
+         // Split headers part to lines
+         $headerLines = preg_split('|[\r\n]+|m', $headerLines);
+         $status = array_shift($headerLines);
+-        if (preg_match("|^HTTP/([\d\.x]+) (\d+) ([^\r\n]+)|", $status, $m)) {
++        if (preg_match("|^HTTP/([\d\.x]+) (\d+) ([^\r\n]*)$|", $status, $m)) {
+             $version = $m[1];
+             $status = $m[2];
+             $message = $m[3];
+diff --git lib/EasyRdf/Serialiser/GraphViz.php lib/EasyRdf/Serialiser/GraphViz.php
+index 2fd22da..e6c95ca 100644
+--- lib/EasyRdf/Serialiser/GraphViz.php
++++ lib/EasyRdf/Serialiser/GraphViz.php
+@@ -275,6 +275,9 @@ class EasyRdf_Serialiser_GraphViz extends EasyRdf_Serialiser
+                         $label = EasyRdf_Namespace::shorten($property);
+                     }
+                 }
++                if ($label === null || $label == "") {
++                    $label = $property;
++                }
+                 foreach ($resource->all("<$property>") as $value) {
+                     $name2 = $this->nodeName($value);
+                     $nodes[$name1] = $resource;

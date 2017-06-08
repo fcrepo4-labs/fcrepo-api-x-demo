@@ -6,5 +6,5 @@
     rdfs:label "RDF visualization extension";
     rdfs:comment "An extension that can visualize RDF";
     apix:exposesService <http://example.org/services/RdfVisualization>;
-    apix:exposesServiceAt "demo:rdfvis";
+    apix:exposesServiceAt "demo:rdfvis/";
     apix:bindsTo ldp:RDFSource .

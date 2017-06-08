@@ -71,6 +71,8 @@ services:
        - "${EXT_RDF_VIS_PORT}:${EXT_RDF_VIS_PORT}"
      environment: 
        - "PORT=${EXT_RDF_VIS_PORT}"
+     links:
+      - apix:localhost
 
   fits:
     image: fcrepoapix/apix-fits:1.0.3-1
