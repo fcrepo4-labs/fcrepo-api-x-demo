@@ -3,6 +3,10 @@ version: "2"
 
 services:
 
-    karaf_base_image:
-      image: fcrepoapix/apix-karaf:4.0.7
-      build: 4.0.7
+    karaf:
+      image: fcrepoapix/apix-karaf:4.0.9
+      build: 4.0.9
+
+    karaf-camel:
+      image: fcrepoapix/apix-karaf-camel:4.0.9
+      build: 4.0.9-camel

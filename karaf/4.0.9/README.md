@@ -1,6 +1,6 @@
-## karaf 4.0.7 Dockerfile
+## karaf 4.0.9 Dockerfile
 
-This image provides a Karaf 4.0.7 instance, configured to use a local Maven repository as a Karaf features repository location.  
+This image provides a Karaf 4.0.9 instance, configured to use a local Maven repository as a Karaf features repository location.  
 
 This allows a developer to optionally install Karaf features into their local Maven repository (i.e. without publishing the features to a repository somewhere on the web), mount the local Maven repository into this container, and ask Karaf to install features from the local Maven repository.
 
@@ -10,7 +10,7 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 
 ## Environment variables and default values
 
-* KARAF_VERSION=4.0.7
+* KARAF_VERSION=4.0.9
 * KARAF_RUNTIME=/opt/karaf/${KARAF_VERSION}
 * KARAF_DIST=apache-karaf-${KARAF_VERSION}
 * DEBUG_PORT=5007
@@ -29,17 +29,17 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 
 Launches a Karaf interactive console, which may be exited using CTRL-D.
 
-`$ docker run -ti emetsger/apix-karaf:4.0.7`
+`$ docker run -ti emetsger/apix-karaf:4.0.9`
 
 #### Debugging
 
 Launches an interactive Karaf console with Java remote debugging enabled on the default `${JAVA_DEBUG_PORT}` (in this example port 5007):
 
-`$ docker run -ti -p "5007:5007" emetsger/apix-karaf:4.0.7 debug`
+`$ docker run -ti -p "5007:5007" emetsger/apix-karaf:4.0.9 debug`
 
 To use a different debugging port (in this example 4000):
 
-`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" emetsger/apix-karaf:4.0.7 debug`
+`$ docker run -ti -e JAVA_DEBUG_PORT=4000 -p "4000:4000" emetsger/apix-karaf:4.0.9 debug`
 
 #### Display logs
 
@@ -56,4 +56,4 @@ To obtain a shell in a running container, first [start the container](#starting)
 
 Alternately, to simply shell into a non-existent container, override the entrypoint:
 
-`$ docker run -ti --entrypoint=/bin/bash emetsger/apix-karaf:4.0.7`
+`$ docker run -ti --entrypoint=/bin/bash emetsger/apix-karaf:4.0.9`
