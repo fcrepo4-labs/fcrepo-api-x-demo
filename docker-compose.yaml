@@ -25,8 +25,7 @@ services:
     container_name: indexing
     env_file: .env
     ports:
-      - "9090:9090"
-      - "5010:5010"
+      - "${REINDEXING_PORT}:${REINDEXING_PORT}"
       - "${LDPATH_PORT}:${LDPATH_PORT}"
     depends_on:
       - fcrepo
@@ -80,11 +79,3 @@ services:
     env_file: .env
     ports:
       - "${FITS_PORT}:${FITS_PORT}"
-    
-  solr:
-    image: fcrepoapix/apix-solr:4.10.3
-    build: solr/4.10.3
-    container_name: solr
-    env_file: .env
-    ports:
-      - "${SOLR_PORT}:${SOLR_PORT}"

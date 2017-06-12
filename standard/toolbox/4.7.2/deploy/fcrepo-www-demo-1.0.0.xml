@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+  xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0"
+  xmlns:camel="http://camel.apache.org/schema/blueprint"
+  xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 https://osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext.xsd
+       http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0  http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+
+  <cm:property-placeholder id="conf"
+    persistent-id="org.fcrepo.demo.www" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="port" value="8099" />
+      <cm:property name="wwwroot" value="/www" />
+    </cm:default-properties>
+  </cm:property-placeholder>
+
+
+  <bean id="staticHandler" class="org.eclipse.jetty.server.handler.ResourceHandler">
+    <property name="resourceBase" value="${wwwroot}" />
+    <property name="directoriesListed" value="true" />
+  </bean>
+
+  <camel:camelContext id="staticWebServer"
+    xmlns="http://camel.apache.org/schema/blueprint">
+    <route>
+      <from uri="jetty:http://0.0.0.0:{{port}}?handlers=#staticHandler" />
+      <to uri="log:org.fcrepo.demo.www?level=DEBUG" />
+    </route>
+  </camel:camelContext>
+
+</blueprint>
