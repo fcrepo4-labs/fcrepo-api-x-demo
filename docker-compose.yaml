@@ -52,7 +52,7 @@ services:
       - apix:localhost
 
   apix:
-    image: fcrepoapix/apix-core:0.3.0
+    image: fcrepoapix/apix-core:0.3.0-SNAPSHOT
     build: apix/0.3.0-SNAPSHOT
     container_name: apix
     env_file: .env

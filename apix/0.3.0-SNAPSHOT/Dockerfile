@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-karaf-camel:4.0.9@sha256:bbea3acdab13f6f6a321b1b9e08e2ce1af4e741f2ca31b36014f087f0fefa1a6
+FROM fcrepoapix/apix-karaf-camel:4.0.9@sha256:130e48a21aaa0ec3c6739dddc69d70dde9a33f5a348bc84121d049367ee05e93
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"
@@ -34,7 +34,8 @@ RUN export REGISTRY_ONTOLOGY_CREATE=false  && \
     bin/client -r 10 -d 5 "feature:repo-add  mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
     bin/client -r 10 -d 5 "feature:install fcrepo-api-x" && \
     bin/stop && \
-    rm -rf instances/*
+    rm -rf instances/* && \
+    rm -rf /build/repository/*
 
 COPY cfg/* etc/
 
