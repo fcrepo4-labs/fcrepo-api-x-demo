@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Update the Karaf configuration so that the Maven repository under ${MAVEN_REPO}
 # is used by Karaf to discover features.
