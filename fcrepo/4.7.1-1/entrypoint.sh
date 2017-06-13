@@ -14,7 +14,7 @@ else
   then
     JMS_BASEURL="http://${FCREPO_HOST}${FCREPO_CONTEXT_PATH}/rest"
   else
-    JMS_BASEURL="http://${FCREPO_HOST}${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest"
+    JMS_BASEURL="http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest"
   fi
 fi
 
