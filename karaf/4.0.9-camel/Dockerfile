@@ -14,4 +14,5 @@ RUN bin/start && \
     bin/client -r 10 -d 5  "feature:install camel-http4" && \
     bin/client -r 10 -d 5  "feature:install camel-jetty" && \
     bin/stop && \
-    rm -rf instances/*
+    rm -rf instances/* && \
+    rm -rf /build/repository/*

@@ -48,7 +48,9 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories
     cd ..                                                                                && \
     rm -rf fcrepo4                                                                       && \
     rm -rf /build/repository                                                             && \
-    rm -rf ~/.m2
+    rm -rf ~/.m2                                                                         && \
+    rm -rf /root/.victims*                                                               && \
+    apk --no-cache del maven git
 
 COPY entrypoint.sh /
 
