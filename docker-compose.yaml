@@ -4,8 +4,8 @@ version: "2"
 services:
 
   fuseki:
-    image: fcrepoapix/apix-fuseki:2.4.1-1
-    build: fuseki/2.4.1-1
+    image: fcrepoapix/apix-fuseki:2.6.0
+    build: fuseki/2.6.0
     env_file: .env
     container_name: fuseki
     ports:

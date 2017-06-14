@@ -4,7 +4,7 @@ This image provides a Fuseki runtime with two indexes: one available at `/fuseki
 
 ## Environment variables and default values
 
-* FUSEKI_VERSION=2.4.1
+* FUSEKI_VERSION=2.6.0
 * FUSEKI_BASE=/shared/fuseki-data
 * DEBUG_PORT=5009
 
@@ -19,7 +19,7 @@ This image provides a Fuseki runtime with two indexes: one available at `/fuseki
 
 Logs displayed to the console, allows container to be killed using CTRL-C.
 
-`$ docker run -ti fcrepoapix/apix-fuseki:2.4.1`
+`$ docker run -ti fcrepoapix/apix-fuseki:2.6.0`
 
 #### Display logs
 
@@ -35,4 +35,4 @@ To obtain a shell in a running container, first [start the container](#starting)
 
 Alternately, to simply shell into a non-existent container, override the entrypoint:
 
-`$ docker run -ti --entrypoint=/bin/ash fcrepoapix/apix-fuseki:2.4.1`
+`$ docker run -ti --entrypoint=/bin/ash fcrepoapix/apix-fuseki:2.6.0`
