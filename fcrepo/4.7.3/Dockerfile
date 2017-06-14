@@ -1,6 +1,6 @@
-FROM tomcat:8.5-jre8-alpine@sha256:7ba4d49795a3783d08cc53b896616a0397ae8a3cf61ecb4c0b77ebd45cce3b76
+FROM tomcat:8.5.15-jre8-alpine@sha256:eaf901f324d9f49a492270b28669b32a2d7b418db8c649c2268531ddefaa0b01
 
-ENV FCREPO_VERSION      4.7.1
+ENV FCREPO_VERSION      4.7.3
 ENV FCREPO_WEBAPP       fcrepo-${FCREPO_VERSION}/fcrepo-webapp-${FCREPO_VERSION}.war
 ENV FCREPO_HOST         localhost
 ENV FCREPO_PORT         80
@@ -13,12 +13,12 @@ EXPOSE ${DEBUG_PORT}
 EXPOSE ${FCREPO_PORT}
 
 # Fcrepo webapp
-RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories && \
-    echo "http://dl-3.alpinelinux.org/alpine/v3.5/community/" > /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.5/main/" >> /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.5/community/" >> /etc/apk/repositories && \
-    echo "http://dl-5.alpinelinux.org/alpine/v3.5/main/" >> /etc/apk/repositories && \
-    echo "http://dl-5.alpinelinux.org/alpine/v3.5/community/" >> /etc/apk/repositories && \
+RUN echo "http://dl-3.alpinelinux.org/alpine/v3.6/main/" > /etc/apk/repositories && \
+    echo "http://dl-3.alpinelinux.org/alpine/v3.6/community/" > /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
     apk --no-cache update   && \
     apk --no-cache add         \
       curl                     \
@@ -33,13 +33,13 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories
     cd fcrepo4                                                                           && \
     git config --global user.email "emetsger@jhu.edu"                                    && \
     git config --global user.name "Fcrepo API-X Container"                               && \
-    git checkout -b 4.7.1 fcrepo-4.7.1                                                   && \
+    git checkout -b ${FCREPO_VERSION} fcrepo-${FCREPO_VERSION}                                                   && \
     git cherry-pick 447728cf                                                             && \
     git cherry-pick da933468                                                             && \
     git cherry-pick 03f95c41                                                             && \
     PATH=/usr/lib/jvm/java-1.8-openjdk/bin:$PATH JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
       mvn clean verify -Djavadoc.skip -Dcheckstyle.skip -Denforcer.skip -DskipTests      && \
-    cp fcrepo-webapp/target/fcrepo-webapp-4.7.1.war \
+    cp fcrepo-webapp/target/fcrepo-webapp-${FCREPO_VERSION}.war \
       ${CATALINA_HOME}/webapps/fcrepo.war                                                && \
     echo "fcrepo.modeshape.configuration=classpath:/config/file-simple/repository.json" \
       >> ${CATALINA_HOME}/conf/catalina.properties \                                     && \
@@ -50,7 +50,7 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories
     rm -rf /build/repository                                                             && \
     rm -rf ~/.m2                                                                         && \
     rm -rf /root/.victims*                                                               && \
-    apk --no-cache del maven git
+    apk --no-cache del maven git openjdk8
 
 COPY entrypoint.sh /
 
