@@ -12,8 +12,8 @@ services:
       - "${FUSEKI_PORT}:${FUSEKI_PORT}"
 
   fcrepo:
-    image: fcrepoapix/apix-fcrepo:4.7.1-1
-    build: fcrepo/4.7.1-1
+    image: fcrepoapix/apix-fcrepo:4.7.3
+    build: fcrepo/4.7.3
     container_name: fcrepo
     env_file: .env
     ports:
