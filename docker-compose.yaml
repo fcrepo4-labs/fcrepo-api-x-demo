@@ -36,7 +36,7 @@ services:
 
   acrepo:
     image: fcrepoapix/apix-acrepo:1.1.0
-    build: acrepo/1.1.0
+    build: extensions/acrepo/1.1.0
     container_name: acrepo
     env_file: .env
     ports:

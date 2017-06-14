@@ -1,3 +1,0 @@
-# API-X Exercises
-
-Placeholder
