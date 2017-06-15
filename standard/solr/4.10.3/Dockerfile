@@ -1,4 +1,4 @@
-FROM tomcat:8.5.15-jre8-alpine@sha256:7ba4d49795a3783d08cc53b896616a0397ae8a3cf61ecb4c0b77ebd45cce3b76
+FROM tomcat:8.5.15-jre8-alpine@sha256:eaf901f324d9f49a492270b28669b32a2d7b418db8c649c2268531ddefaa0b01
 
 ENV SOLR_VERSION=4.10.4 \
     SOLR_HOME=/shared/solr \
@@ -22,7 +22,8 @@ RUN export SOLR_DIST=solr-${SOLR_VERSION}      && \
     cp /tmp/${SOLR_DIST}/example/lib/ext/slf4j* ${CATALINA_HOME}/lib && \
     cp /tmp/${SOLR_DIST}/example/lib/ext/log4j* ${CATALINA_HOME}/lib && \
     touch ${CATALINA_HOME}/velocity.log && \
-    rm -rf /tmp/${SOLR_DIST} && \
+    rm -rf /tmp/${SOLR_DIST}* && \
+    rm -rf /root/.victims*                                                               && \
     echo "solr.solr.home=${SOLR_HOME}" >> ${CATALINA_HOME}/conf/catalina.properties
 
 COPY schema.xml ${SOLR_HOME}/collection1/conf
