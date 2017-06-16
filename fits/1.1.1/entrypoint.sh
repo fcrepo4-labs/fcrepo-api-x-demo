@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # handle port
 sed -ie "s:<Connector port=\"8080\":<Connector port=\"${FITS_PORT}\":" conf/server.xml
