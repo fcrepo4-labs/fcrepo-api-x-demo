@@ -1,6 +1,6 @@
-## fcrepo 4.7.1 Dockerfile
+## fcrepo 4.7.3 Dockerfile
 
-Image contains the `fcrepo-webapp-4.7.1.war`, and is available on port `80` by default, available at `/fcrepo/rest`.  `stderr` and `stdout` are directed to the console.
+Image contains the `fcrepo-webapp-4.7.3.war`, and is available on port `80` by default, available at `/fcrepo/rest`.  `stderr` and `stdout` are directed to the console.
 
 A remote debugger may be connected at any time to port `5006` by default.
 
