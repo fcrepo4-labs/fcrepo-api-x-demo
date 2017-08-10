@@ -92,7 +92,7 @@ This repository provides Dockerfiles for the following images that will be run i
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
 * [apix](apix/0.3.0-SNAPSHOT) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
 * [fcrepo](fcrepo/4.7.4) - Provides a default-configured Fedora 4.7.4.
-* [fuseki](fuseki/2.6.0-1) - Provides a triplestore index of API-X service documents and repository objects
+* [fuseki](fuseki/3.4.0) - Provides a triplestore index of API-X service documents and repository objects
 * [indexing](indexing/0.3.0-SNAPSHOT) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
 
 # Developer Documentation
