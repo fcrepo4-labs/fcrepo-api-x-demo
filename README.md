@@ -91,7 +91,7 @@ This repository provides Dockerfiles for the following images that will be run i
 
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
 * [apix](apix/0.3.0-SNAPSHOT) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
-* [fcrepo](fcrepo/4.7.3-1) - Provides a default-configured Fedora 4.7.3.
+* [fcrepo](fcrepo/4.7.4) - Provides a default-configured Fedora 4.7.4.
 * [fuseki](fuseki/2.6.0-1) - Provides a triplestore index of API-X service documents and repository objects
 * [indexing](indexing/0.3.0-SNAPSHOT) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
 
@@ -110,8 +110,8 @@ The suffix `-N` (as in `foo/1.2.3-1` or `foo/1.2.3-2`) is used to distinguish mu
 The `docker-compose.yaml` file contains `build` instructions that point to the directory containing the `Dockerfile` that builds the corresponding image.  For example:
 
       fcrepo:
-        image: fcrepoapix/apix-fcrepo:4.7.3-1
-        build: fcrepo/4.7.3-1
+        image: fcrepoapix/apix-fcrepo:4.7.4
+        build: fcrepo/4.7.4
 Note that due to the naming conventions above, the image tag will match the terminal directory in the `build` instuction.
 
 To build all images, run `docker-compose build`
