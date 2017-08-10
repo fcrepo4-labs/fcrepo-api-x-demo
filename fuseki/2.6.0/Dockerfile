@@ -16,7 +16,16 @@ RUN export FUSEKI_DIST=${FUSEKI_VERSION}/jena-fuseki-war-${FUSEKI_VERSION}.war  
         | sha1sum -c -                                                             && \
     mkdir -p ${FUSEKI_BASE}/configuration && \
     mkdir -p ${FUSEKI_BASE}/service-index_data && \
-    mkdir -p ${FUSEKI_BASE}/fcrepo-triple-index_data
+    mkdir -p ${FUSEKI_BASE}/fcrepo-triple-index_data && \
+
+    # gettext provides envsubst used in entrypoint
+    echo "http://dl-3.alpinelinux.org/alpine/v3.6/main/" > /etc/apk/repositories && \
+    echo "http://dl-3.alpinelinux.org/alpine/v3.6/community/" > /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
+    echo "http://dl-4.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
+    echo "http://dl-5.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
+    apk --no-cache add --update gettext
 
 COPY shiro.ini ${FUSEKI_BASE}
 COPY service-index.ttl ${FUSEKI_BASE}/configuration
