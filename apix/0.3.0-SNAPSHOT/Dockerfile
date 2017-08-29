@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-karaf-camel:4.0.9@sha256:130e48a21aaa0ec3c6739dddc69d70dde9a33f5a348bc84121d049367ee05e93
+FROM fcrepoapix/apix-karaf-camel:4.0.9-1@sha256:5f19f8266f2c44ec33e2d962312654e666a85bc6f31343b3fa94e376ff1707fa
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"
@@ -21,7 +21,7 @@ EXPOSE ${APIX_PORT}
 EXPOSE ${DEBUG_PORT}
 
 # Temporary for local development; copy any Maven artifacts into `maven/` that you want the image build process to see (e.g. locally build features that have yet to be published)
-#ADD maven/ /build/repository/
+# ADD maven/ /build/repository/
 
 # Install all of the latest features found in the apixrepo features repository (typically these features will be SNAPSHOT versions) ...
 # ... but do not create registry containers or attept to index registry content, as the Fedora repository is not available at image build time
