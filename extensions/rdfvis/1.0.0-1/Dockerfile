@@ -9,10 +9,11 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/v3.5/main/" > /etc/apk/repositories
     echo "http://dl-5.alpinelinux.org/alpine/v3.5/main/" >> /etc/apk/repositories && \
     echo "http://dl-5.alpinelinux.org/alpine/v3.5/community/" >> /etc/apk/repositories && \
     apk --no-cache update && \
-    apk add --update curl && \
-    apk add --update php7 && \
-    apk add --update php7-mbstring && \
-    apk add --update graphviz && \
+    apk --no-cache add --update curl && \
+    apk --no-cache add --update php7 && \
+    apk --no-cache add --update php7-mbstring && \
+    apk --no-cache add --update php7-curl && \
+    apk --no-cache add --update graphviz && \
     mkdir /www && \
     wget -O /tmp/${EASYRDF_DIST}.tar.gz http://www.easyrdf.org/downloads/${EASYRDF_DIST}.tar.gz && \
     tar xzvf /tmp/${EASYRDF_DIST}.tar.gz -C /tmp && \
