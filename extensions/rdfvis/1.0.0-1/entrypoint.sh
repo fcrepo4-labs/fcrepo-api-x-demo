@@ -1,5 +1,5 @@
 #!/bin/sh
-CMD="curl --write-out %{http_code} --silent -o /dev/stderr -dservice.uri=http://$(hostname -i):${PORT}/rdfVis http://apix/services//apix:load"
+CMD="curl --write-out %{http_code} --silent -o /dev/stderr -u ${CAMEL_FCREPO_AUTHUSERNAME}:${CAMEL_FCREPO_AUTHPASSWORD} -dservice.uri=http://$(hostname -i):${PORT}/rdfVis http://apix/services//apix:load"
 echo "#empty" > /etc/hosts
 register() {
     echo "Registering extension via ${CMD}"

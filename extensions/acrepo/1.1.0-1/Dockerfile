@@ -10,9 +10,15 @@ ENV ACREPO_VERSION=1.1.0 \
     FCREPO_PORT=80 \
     DEBUG_PORT=5008 \
     JAVA_DEBUG_PORT=5008 \
+    ACREPO_FITS_PORT=9106 \
+    ACREPO_IMAGE_PORT=9105 \
+    ACREPO_ORE_PORT=9108 \
+    ACREPO_PCDM_PORT=9107 \
+    ACREPO_SERIALIZE_XML_PORT=9104 \
+    ACREPO_TEMPLATE_PORT=9103 \
     FCREPO_CONTEXT_PATH=/fcrepo 
 
-#ADD maven/docke /build/repository/
+#ADD maven/ /build/repository/
 
 # Install all of the latest features found in the acrepo features repository)
 RUN apk --no-cache add --update imagemagick  && \ 

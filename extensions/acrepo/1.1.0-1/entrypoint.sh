@@ -26,12 +26,13 @@ do
     sed -e "s:localhost\:61616:fcrepo\:61616:" -i $f
 done
 
-# Load extensions by default, except ORE service
-for f in `ls etc/edu.amherst.* | grep -v ore` ;
+# Passwoords
+for f in `ls etc/edu.amherst.*` ;
 do
-    sed -e "s:extension\.load=.*:extension\.load=true:" -i $f
+    sed -e "s:fcrepo.authHost=:fcrepo.authHost=${FCREPO_HOST}:" -i $f
+    sed -e "s:fcrepo.authUsername=:fcrepo.authUsername=${CAMEL_FCREPO_AUTHUSERNAME}:" -i $f
+    sed -e "s:fcrepo.authPassword=:fcrepo.authPassword=${CAMEL_FCREPO_AUTHPASSWORD}:" -i $f
 done
-
 
 # Set'extension.load.uri' in each config file
 for f in `ls etc/edu.amherst.*` ;
@@ -66,6 +67,27 @@ sed -e "s:rest\.port=.*:rest\.port=\${env\:ACREPO_SERIALIZE_XML_PORT\:-9104}:" -
 sed -e "s:rest\.port=.*:rest\.port=\${env\:ACREPO_ORE_PORT\:-9108}:" -i etc/edu.amherst.acdc.exts.ore.cfg
 
 echo "#empty" > /etc/hosts
+
+register() {
+    SERVICE_URI=$1
+    CMD="curl --write-out %{http_code} --silent -o /dev/stderr -u ${CAMEL_FCREPO_AUTHUSERNAME}:${CAMEL_FCREPO_AUTHPASSWORD} -dservice.uri=${SERVICE_URI} http://apix/services//apix:load"
+    echo "Registering extension via ${CMD}"
+    RESULT=$(${CMD})
+    until [ ${RESULT} -lt 400 ] && [ ${RESULT} -gt 199 ]
+    do
+        echo "Trying t register ${SERVICE_URI} again, result was ${RESULT}"
+        RESULT=$(${CMD})
+        sleep 1
+    done
+
+    echo "Done: ${RESULT}"
+}
+
+register http://$(hostname -i):${ACREPO_FITS_PORT}/fits &
+register http://$(hostname -i):${ACREPO_IMAGE_PORT}/image &
+register http://$(hostname -i):${ACREPO_ORE_PORT}/ore &
+register http://$(hostname -i):${ACREPO_PCDM_PORT}/pcdm &
+register http://$(hostname -i):${ACREPO_SERIALIZE_XML_PORT}/xml &
 
 # Execute `bin/karaf` with any arguments suppled by CMD
 exec bin/karaf "$@"

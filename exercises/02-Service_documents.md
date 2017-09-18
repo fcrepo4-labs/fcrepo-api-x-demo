@@ -3,6 +3,7 @@
 > *Please remember:*
 > *The instructions below use the **default** URLs and ports found in the environment file*  
 > *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+> *Authentication is enabled.  Use the username `fedoraAdmin` and password `secret3` if prompted.*
 
 [Service documents](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/service-discovery-and-binding.md#service-document) list and describe the services that API-X extensions expose on a given object, using the API-X [service ontology](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/fcrepo-api-x-ontology/src/main/resources/ontologies/apix-service.ttl).  [Evaluation task (1)](01-Resources_and_URIs.md#ex1) explored looking at HTTP headers, which is the mechanism by which API-X links to service documents.  This set of evaluation tasks involves exploring and using these documents to locate extensions.  Although each task involves manual steps, consider what it would take to perform each task programmatically in your favorite language.  Bonus points for actually writing a program that interacts with service documents.
 
@@ -10,14 +11,14 @@
 
 1. Pick an arbitrary object in the repository, and perform a HEAD request against its _proxied_ URI.  For example, the repository root:
     <pre>
-    curl -I http://<b>localhost</b>/fcrepo/rest
+    curl -u fedoraAdmin:secret3 -I http://<b>localhost</b>/fcrepo/rest
     </pre>
 
 2. Look at the Link headers for the `service` relation, as in <code>Link: &lt;http://<b>localhost</b>/discovery/&gt;; rel="service"</code>
 
 3. Follow the link to get the service document.  The default media type is text/turtle
 <pre>
-curl http://<b>localhost</b>/discovery/
+curl -u fedoraAdmin:secret3 http://<b>localhost</b>/discovery/
 </pre>
 
 4. Look at the document for the following:
@@ -37,12 +38,12 @@ It's anticipated that a common use case for service documents involves searching
 
 2. Use curl to look at its headers, get the URI for the service document
   <pre>
-  curl -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
+  curl -u fedoraAdmin:secret3 -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
   </pre>
 
 3. ...and follow that link to look at the service document.
   <pre>
-  curl http://<b>localhost</b>/discovery/images/filename.jpg
+  curl -u fedoraAdmin:secret3 http://<b>localhost</b>/discovery/images/filename.jpg
   </pre>
 
 4. Look for the "image" service; named `http://acdc.amherst.edu/ns/registry#ImageService`
