@@ -56,7 +56,7 @@ services:
     container_name: apix
     env_file: .env
     ports:
-      - "${APIX_PORT}:${APIX_PORT}"
+      - "${PUBLIC_REPOSITORY_PORT}:${PUBLIC_REPOSITORY_PORT}"
       - "${APIX_LOADER_PORT}:${APIX_LOADER_PORT}"
     depends_on:
       - fcrepo

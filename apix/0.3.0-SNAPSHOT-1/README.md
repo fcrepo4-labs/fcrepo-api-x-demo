@@ -17,16 +17,16 @@ If running on a `docker-machine`, remember to publish the ports to the [host](ht
 * FCREPO_CONTEXT_PATH=/fcrepo
 * FCREPO_BASEURI=http://${FCREPO_HOST}:${FCREPO_PORT}${FCREPO_CONTEXT_PATH}/rest
 * APIX_VERSION=0.2.0-SNAPSHOT
-* APIX_PORT=80
+* PUBLIC_REPOSITORY_PORT=80
 * APIX_INTERCEPT_PATH=fcrepo/rest
-* APIX_BASEURI=http://localhost:${APIX_PORT}/${APIX_INTERCEPT_PATH}
+* PUBLIC_REPOSITORY_BASEURI=http://localhost:${PUBLIC_REPOSITORY_PORT}/${APIX_INTERCEPT_PATH}
 
 *N.B.:* If you want to change the remote debugging port, you will need to set the `JAVA_DEBUG_PORT` environment variable, _not_ `DEBUG_PORT`.
 
 ## Exposed ports
 
 * ${DEBUG_PORT}/${JAVA_DEBUG_PORT}
-* ${APIX_PORT}
+* ${PUBLIC_REPOSITORY_PORT}
 
 ## Example Usage
 

@@ -48,12 +48,12 @@ It will let you know if it pulls in any updates to images.  If so, you can simpl
 ## [Non-default URIs and ports](#uris)
 
 As mentioned in the [alternate ports](../README.md#alternate-ports) and [verification](../README.md#verification) sections, users may have modified their environment (the `.env` file) for a couple of reasons:
-* You are a *docker-machine* user, and have modified the `APIX_BASEURI` to point to the IP address of your docker machine
+* You are a *docker-machine* user, and have modified the `PUBLIC_REPOSITORY_BASEURI` to point to the IP address of your docker machine
 * You have a port conflict, and have modified one or more API-X-related services to use a different port.
 
-It is important to remember as you go through the exercises that you may need to modify the bold **localhost** URIs, especially if you have modified your `APIX_BASEURI` or `APIX_PORT`.
+It is important to remember as you go through the exercises that you may need to modify the bold **localhost** URIs, especially if you have modified your `PUBLIC_REPOSITORY_BASEURI` or `PUBLIC_REPOSITORY_PORT`.
 
-For example, if you have modified your APIX_BASEURI and API_PORT to `http://192.168.99.100:10000/fcrepo/rest` and `10000`, respectively, you must replace this
+For example, if you have modified your PUBLIC_REPOSITORY_BASEURI and PUBLIC_REPOSITORY_PORT to `http://192.168.99.100:10000/fcrepo/rest` and `10000`, respectively, you must replace this
 
 <pre>
 http://<b>localhost</b>/fcrepo/rest/path/to/object

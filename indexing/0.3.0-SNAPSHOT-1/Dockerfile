@@ -16,7 +16,8 @@ ENV APIX_VERSION=0.3.0-SNAPSHOT \
 
 # Temporary for local development; copy any Maven artifacts into `maven/` that you want the image build process to see (e.g. locally build features that have yet to be published)
 #ADD maven/ /build/repository/
-RUN bin/start && \
+RUN apk add --update --no-cache gettext && \
+    bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-registry" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-indexing" && \

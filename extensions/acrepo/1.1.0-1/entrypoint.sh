@@ -37,7 +37,7 @@ done
 # Set'extension.load.uri' in each config file
 for f in `ls etc/edu.amherst.*` ;
 do
-    sed -e "s:extension\.load\.uri=.*:http\://apix:\${env\:APIX_PORT\:-80}/services//apix\:load:" >> $f
+    sed -e "s:extension\.load\.uri=.*:http\://apix:\${env\:PUBLIC_REPOSITORY_PORT\:-80}/services//apix\:load:" >> $f
 done
 
 

@@ -6,10 +6,10 @@ sed -ie "s:<Connector port=\"8080\":<Connector port=\"${FCREPO_PORT}\":" conf/se
 # Prefer the API-X base uri as the JMS base url
 if [ -n "${FCREPO_JMS_BASEURL}" ] ;
 then 
-  _JMS_BASEURL=${APIX_BASEURI}
-elif [ -n "${APIX_BASEURI}" ] ;
+  _JMS_BASEURL=${FCREPO_JMS_BASEURI}
+elif [ -n "${PUBLIC_REPOSITORY_BASEURI}" ] ;
 then
-  _JMS_BASEURL=${APIX_BASEURI}
+  _JMS_BASEURL=${PUBLIC_REPOSITORY_BASEURI}
 else
   # if the API-X base uri is not set, and Fedora is running on port 80, omit
   # the port number from the JMS base url
