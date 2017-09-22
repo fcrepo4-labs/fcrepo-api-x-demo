@@ -8,11 +8,6 @@ sed -e "s:^org.ops4j.pax.url.mvn.localRepository=.*:org.ops4j.pax.url.mvn.localR
 
 echo "#empty" > /etc/hosts
 
-if [ -n "${CAMEL_AUTHHOST}" ] ;
-then 
-  CAMEL_AUTHHOST=${PUBLIC_REPOSITORY_HOST}
-fi
-
 replace_envs() {
         envsubst < etc/${1} > /tmp/${1}
         mv /tmp/${1} etc/${1} 
