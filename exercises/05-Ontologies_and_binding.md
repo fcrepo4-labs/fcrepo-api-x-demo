@@ -3,6 +3,8 @@
 > *Please remember:*
 > *The instructions below use the **default** URLs and ports found in the environment file*  
 > *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+> *Authentication is enabled.  Use the username `fedoraAdmin` and password `secret3` if prompted.*
+
 
 This exercise explores aspects related to [binding](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#extension-binding) services to repository objects, as well as management of owl ontologies.  The [bindsTo](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#apixbindsto) relationship specifies the class of objects that an extension binds to.  The simplest case is when an object has an `rdf:type` property that matches a given extension.  Otherwise, [owl reasoning](https://github.com/fcrepo4-labs/fcrepo-api-x/blob/master/src/site/markdown/extension-definition-and-binding.md#owl-reasoning) may be used to infer membership in a particular class based on the characteristics/properties of a given repository object.  
 
@@ -21,7 +23,7 @@ This exercise explores aspects related to [binding](https://github.com/fcrepo4-l
     * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; rdf:type &lt;<span>http://pcdm.org/models#Object</span>&gt;}</code>, and click _update_
     * If using the command line, do
     <pre>
-    curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</span>&gt; &lt;<span>http://pcdm.org/models#Object</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/apix/extensions/pcdm
+    curl -u fedoraAdmin:secret3 -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</span>&gt; &lt;<span>http://pcdm.org/models#Object</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/apix/extensions/pcdm
     </pre>
     * In either case, you need to write out the whole pcdm namespace, rather than using a convenient prefix like `pcdm:`.  This is due to the relative difficulty of defining prefixes and namespaces in Fedora, which is outside of the scope of this exercise.
   3. Look again at the service document of the object. <code>http://localhost/discovery/apix/extensions/pcdm</code>  Do you see the pcdm service endpoint now?  Good!
@@ -38,7 +40,7 @@ As we saw earlier, the PCDM extension operates over any repository objects that 
   * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;}</code>, and click _update_
   * If using the command line, do
   <pre>
-  curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/images
+  curl -u fedoraAdmin:secret3 -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://pcdm.org/models#hasFile</span>&gt; &lt;<span>http://**localhost**/fcrepo/rest/images/filename.jpg</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/images
   </pre>
 
 3. Now look at the service document for the _images_ container <code>http://**localhost**/discovery/images</code>.  Do you see the PCDM extension?  Why or why not?
@@ -49,7 +51,7 @@ As we saw earlier, the PCDM extension operates over any repository objects that 
   * If using Fedora's UI, in the _Update Properties_ text box, scroll down to where you see `INSERT { }`.  Between the brackets add the appropriate triples, so that it looks like this:  <code>INSERT {&lt;&gt; &lt;<span>http://www.w3.org/2002/07/owl#imports</span>&gt; &lt;<span>http://pcdm.org/models#</span>&gt;}</code>, and click _update_
   * If using the command line, do
   <pre>
-  curl -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/2002/07/owl#imports</span>&gt; &lt;<span>http://pcdm.org/models#</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/apix/extensions/pcdm
+  curl -u fedoraAdmin:secret3 -X PATCH -H "Content-Type: application/sparql-update" --data "INSERT {&lt;&gt; &lt;<span>http://www.w3.org/2002/07/owl#imports</span>&gt; &lt;<span>http://pcdm.org/models#</span>&gt;} WHERE {}" http://localhost/fcrepo/rest/apix/extensions/pcdm
   </pre>
 
 6. Now that the PCDM extension imports the PCDM ontology, API-X can use it for reasoning.  Take another look at the service document of the _images_ container we added a `hasFile` property to; <code>http://**localhost**/discovery/images</code>.  A PCDM service endpoint should now be present!

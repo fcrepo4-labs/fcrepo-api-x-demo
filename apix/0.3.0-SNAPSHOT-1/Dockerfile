@@ -4,8 +4,8 @@ MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"
 
 ENV APIX_VERSION=0.3.0-SNAPSHOT \
-    APIX_PORT=80 \
-    APIX_BASEURI=http://localhost:${APIX_PORT}/${APIX_INTERCEPT_PATH} \
+    PUBLIC_REPOSITORY_PORT=80 \
+    PUBLIC_REPOSITORY_BASEURI=http://localhost/${APIX_INTERCEPT_PATH} \
     FCREPO_HOST=fcrepo \
     FCREPO_PORT=80 \
     FCREPO_CONTEXT_PATH=fcrepo \
@@ -17,7 +17,7 @@ ENV APIX_VERSION=0.3.0-SNAPSHOT \
     JAVA_DEBUG_PORT=5011
 
 # API-X base URI
-EXPOSE ${APIX_PORT}
+EXPOSE ${PUBLIC_REPOSITORY_PORT}
 EXPOSE ${DEBUG_PORT}
 
 # Temporary for local development; copy any Maven artifacts into `maven/` that you want the image build process to see (e.g. locally build features that have yet to be published)

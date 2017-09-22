@@ -3,6 +3,8 @@
 > *Please remember:*
 > *The instructions below use the **default** URLs and ports found in the environment file*  
 > *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+> *Authentication is enabled.  Use the username `fedoraAdmin` and password `secret3` if prompted.*
+
 
 The current API-X implementation uses LDP containers in Fedora as registries for extensions, services, and ontologies.  It's possible to add an extension to API-X simply by depositing the right kind of objects into the right containers.  However, there's an even easier way.  Included in API-X is a Loader service that allows service instances to manually or self-register.  This set of exercises explores this loader to deploy extensions into API-X.
 
@@ -33,9 +35,9 @@ The loader is itself registered as an extension in API-X.  In particular, it is 
 
 1. Look at the service document for the repository root resource; <code>http://<b>localhost</b>/fcrepo/rest</code>, and find the loader endpoint URI
     <pre>
-    curl -I http://<b>localhost</b>/fcrepo/rest
+    curl -u fedoraAdmin:secret3 -I http://<b>localhost</b>/fcrepo/rest
 
-    curl http://<b>localhost</b>/discovery/
+    curl -u fedoraAdmin:secret3 http://<b>localhost</b>/discovery/
     </pre>
 
 2. Look for an instance of `http://fedora.info/definitions/v4/api-extension#LoaderService`.  In this case, its endpoint URI is <code>http://localhost/services//apix:load</code>.  Enter that in your browser.  You'll see a very basic html form, we will explore that shortly.

@@ -3,6 +3,8 @@
 > *Please remember:*
 > *The instructions below use the **default** URLs and ports found in the environment file*  
 > *If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
+> *Authentication is enabled.  Use the username `fedoraAdmin` and password `secret3` if prompted.*
+
 
 This set of tasks explores interacting with a variety of extensions that provide a variety of different "APIs".  
 
@@ -14,11 +16,11 @@ The simplest API for an exposed service is simply returning something useful in 
 2. Use curl to look at its headers, get the URI for the service document, and follow that link to look at the service document.
   1. Get the headers:
   <pre>
-  curl -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
+  curl -u fedoraAdmin:secret3 -I http://<b>localhost</b>/fcrepo/rest/images/filename.jpg
   </pre>
   2. Now the service document:
   <pre>
-  curl http://<b>localhost</b>/discovery/images/filename.jpg
+  curl -u fedoraAdmin:secret3 http://<b>localhost</b>/discovery/images/filename.jpg
   </pre>
 
 3. Look for the "fits" service named `http://acdc.amherst.edu/ns/registry#fits`.  Get its service endpoint URI; which should be something like <code>http://**localhost**/services/images/filename.jpg/svc:fits</code>

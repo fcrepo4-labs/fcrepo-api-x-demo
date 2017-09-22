@@ -39,13 +39,14 @@ To bring up the API-X environment, you need to:
   * Clone this git repository:  `git clone https://github.com/fcrepo4-labs/fcrepo-api-x-demo.git`.  This will create a directory `fcrepo-api-x-demo` with the required file(s) in it
   * Directly download [docker-compose.yaml](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/docker-compose.yaml) and [.env](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/.env)
 3. `cd` into the directory containing the docker-compose file
-4. **_docker-machine_ users only:** edit the `.env` file, and set the `APIX_BASEURI` environment variable.  *Substitute the name of your docker machine for the `default` machine if necessary*:
+4. **_docker-machine_ users only:** edit the `.env` file, and set the `PUBLIC_REPOSITORY_HOST` and `PUBLIC_REPOSITORY_BASEURI` environment variables.  *Substitute the name of your docker machine for the `default` machine if necessary*:
     * `docker-machine ip default` (obtains the IP address of your *default* docker-machine)
     * Here's an example `.env` file using a docker machine with IP of 192.168.99.100
     <pre>
     ...
-    APIX_PORT=80
-    APIX_BASEURI=http://192.168.99.100/fcrepo/rest
+    PUBLIC\_REPOSITORY\_PORT=80
+    PUBLIC\_REPOSITORY\_HOST=192.168.99.100
+    PUBLIC\_REPOSITORY\_BASEURI=http://192.168.99.100/fcrepo/rest
     ...
     </pre>
     * Double-check your changes to the `.env` file, being aware of any potential typos!!
@@ -67,7 +68,7 @@ The default ports are:
 
 Users may experience port conflicts with non-API-X services that are already running on their computer.  If shutting down the conflicting services is not an option, it will be necessary to map the API-X-related services to alternate ports.  This can be done by editing the environment file, `.env` (see the default file, which gives you an idea of the ports the demo will use,  [here](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/.env)).  
 
-For example, to publish the API-X proxy on port `8000` instead of the default port `80`, modify `APIX_PORT=80` to read `APIX_PORT=8000`, and modify `APIX_BASEURI` to read `APIX_BASEURI=http://localhost:8000/fcrepo/rest`.
+For example, to publish the API-X proxy on port `8000` instead of the default port `80`, modify `PUBLIC_REPOSITORY_PORT=80` to read `PUBLIC_REPOSITORY_PORT=8000`, and modify `PUBLIC_REPOSITORY_BASEURI` to read `PUBLIC_REPOSITORY_BASEURI=http://localhost:8000/fcrepo/rest`.
 
 If you wish to move the Fedora repository from port `8080` to port `10000`, modify:
 * `FCREPO_PORT` to read `FCREPO_PORT=10000`
