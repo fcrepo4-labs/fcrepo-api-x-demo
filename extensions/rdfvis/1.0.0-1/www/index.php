@@ -13,6 +13,7 @@
     function getGraph($resource) {
 
         $headers = array();
+        $response_headers = array();
         foreach($_SERVER as $key => $value) {
             if (strpos($key, 'HTTP_') === 0 && $key !== "HTTP_ACCEPT") {
                 $header = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));
@@ -26,15 +27,29 @@
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_HEADERFUNCTION,
+            function($ch, $header) use (&$response_headers) {
+                if (strpos($header, ":") !== false) {
+                    //$response_headers[] = str_replace("realm=\"fcrepo\"", "realm=\"services\"",$header);
+                    $response_headers[] = $header;
+                }
+                return  strlen($header);
+            }
+        );
     
         $rdf = curl_exec($curl);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         
         
-        if ($httpCode <= 200 || $httpCode > 299) {
-            error_log("Got bad error code" . $httpCode);
+        if ($httpCode < 200 || $httpCode > 299) {
+            error_log("Got bad error code " . $httpCode);
             http_response_code($httpCode);
-            exit("Could not retrieve <" . $resource . ">; code " . $httpCode . "\n Body: " . $rdf );
+            
+            foreach($response_headers as $header) {
+                header($header);
+            }
+            exit($rdf);
         }
 
         $graph = new EasyRdf_Graph();
