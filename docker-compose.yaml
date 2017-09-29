@@ -73,7 +73,6 @@ services:
     env_file: .env
     ports:
       - "${REINDEXING_PORT}:${REINDEXING_PORT}"
-      - "${DEMO_WWW_PORT}:${DEMO_WWW_PORT}"
       - "${LDPATH_PORT}:${LDPATH_PORT}"
     depends_on:
       - fcrepo
