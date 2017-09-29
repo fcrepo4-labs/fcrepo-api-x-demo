@@ -7,5 +7,13 @@ sed -e "s:^org.ops4j.pax.url.mvn.localRepository=.*:org.ops4j.pax.url.mvn.localR
         -i etc/org.ops4j.pax.url.mvn.cfg
 rm -rf instances/*
 echo "#empty" > /etc/hosts
+
+replace_envs() {
+        envsubst < etc/${1} > /tmp/${1}
+        mv /tmp/${1} etc/${1} 
+}
+
+replace_envs "org.fcrepo.apix.registry.http.cfg"
+
 # Execute `bin/karaf` with any arguments suppled by CMD
 exec bin/karaf "$@"
