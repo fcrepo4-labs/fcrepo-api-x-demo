@@ -33,7 +33,6 @@ ENV JAVA_DEBUG_PORT=${DEBUG_PORT} \
 
 # Copy Karaf feature configuration files into the image
 COPY cfg/* etc/
-COPY deploy/* deploy/
 
 COPY entrypoint.sh /entrypoint.sh
 
