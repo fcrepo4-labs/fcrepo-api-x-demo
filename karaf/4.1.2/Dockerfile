@@ -9,7 +9,7 @@ LABEL description = "Provides a Karaf container configured with a local Maven re
 # to be consistent with the environment variable (DEBUG_PORT) documented and
 # presented in the build/Dockerfile, assign the value of DEBUG_PORT to
 # JAVA_DEBUG_PORT
-ENV KARAF_VERSION=4.0.9 \
+ENV KARAF_VERSION=4.1.2 \
     MAVEN_REPO=/build/repository \
     KARAF_RUNTIME=/opt/karaf \
     DEBUG_PORT=5007 \
@@ -28,12 +28,6 @@ EXPOSE ${JAVA_DEBUG_PORT}
 # commands to be scripted on container initialization
 # See https://goo.gl/5VfWsn
 RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                         && \
-    echo "http://dl-3.alpinelinux.org/alpine/v3.6/main/" > /etc/apk/repositories && \
-    echo "http://dl-3.alpinelinux.org/alpine/v3.6/community/" > /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
-    echo "http://dl-5.alpinelinux.org/alpine/v3.6/main/" >> /etc/apk/repositories && \
-    echo "http://dl-5.alpinelinux.org/alpine/v3.6/community/" >> /etc/apk/repositories && \
     apk --no-cache add --update curl && \
     curl -SL "http://archive.apache.org/dist/karaf/${KARAF_VERSION}/${KARAF_DIST}"    \
         > /tmp/${KARAF_DIST}                                                       && \
@@ -50,7 +44,7 @@ RUN export KARAF_DIST=apache-karaf-${KARAF_VERSION}.tar.gz                      
     bin/client -r 10 -d 5 system:version && \
     bin/stop && \
     rm -rf instances/* && \
-    sed -e "s/osgi:/stdout, osgi:/" -i etc/org.ops4j.pax.logging.cfg
+    sed -e "s/OFF/TRACE/" -i etc/org.ops4j.pax.logging.cfg
 
 
 WORKDIR ${KARAF_RUNTIME}/apache-karaf-${KARAF_VERSION}

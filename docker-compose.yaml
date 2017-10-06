@@ -1,6 +1,5 @@
 version: "2"
 
-
 services:
 
   fuseki:
@@ -19,20 +18,6 @@ services:
     ports:
       - "${FCREPO_PORT}:${FCREPO_PORT}"
       - "5006:5006"
-
-  indexing:
-    image: fcrepoapix/apix-indexing:0.3.0-SNAPSHOT-1
-    build: indexing/0.3.0-SNAPSHOT-1
-    container_name: indexing
-    env_file: .env
-    ports:
-      - "9090:9090"
-      - "5010:5010"
-    depends_on:
-      - fcrepo
-      - fuseki
-    links:
-      - apix:localhost
 
   acrepo:
     image: fcrepoapix/apix-acrepo:1.1.0-1
@@ -73,6 +58,29 @@ services:
      links:
       - apix:localhost
 
+  solr:
+    image: fcrepoapix/fcrepo-solr:4.10.3
+    build: solr/4.10.3
+    container_name: solr
+    env_file: .env
+    ports:
+      - "${SOLR_PORT}:${SOLR_PORT}"
+
+  toolbox:
+    image: fcrepoapix/fcrepo-toolbox:4.7.2-1
+    build: toolbox/4.7.2-1
+    container_name: toolbox
+    env_file: .env
+    ports:
+      - "${REINDEXING_PORT}:${REINDEXING_PORT}"
+      - "${LDPATH_PORT}:${LDPATH_PORT}"
+    depends_on:
+      - fcrepo
+      - fuseki
+      - solr
+    links:
+      - apix:localhost
+
   fits:
     image: fcrepoapix/apix-fits:1.1.1
     build: fits/1.1.1
@@ -80,4 +88,3 @@ services:
     env_file: .env
     ports:
       - "${FITS_PORT}:${FITS_PORT}"
-

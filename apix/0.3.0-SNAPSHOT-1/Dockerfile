@@ -1,4 +1,4 @@
-FROM fcrepoapix/apix-karaf-camel:4.0.9-1@sha256:5f19f8266f2c44ec33e2d962312654e666a85bc6f31343b3fa94e376ff1707fa
+FROM fcrepoapix/apix-karaf-camel:4.2.1@sha256:0db35341fbce281b1d52ddd17e0bd786746dead80f34e3224827ffe507574e18
 
 MAINTAINER Elliot Metsger <emetsger@jhu.edu>
 LABEL description = "Provides a Karaf container configured with API-X features"

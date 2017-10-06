@@ -88,6 +88,7 @@ register http://$(hostname -i):${ACREPO_IMAGE_PORT}/image &
 register http://$(hostname -i):${ACREPO_ORE_PORT}/ore &
 register http://$(hostname -i):${ACREPO_PCDM_PORT}/pcdm &
 register http://$(hostname -i):${ACREPO_SERIALIZE_XML_PORT}/xml &
+rm -rf instances/*
 
 # Execute `bin/karaf` with any arguments suppled by CMD
 exec bin/karaf "$@"

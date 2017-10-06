@@ -5,7 +5,7 @@
 
 sed -e "s:^org.ops4j.pax.url.mvn.localRepository=.*:org.ops4j.pax.url.mvn.localRepository=${MAVEN_REPO}:" \
         -i etc/org.ops4j.pax.url.mvn.cfg
-
+rm -rf instances/*
 echo "#empty" > /etc/hosts
 
 replace_envs() {
@@ -14,6 +14,10 @@ replace_envs() {
 }
 
 replace_envs "org.fcrepo.apix.registry.http.cfg"
+
+echo "log4j2.logger.ldpath.name = org.apache.marmotta" >>  etc/org.ops4j.pax.logging.cfg
+echo "log4j2.logger.ldpath.level = WARN" >> etc/org.ops4j.pax.logging.cfg
+echo "log4j2.logger.ldpath.additivity = false" >> etc/org.ops4j.pax.logging.cfg
 
 # Execute `bin/karaf` with any arguments suppled by CMD
 exec bin/karaf "$@"

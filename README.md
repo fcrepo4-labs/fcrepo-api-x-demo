@@ -1,5 +1,5 @@
 # Summary
-This repository provides Docker images and orchestration for various Fedora API-X components in support of [demonstrating and evaluating](exercises/README.md) API-X in action.  
+This repository provides Docker images and orchestration for various Fedora API-X components in support of [demonstrating and evaluating](exercises/README.md) API-X in action.
 
 # Requirements
 Before proceeding with the [evaluation tasks](exercises/README.md) in this for API-X you will need to download, install, and verify required software.  It does not make sense to proceed with the evaluation until these prerequisites are satisfied.
@@ -59,12 +59,14 @@ Depending on the speed of your platform, it may take a bit for the images to dow
 ## [Using alternate ports](#alternate-ports)
 By default, this demo will publish several services, binding to a number of ports on your computer in the process.  For example, the API-X proxy will bind to port `80`, the Fedora repository to port `8080`, and the Fuseki triplestore to port `3030`.
 
-The default ports are:
-* 80 - API-X
+The default ports opened by the docker image for external access via your local machine are:
+* 80 - Public access to repository via API-X
 * 3030 - Fuseki (triple store)
-* 8080 - Fedora
+* 8080 - Fedora internal port
 * 8081 - API-X Loader Service
-* 9102-9107 - Various Amherst services   
+* 8983 - Solr
+* 9080 - Reindexing
+* 9102-9107 - Various Amherst services/extensions
 
 Users may experience port conflicts with non-API-X services that are already running on their computer.  If shutting down the conflicting services is not an option, it will be necessary to map the API-X-related services to alternate ports.  This can be done by editing the environment file, `.env` (see the default file, which gives you an idea of the ports the demo will use,  [here](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/.env)).  
 
@@ -82,7 +84,6 @@ If you wish to move the Fedora repository from port `8080` to port `10000`, modi
 *!!! If you have modified the environment file, you must be sure to substitute the correct URL and port in the instructions below.*
 
 * Visit `http://localhost:8080/fcrepo/rest` and see the Fedora REST API web page
-* Visit `http://localhost:9102/jsonld/` to directly invoke an Amherst service and see a JSON LD representation of the root Fedora container.
 * Visit `http://localhost/fcrepo/rest` and see a Fedora resource as exposed by API-X
 
 Once you can verify that the environment is up and working, move on to some of the sample [API-X exercises](exercises/README.md).
@@ -92,9 +93,15 @@ This repository provides Dockerfiles for the following images that will be run i
 
 * [acrepo](acrepo/LATEST) -  Provides a Karaf container with [repository services provided by Amherst College](https://gitlab.amherst.edu/acdc/repository-extension-services/) already installed and running.
 * [apix](apix/0.3.0-SNAPSHOT) - Provides a Karaf container with API-X installed and configured in a useful way for the demo.
-* [fcrepo](fcrepo/4.7.4) - Provides a default-configured Fedora 4.7.4.
+* [fcrepo](fcrepo/4.7.4-1) - Provides Fedora 4.7.4 with authentican and webac configured.
 * [fuseki](fuseki/3.4.0) - Provides a triplestore index of API-X service documents and repository objects
-* [indexing](indexing/0.3.0-SNAPSHOT) - Ancillary (i.e. not considered "core") API-X image that keeps the demonstration triplestores up-to-date
+* [toolbox](toolbox/4.7.2-1) - Contains acynchronous, message-based Camel services, including:
+    * [Triple indexing](https://github.com/fcrepo4-exts/fcrepo-camel-toolbox/tree/master/fcrepo-indexing-triplestore#fedora-indexing-service-triplestore)
+    * API-X service document indexing
+    * [SOLR indexing](https://github.com/fcrepo4-exts/fcrepo-camel-toolbox/tree/master/fcrepo-indexing-solr#fedora-indexing-service-solr)
+    * [Fixity](https://github.com/fcrepo4-exts/fcrepo-camel-toolbox/tree/master/fcrepo-fixity#fedora-fixity-service)
+    * [Reindexing](https://github.com/fcrepo4-exts/fcrepo-camel-toolbox/tree/master/fcrepo-reindexing#fedora-reindexing-service)
+    * [LDPath](https://github.com/fcrepo4-exts/fcrepo-camel-toolbox/tree/master/fcrepo-ldpath#fedora-ldpath-service)
 
 # Developer Documentation
 
@@ -131,7 +138,7 @@ This assures that all subsequent builds (regardless of host they are built on) u
 
 ### Base images
 
-`docker-compose build` only builds images defined in a given `docker-compose.yaml` file.  Some images (such as `apix-core`) are built on top of other images provied by api-x, such as `fcrepoapix/apix-karaf:4.0.7`.  Karaf would be considered a _base image_.  Normally, base images will simply be pulled in by dockerhub.  However, if specifically re-building a base image, or incrementing the version of one, then base images need to be specifically built and pushed to the dockerhub separately.
+`docker-compose build` only builds images defined in a given `docker-compose.yaml` file.  Some images (such as `apix-core`) are built on top of other images provied by api-x, such as `fcrepoapix/apix-karaf:4.0.9`.  Karaf would be considered a _base image_.  Normally, base images will simply be pulled in by dockerhub.  However, if specifically re-building a base image, or incrementing the version of one, then base images need to be specifically built and pushed to the dockerhub separately.
 
 Base image directories (e.g. [karaf](karaf)) have their own `docker-compose.yaml` files that obey the same conventions.  So `docker-compose` can be used to build them as well. 
 
