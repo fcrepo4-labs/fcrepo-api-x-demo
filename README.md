@@ -36,8 +36,8 @@ To bring up the API-X environment, you need to:
 
 1. Install Docker and verify the installation (above).  You will need a version of docker-compose greater than or equal to 1.7.1 (this only concerns folks who may have an older version of docker-compose already installed).
 2. Retrieve the `docker-compose.yaml` and `.env` file for this demo.  There are two ways to do this:
-  * Clone this git repository:  `git clone https://github.com/fcrepo4-labs/fcrepo-api-x-demo.git`.  This will create a directory `fcrepo-api-x-demo` with the required file(s) in it
-  * Directly download [docker-compose.yaml](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/docker-compose.yaml) and [.env](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/.env)
+   * Clone this git repository:  `git clone https://github.com/fcrepo4-labs/fcrepo-api-x-demo.git`.  This will create a directory `fcrepo-api-x-demo` with the required file(s) in it
+   * Directly download [docker-compose.yaml](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/docker-compose.yaml) and [.env](https://raw.githubusercontent.com/fcrepo4-labs/fcrepo-api-x-demo/master/.env)
 3. `cd` into the directory containing the docker-compose file
 4. **_docker-machine_ users only:** edit the `.env` file, and set the `PUBLIC_REPOSITORY_HOST` and `PUBLIC_REPOSITORY_BASEURI` environment variables.  *Substitute the name of your docker machine for the `default` machine if necessary*:
     * `docker-machine ip default` (obtains the IP address of your *default* docker-machine)
@@ -50,11 +50,14 @@ To bring up the API-X environment, you need to:
     ...
     </pre>
     * Double-check your changes to the `.env` file, being aware of any potential typos!!
-5. Invoke `docker-compose up -d`
+5. Pull in the latest images via `docker-compose pull`
+6. Invoke `docker-compose up -d` to start all images.
 
 Depending on the speed of your platform, it may take a bit for the images to download and to start (images should only be downloaded once).  Subsequent invocation of `docker-compose` should be faster, since the images will not need to be downloaded.
 
 *Note:* To _destroy_ the environment, run `docker-compose down`; this will stop all services _and remove all data_, such that the next time you start the environment, it will be starting up from scratch.  To _stop_ the environment, run `docker-compose stop`; this will shut down the environment, but keep the data so that you can resume where you left off.  Use `docker-compose up -d` to start or re-start the environment.
+
+*Note:* it is usually a good idea to run `docker-compose pull` every once in a while, to assure that you are using the latest images (which may contain bugfixes)
 
 ## [Using alternate ports](#alternate-ports)
 By default, this demo will publish several services, binding to a number of ports on your computer in the process.  For example, the API-X proxy will bind to port `80`, the Fedora repository to port `8080`, and the Fuseki triplestore to port `3030`.
