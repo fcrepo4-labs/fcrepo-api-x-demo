@@ -70,7 +70,9 @@ services:
     image: fcrepoapix/fcrepo-toolbox:4.7.2-1
     build: toolbox/4.7.2-1
     container_name: toolbox
-    env_file: .env
+    env_file:
+      - .env
+      - .env.toolbox
     ports:
       - "${REINDEXING_PORT}:${REINDEXING_PORT}"
       - "${LDPATH_PORT}:${LDPATH_PORT}"

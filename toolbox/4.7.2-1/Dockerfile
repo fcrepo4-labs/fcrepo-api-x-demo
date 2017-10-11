@@ -10,7 +10,7 @@ ENV FCREPO_TOOLBOX_VERSION=4.7.2 \
 
 # Temporary for local development; copy any Maven artifacts into `maven/` that you want the image build process to see (e.g. locally build features that have yet to be published)
 #ADD maven/ /build/repository/
-RUN apk add --update --no-cache gettext && \ 
+RUN apk add --update --no-cache gettext tree nano && \
     bin/start && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.camel/toolbox-features/${FCREPO_TOOLBOX_VERSION}/xml/features" && \
     bin/client -r 10 -d 5  "feature:repo-add mvn:org.fcrepo.apix/fcrepo-api-x-karaf/${APIX_VERSION}/xml/features" && \
@@ -21,6 +21,7 @@ RUN apk add --update --no-cache gettext && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-registry" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-api-x-indexing" && \
     bin/client -r 10 -d 5  "feature:install fcrepo-reindexing" && \
+    bin/client -r 10 -d 5  "feature:install fcrepo-serialization" && \
     bin/stop && \
     rm -rf instances/* && \
     rm -rf /build/repository/* && \
