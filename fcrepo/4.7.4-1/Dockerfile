@@ -29,7 +29,9 @@ RUN apk update && \
     echo "f58682cd322517718f0168e0038e874774507285 *${CATALINA_HOME}/webapps/fcrepo.war" \
         | sha1sum -c -  && \
     echo "org.apache.catalina.webresources.Cache.level = SEVERE" \
-      >> ${CATALINA_HOME}/conf/logging.properties
+      >> ${CATALINA_HOME}/conf/logging.properties && \
+    wget -O /usr/local/bin/fcr-listen https://github.com/birkland/fcr-listen/releases/download/0.0.1/fcr-listen-`uname -s`-`uname -m` && \
+    chmod +x /usr/local/bin/fcr-listen
 
 COPY entrypoint.sh /
 COPY conf/* ${CATALINA_HOME}/conf/
