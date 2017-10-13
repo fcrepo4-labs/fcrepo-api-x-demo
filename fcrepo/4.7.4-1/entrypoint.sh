@@ -35,6 +35,8 @@ OPTS="-Dfcrepo.log=${FCREPO_LOG_LEVEL}                                       \
       -Dfcrepo.object.directory=${FCREPO_OBJECT_DIRECTORY}                   \
       -Dfcrepo.activemq.configuration=${FCREPO_ACTIVEMQ_CONFIGURATION}       \
       -Dactivemq.broker.uri=${ACTIVEMQ_BROKER_URI}                           \
+      -Dfcrepo.dynamic.jms.port=${FCREPO_JMS_PORT}                           \
+      -Dfcrepo.dynamic.stomp.port=${FCREPO_STOMP_PORT}                       \
       -Dcom.arjuna.ats.arjuna.objectstore.objectStoreDir=${ARJUNA_OBJECTSTORE_DIRECTORY}"
 
 # handle debugging
