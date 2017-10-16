@@ -15,14 +15,16 @@ See [this page](https://docs.docker.com/engine/getstarted/step_one/) for more in
 "Docker for Mac" and "Docker for Windows" place significant requirements on the mimimum required OS version and features.
 
 In contrast, the legacy flavor of Docker (which we'll refer to as _docker-machine_) runs Docker inside Virtualbox, and can be run on almost any OS.  Unfortunately, the evaluation instructions differ slightly for _docker-machine_.   
-* You need to start an instance of _docker-machine_ to run the docker containers.  See the [create a machine](https://docs.docker.com/machine/get-started/) documentation for how to do that.
+* You need to start an instance of _docker-machine_ to run the docker containers.  See the [create a machine](https://docs.docker.com/machine/get-started/) comprehensive documentation for how to do that, or use the following quick-start instructions that should result in reasonable defaults:
+  1. Create a docker machine via `docker-machine create default`.
+  2. Set the environment variables the docker client needs in order to connect to the docker machine by doing `docker-machine env`, then executing the commands it prints out (i.e copy and paste to your terminal).
 
 After installing *one* of the four variants of Docker above (or to simply check and see if you have Docker already installed), verify you have the Docker platform installed correctly. Obtain a command shell and run:
 
     docker -v
     docker-compose -v
 
-If either of these commands fail to print out version information, then you'll need to troubleshoot your installation before moving forward.  A recent version of Docker should suffice, but if you have trouble running the milestone with older versions of Docker, please let us know, and upgrade to the latest version before trying the milestone again.
+If either of these commands fail to print out version information, then you'll need to troubleshoot your installation before moving forward.  A recent version of Docker should suffice, but if you have trouble running with older versions of Docker, please let us know, and upgrade to the latest version before trying again.
 
 ## curl
 curl is available for [many platforms](https://curl.haxx.se/download.html), and is included by default some operating systems.  To determine if you have curl installed, obtain a command shell and run:
